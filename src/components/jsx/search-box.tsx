@@ -30,6 +30,7 @@ export const SearchBox = () => {
                     </SelectGroup>
                 </SelectContent>
             </Select>
+            
       </div>
       <div className="flex items-center border-2 rounded-lg border-gray-300">
         <Calendar className="m-2" />

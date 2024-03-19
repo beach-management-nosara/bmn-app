@@ -1,0 +1,25 @@
+---
+import { Image } from 'astro:assets';
+const { title, description, link, linkText, imageSrc, bg, isFirstSection = false } = Astro.props;
+---
+
+<div
+    class={`${bg} container mx-auto flex flex-col items-center px-4 py-12 md:flex-row md:px-6 lg:px-8`}
+>
+    <div class="md:mb-0 md:w-1/2">
+        {isFirstSection && <p class="text-primary">Welcome</p>}
+        <h1 class="mb-6 text-5xl font-bold">{title}</h1>
+        <p class="mb-6 text-xl">{description}</p>
+        <a href={link} class="text-blue-600 underline">{linkText}</a>
+    </div>
+    <div class="md:w-1/2">
+        <Image
+            src={imageSrc}
+            alt="hero"
+            width={1600}
+            height={700}
+            format="webp"
+            class="rounded-lg shadow-lg"
+        />
+    </div>
+</div>

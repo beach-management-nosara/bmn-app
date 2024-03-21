@@ -1,9 +1,15 @@
 {
-	"editor.formatOnSave": true,
-	"editor.defaultFormatter": "esbenp.prettier-vscode",
-	"editor.tabSize": 4,
-	"editor.indentSize": "tabSize",
-	"[astro]": {
-			"editor.defaultFormatter": "astro-build.astro-vscode"
-	}
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "astro-build.astro-vscode",
+    "editor.tabSize": 4,
+    "editor.indentSize": "tabSize",
+    "[astro]": {
+        "editor.defaultFormatter": "astro-build.astro-vscode"
+    },
+    "[typescriptreact]": {
+        "editor.defaultFormatter": "vscode.typescript-language-features"
+    },
+    "[javascript]": {
+        "editor.defaultFormatter": "vscode.typescript-language-features"
+    }
 }

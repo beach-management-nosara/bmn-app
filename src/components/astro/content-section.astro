@@ -1,16 +1,34 @@
 ---
-import { Image } from 'astro:assets';
-const { title, description, link, linkText, imageSrc, bg, isFirstSection = false } = Astro.props;
+import { Image } from "astro:assets";
+const {
+    title,
+    description,
+    link,
+    linkText,
+    imageSrc,
+    isFirstSection = false,
+    imgRight,
+    className
+} = Astro.props;
 ---
 
 <div
-    class={`${bg} container mx-auto flex flex-col items-center px-4 py-12 md:flex-row md:px-6 lg:px-8`}
+    class={`container mx-auto flex flex-col md:flex-row gap-8 items-center pb-24 ${imgRight ? "" : "md:flex-row-reverse"} ${className}`}
 >
-    <div class="md:mb-0 md:w-1/2">
-        {isFirstSection && <p class="text-primary">Welcome</p>}
-        <h1 class="mb-6 text-5xl font-bold">{title}</h1>
-        <p class="mb-6 text-xl">{description}</p>
-        <a href={link} class="text-blue-600 underline">{linkText}</a>
+    <div class="mb-0 md:w-1/2">
+        {isFirstSection && <h1 class="font-serif text-4xl text-primary">Welcome</h1>}
+        <h1 class="mb-6 text-5xl font-bold leading-[53px] text-secondary">{title}</h1>
+        <p class="text prose mb-6">{description}</p>
+        {
+            link && (
+                <a
+                    href={link}
+                    class="grow rounded-lg bg-primary p-4 text-white hover:bg-teal-600 md:w-auto"
+                >
+                    {linkText}
+                </a>
+            )
+        }
     </div>
     <div class="md:w-1/2">
         <Image

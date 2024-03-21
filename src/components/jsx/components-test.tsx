@@ -1,7 +1,7 @@
-import { Loader2Icon } from 'lucide-react';
+import { Loader2Icon } from "lucide-react";
 
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
     Select,
     SelectContent,
@@ -10,17 +10,17 @@ import {
     SelectLabel,
     SelectTrigger,
     SelectValue
-} from '@/components/ui/select';
-import { ToastAction } from '@/components/ui/toast';
-import { useToast } from '@/components/ui/use-toast';
+} from "@/components/ui/select";
+import { ToastAction } from "@/components/ui/toast";
+import { useToast } from "@/components/ui/use-toast";
 
 export function ComponentsTest() {
     const { toast } = useToast();
 
     function handleClick() {
         toast({
-            title: 'Scheduled: Catch up ',
-            description: 'Friday, February 10, 2023 at 5:57 PM',
+            title: "Scheduled: Catch up ",
+            description: "Friday, February 10, 2023 at 5:57 PM",
             action: <ToastAction altText="Goto schedule to undo">Undo</ToastAction>
         });
     }

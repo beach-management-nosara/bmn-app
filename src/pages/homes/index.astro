@@ -1,0 +1,85 @@
+---
+import { Image } from "astro:assets";
+
+import MainLayout from "@/layouts/main-layout.astro";
+import { SearchBox } from "@/components/jsx/search-box";
+
+import homes from "@/assets/images/hero-homes.jpg";
+---
+
+<MainLayout>
+    <div class="mx-auto flex max-w-screen-2xl flex-col items-center bg-gray-100">
+        <div class="mb-32 flex flex-col items-center">
+            <div class="relative h-[450px] w-full">
+                <Image
+                    src={homes}
+                    alt="hero"
+                    width={662}
+                    height={225}
+                    format="webp"
+                    class="h-[450px] w-full object-cover"
+                />
+
+                <div
+                    class="absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-50 text-center text-white"
+                >
+                    <h2 class="text-4xl uppercase tracking-[.5em] text-[#ffffff3a] text-gray-400">
+                        EXPERIENCE NOSARA IN STYLE
+                    </h2>
+                    <h1
+                        class="text-[3.6em] font-medium uppercase leading-tight tracking-[.35em] text-white"
+                    >
+                        VACATION HOMES
+                    </h1>
+                </div>
+
+                <div class="relative bottom-16 mx-auto w-[90%] md:bottom-20">
+                    <SearchBox client:load />
+                </div>
+            </div>
+        </div>
+
+        <div class="mx-20 grid grid-cols-3 gap-4">
+            <div class="flex flex-col rounded border shadow">
+                <Image
+                    src={homes}
+                    alt="hero"
+                    width={662}
+                    height={225}
+                    format="webp"
+                    class="h-[300px] w-full rounded-t object-cover"
+                />
+                <div class="p-2">
+                    <h3 class="py-2 text-2xl font-bold">Tres Hermanas</h3>
+                    <p class="prose">
+                        Tres Hermanas is one of the most luxurious villas in all of Costa Rica. From
+                        being located...
+                    </p>
+                </div>
+                <div class="h-1 w-full border-t border-gray-300"></div>
+                <div class="p-2">
+                    <span
+                        >Price from <span class="text-xl font-bold text-primary">$11,000</span
+                        ></span
+                    >
+                    <div class="flex gap-2">
+                        <span class="text-gray-500">Beds: <span class="font-bold">5</span></span>
+                        <span class="text-gray-500">Baths: <span class="font-bold">3</span></span>
+                        <span class="text-gray-500"
+                            >Size: <span class="font-bold">4200 Sq Ft</span></span
+                        >
+                        <span class="text-gray-500">Guests: <span class="font-bold">17</span></span>
+                    </div>
+                </div>
+                <div class="h-1 w-full border-t border-gray-300"></div>
+
+                <div class="flex justify-between gap-2 p-2">
+                    <button class="w-full rounded-lg bg-gray-200 p-2">View property</button>
+                    <button class="w-full rounded-lg bg-primary p-2 text-white"
+                        >Reserve now ></button
+                    >
+                </div>
+            </div>
+        </div>
+    </div>
+</MainLayout>

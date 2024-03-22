@@ -21,7 +21,8 @@ console.log("🚀 ~ data:", data);
 
 <MainLayout>
     <div class="mx-auto max-w-screen-2xl bg-gray-100">
-        <div class="flex flex-col items-center">
+        <!-- TODO: fix that mb 350 -->
+        <div class="mb-[350px] flex flex-col items-center md:mb-32">
             <div class="relative h-[450px] w-full">
                 <Image
                     src={banner}
@@ -40,10 +41,10 @@ console.log("🚀 ~ data:", data);
                         Discover our collection of luxury vacation homes in Nosara, Costa Rica
                     </h2>
                 </div>
-            </div>
 
-            <div class="relative bottom-16 w-[90%] md:bottom-20">
-                <SearchBox client:load />
+                <div class="relative bottom-16 mx-auto w-[90%] md:bottom-20">
+                    <SearchBox client:load />
+                </div>
             </div>
         </div>
 
@@ -73,8 +74,8 @@ console.log("🚀 ~ data:", data);
         <ContentSection
             className="md:px-20"
             imgRight
-            title="Escape to the breathtaking Nosara, Costa Rica."
-            description="Imagine a stunning beach town nestled in the heart of the jungle, surrounded by exotic wildlife and a vibrant multicultural community - that's Nosara. Immerse yourself in nature, enjoy some of the world's most consistent surfing conditions, and create memories that will last a lifetime. With a plethora of amenities and modern comforts, Nosara offers the perfect balance of tranquility and adventure."
+            title="Your first visit won't be your last"
+            description="Each of our properties have been handpicked by us and carry their own distinct character and style. Whether you're looking for rustic and authentic or modern and fresh, we're here to help bring your dream vacation to life. We believe that your first visit to one of our properties will be just the beginning of a lifelong relationship. Our clients return year after year, drawn back by the unique charm and comfort of our properties, and reliable guest services throughout their Nosara experience."
             linkText="Explore Vacation Homes"
             imageSrc={home7}
             altText="hero"
@@ -91,7 +92,7 @@ console.log("🚀 ~ data:", data);
                         width={241}
                         height={123}
                         format="webp"
-                        class="h-32 object-cover"
+                        class="h-32 rounded object-cover shadow"
                     />
                     <p class="prose">Tres Hermanas</p>
                 </div>
@@ -102,7 +103,7 @@ console.log("🚀 ~ data:", data);
                         width={241}
                         height={161}
                         format="webp"
-                        class="h-32 object-cover"
+                        class="h-32 rounded object-cover shadow"
                     />
                     <p class="prose">Shanta Pura</p>
                 </div>
@@ -113,7 +114,7 @@ console.log("🚀 ~ data:", data);
                         width={241}
                         height={160}
                         format="webp"
-                        class="h-32 object-cover"
+                        class="h-32 rounded object-cover shadow"
                     />
                     <p class="prose">Terrace House</p>
                 </div>
@@ -124,20 +125,11 @@ console.log("🚀 ~ data:", data);
                         width={241}
                         height={192}
                         format="webp"
-                        class="h-32 object-cover"
+                        class="h-32 rounded object-cover shadow"
                     />
                     <p class="prose">Los Pochotes</p>
                 </div>
             </div>
         </div>
-
-        <!-- {
-        data?.map(item => (
-            <div>
-                <h2>{item.title}</h2>
-                <p>{item.completed ? 'Completed' : 'Not Completed'}</p>
-            </div>
-        ))
-    } -->
     </div>
 </MainLayout>

@@ -1,10 +1,23 @@
 ---
 import { Image } from "astro:assets";
+import { Star } from "lucide-react";
 
 import MainLayout from "@/layouts/main-layout.astro";
 import { SearchBox } from "@/components/jsx/search-box";
 
 import homes from "@/assets/images/hero-homes.jpg";
+
+const apiKey = import.meta.env.API_KEY;
+
+const response = await fetch("https://api.lodgify.com/v2/properties", {
+    method: "GET",
+    headers: {
+        "X-ApiKey": apiKey,
+        "Content-Type": "application/json"
+    }
+});
+const data = (await response.json()) as { items: any[] };
+console.log("🚀 ~ data:", data.items.length);
 ---
 
 <MainLayout>
@@ -21,13 +34,15 @@ import homes from "@/assets/images/hero-homes.jpg";
                 />
 
                 <div
-                    class="absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-50 text-center text-white"
+                    class="absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-50 px-2 text-center text-white"
                 >
-                    <h2 class="text-4xl uppercase tracking-[.5em] text-[#ffffff3a] text-gray-400">
+                    <h2
+                        class="text-2xl uppercase tracking-[.45em] text-[#ffffff3a] text-gray-400 opacity-40 md:text-4xl"
+                    >
                         EXPERIENCE NOSARA IN STYLE
                     </h2>
                     <h1
-                        class="text-[3.6em] font-medium uppercase leading-tight tracking-[.35em] text-white"
+                        class="text-2xl font-medium uppercase leading-tight tracking-[.35em] text-white md:text-[3.6em]"
                     >
                         VACATION HOMES
                     </h1>
@@ -39,47 +54,60 @@ import homes from "@/assets/images/hero-homes.jpg";
             </div>
         </div>
 
-        <div class="mx-20 grid grid-cols-3 gap-4">
-            <div class="flex flex-col rounded border shadow">
-                <Image
-                    src={homes}
-                    alt="hero"
-                    width={662}
-                    height={225}
-                    format="webp"
-                    class="h-[300px] w-full rounded-t object-cover"
-                />
-                <div class="p-2">
-                    <h3 class="py-2 text-2xl font-bold">Tres Hermanas</h3>
-                    <p class="prose">
-                        Tres Hermanas is one of the most luxurious villas in all of Costa Rica. From
-                        being located...
-                    </p>
-                </div>
-                <div class="h-1 w-full border-t border-gray-300"></div>
-                <div class="p-2">
-                    <span
-                        >Price from <span class="text-xl font-bold text-primary">$11,000</span
-                        ></span
-                    >
-                    <div class="flex gap-2">
-                        <span class="text-gray-500">Beds: <span class="font-bold">5</span></span>
-                        <span class="text-gray-500">Baths: <span class="font-bold">3</span></span>
-                        <span class="text-gray-500"
-                            >Size: <span class="font-bold">4200 Sq Ft</span></span
-                        >
-                        <span class="text-gray-500">Guests: <span class="font-bold">17</span></span>
-                    </div>
-                </div>
-                <div class="h-1 w-full border-t border-gray-300"></div>
+        <div class="mx-4 grid grid-cols-1 gap-4 md:mx-16 md:grid-cols-3">
+            {
+                data.items.map(prop => (
+                    <div class="flex flex-col rounded border bg-white shadow">
+                        <Image
+                            src={prop.image_url}
+                            alt="hero"
+                            width={662}
+                            height={225}
+                            format="webp"
+                            class="h-[300px] w-full rounded-t object-cover"
+                        />
+                        <div class="relative h-60 overflow-hidden p-2">
+                            <h3 class="py-2 text-2xl font-bold">{prop.name}</h3>
+                            <div class="prose h-32 overflow-hidden" set:html={prop.description} />
+                            <div class="absolute bottom-0 left-0 right-0 flex h-32 flex-col justify-end bg-gradient-to-t from-white to-transparent" />
+                        </div>
+                        <a href={`/homes/${prop.id}`} class="self-center px-4 text-primary">
+                            View More
+                        </a>
 
-                <div class="flex justify-between gap-2 p-2">
-                    <button class="w-full rounded-lg bg-gray-200 p-2">View property</button>
-                    <button class="w-full rounded-lg bg-primary p-2 text-white"
-                        >Reserve now ></button
-                    >
-                </div>
-            </div>
+                        <div class="h-1 w-full border-t border-gray-300" />
+                        <div class="flex flex-col justify-between gap-2 p-3">
+                            <span>
+                                Price from{" "}
+                                <span class="text-xl font-bold text-primary">
+                                    {/* TODO: add USD from the api response*/}$
+                                    {Math.round(prop.min_price)}
+                                </span>
+                            </span>
+                            <div class="flex justify-between gap-2">
+                                <span class="text-gray-500">{prop.address}</span>
+                                <div class="flex items-center gap-2">
+                                    <Star size={16} />
+                                    <span class="text-gray-500">{prop.rating}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="h-1 w-full border-t border-gray-300" />
+
+                        <div class="flex justify-between gap-2 p-4">
+                            <a
+                                href={`/homes/${prop.id}`}
+                                class="w-full rounded-lg bg-gray-100 p-2 text-center"
+                            >
+                                View property
+                            </a>
+                            <button class="w-full rounded-lg bg-primary p-2 font-semibold text-white">
+                                Reserve now >
+                            </button>
+                        </div>
+                    </div>
+                ))
+            }
         </div>
     </div>
 </MainLayout>

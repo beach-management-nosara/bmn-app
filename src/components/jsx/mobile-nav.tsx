@@ -20,7 +20,7 @@ function MobileNav() {
                     }}
                 >
                     <ul className="w-full">
-                        <li className="flex justify-end p-6 px-8">
+                        <li className="flex justify-end p-6">
                             <button onClick={() => setMenuOpen(!menuOpen)}>
                                 <X className="text-white" />
                             </button>

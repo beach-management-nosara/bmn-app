@@ -69,14 +69,14 @@ export const PhotoGallery = ({ images }: { images: Image[] }) => {
                             ))
                         )}
                         renderArrowNext={(onClickHandler, hasPrev, label) => hasPrev && (
-                            <div className="absolute right-0 top-0 z-30 mr-4 h-full flex items-center">
+                            <div className="absolute right-0 top-0 z-30 h-full flex items-center">
                                 <button onClick={onClickHandler} title={label}>
                                     <ArrowRight className="text-white bg-black bg-opacity-50 rounded" />
                                 </button>
                             </div>
                         )}
                         renderArrowPrev={(onClickHandler, hasNext, label) => hasNext && (
-                            <div className="absolute left-0 top-0 z-30 ml-4 h-full flex items-center">
+                            <div className="absolute left-0 top-0 z-30 h-full flex items-center">
                                 <button onClick={onClickHandler} title={label}>
                                     <ArrowLeft className="text-white bg-black bg-opacity-50 rounded" />
                                 </button>

@@ -16,13 +16,13 @@ const response = await fetch("https://api.lodgify.com/v2/properties", {
         "Content-Type": "application/json"
     }
 });
+// TODO: add types
 const data = (await response.json()) as { items: any[] };
-console.log("🚀 ~ data:", data.items.length);
 ---
 
 <MainLayout>
     <div class="mx-auto flex max-w-screen-2xl flex-col items-center bg-gray-100">
-        <div class="mb-32 flex flex-col items-center">
+        <div class="mb-72 flex flex-col items-center md:mb-32">
             <div class="relative h-[450px] w-full">
                 <Image
                     src={homes}
@@ -49,7 +49,12 @@ console.log("🚀 ~ data:", data.items.length);
                 </div>
 
                 <div class="relative bottom-16 mx-auto w-[90%] md:bottom-20">
-                    <SearchBox client:load />
+                    <SearchBox
+                        client:load
+                        homes={data.items.map(prop => {
+                            return { name: prop.name, id: prop.id };
+                        })}
+                    />
                 </div>
             </div>
         </div>
@@ -80,7 +85,7 @@ console.log("🚀 ~ data:", data.items.length);
                             <span>
                                 Price from{" "}
                                 <span class="text-xl font-bold text-primary">
-                                    {/* TODO: add USD from the api response*/}$
+                                    <span>{prop.currency_code}</span>
                                     {Math.round(prop.min_price)}
                                 </span>
                             </span>
@@ -88,7 +93,9 @@ console.log("🚀 ~ data:", data.items.length);
                                 <span class="text-gray-500">{prop.address}</span>
                                 <div class="flex items-center gap-2">
                                     <Star size={16} />
-                                    <span class="text-gray-500">{prop.rating}</span>
+                                    <span class="text-gray-500">
+                                        {prop.rating !== "0" ? prop.rating : "Not rated yet"}
+                                    </span>
                                 </div>
                             </div>
                         </div>

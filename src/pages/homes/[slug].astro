@@ -1,0 +1,142 @@
+---
+import { Image } from "astro:assets";
+import { MapPin, Star } from "lucide-react";
+
+import MainLayout from "@/layouts/main-layout.astro";
+import Tabs from "@/components/jsx/property-tabs";
+import DateRangePicker from "@/components/jsx/day-picker";
+import type { PropertyData } from "@/types";
+
+export const prerender = false;
+
+const { slug } = Astro.params;
+
+const apiKey = import.meta.env.API_KEY;
+
+const roomsResponse = await fetch(`https://api.lodgify.com/v2/properties/${slug}/rooms`, {
+    method: "GET",
+    headers: {
+        "X-ApiKey": apiKey,
+        "Content-Type": "application/json"
+    }
+});
+const rommsJson = (await roomsResponse.json()) as PropertyData[];
+const data = rommsJson[0];
+
+const propertyResponse = await fetch(`https://api.lodgify.com/v2/properties/${slug}`, {
+    method: "GET",
+    headers: {
+        "X-ApiKey": apiKey,
+        "Content-Type": "application/json"
+    }
+});
+const propertyJson = (await propertyResponse.json()) as {
+    city: string;
+    state: string;
+    country: string;
+    rating: number;
+    currency_code: string;
+};
+---
+
+<MainLayout>
+    <div class="mx-auto flex max-w-screen-2xl flex-col items-center bg-gray-100">
+        <div class="relative h-[450px] w-full">
+            <Image
+                src={data.image_url}
+                alt="hero"
+                width={662}
+                height={225}
+                format="webp"
+                class="h-[450px] w-full object-cover"
+            />
+
+            <div
+                class="absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-50 px-2 text-center text-white"
+            >
+                <h2
+                    class="text-2xl uppercase tracking-[.45em] text-[#ffffff3a] text-gray-400 opacity-40 md:text-4xl"
+                >
+                    HOUSE
+                </h2>
+                <h1
+                    class="text-2xl font-medium uppercase leading-tight tracking-[.35em] text-white md:text-[3.6em]"
+                >
+                    {data.name}
+                </h1>
+            </div>
+        </div>
+
+        <div class="mx-auto md:container md:mx-4">
+            <div class="grid grid-cols-1 bg-white md:grid-cols-3">
+                <!-- Left Column (2fr) -->
+                <div class="p-4 py-12 md:col-span-2">
+                    <h1 class="text-5xl font-bold text-secondary">{data.name}</h1>
+                    <span class="flex items-center gap-2 pb-4"
+                        ><MapPin size={16} className="text-muted" /><span
+                            class="uppercase text-muted"
+                        >
+                            {propertyJson.city}, {propertyJson.state}, {propertyJson.country}
+                        </span></span
+                    >
+                    <div class="h-1 w-full border-t border-gray-300"></div>
+                    <div class="my-4 flex flex-col text-secondary md:flex-row md:justify-between">
+                        <div>
+                            <span>Guests: {data.max_people}</span> •
+                            <span>Bedrooms: {data.bedrooms}</span> •
+                            <span>Bathrooms: {data.bathrooms}</span>
+                        </div>
+                        <span class="flex items-center gap-2 font-bold">
+                            <span>Rating: </span>
+                            <Star size={16} className="text-primary" />
+                            <span
+                                >{
+                                    propertyJson.rating !== 0
+                                        ? propertyJson.rating
+                                        : "Not rated yet"
+                                }</span
+                            >
+                        </span>
+                    </div>
+                    <div class="h-1 w-full border-t border-gray-300"></div>
+                    <Tabs data={data} client:load />
+                </div>
+
+                <!-- Right Column (1fr) -->
+                <div class="sticky top-20 m-4 h-fit rounded bg-white p-4 shadow-lg">
+                    <div class="border-b pb-4">
+                        <span class="text-xl font-bold text-primary"
+                            ><span class="text-sm text-muted">FROM</span>
+                            <span class="text-sm">{propertyJson.currency_code}</span>
+                            {Math.round(data.min_price)} / {
+                                data.price_unit_in_days === 0 ? "" : data.price_unit_in_days
+                            }
+                            <span class="text-sm"
+                                >{
+                                    data.price_unit_in_days === 7
+                                        ? "week"
+                                        : data.price_unit_in_days === 0
+                                          ? "day"
+                                          : "days"
+                                }</span
+                            ></span
+                        >
+                    </div>
+
+                    <div class="py-6">
+                        <DateRangePicker client:load direction="vertical" />
+                    </div>
+
+                    <button
+                        class="w-full rounded-lg bg-primary px-4 py-2 text-white hover:bg-secondary"
+                        >Search</button
+                    >
+                    <p class="my-4 text-sm">
+                        Get in touch with Beach Management Nosara to plan your trip or ask any
+                        questions.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</MainLayout>

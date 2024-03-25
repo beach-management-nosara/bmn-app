@@ -13,6 +13,7 @@ type PropertyData = {
 
     // TODO: fix this types
     name: string;
+    description: string;
     location: string;
     guests: number;
     bedrooms: number;
@@ -45,7 +46,7 @@ const Tabs: React.FC<TabsProps> = ({ data }) => {
                     </div>
                 ))}
         </div>,
-        description: <p>Nothing here yet</p>,
+        description: <div className="prose" dangerouslySetInnerHTML={{ __html: data.description }} />,
         photos: <PhotoGallery images={data.images} />
     };
 

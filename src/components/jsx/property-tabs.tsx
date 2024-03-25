@@ -2,26 +2,7 @@ import { useState } from 'react';
 import { PinIcon, Info, Home, Image } from "lucide-react";
 
 import { PhotoGallery } from './photo-gallery';
-
-type PropertyData = {
-    amenities: {
-        cooking: {
-            text: string
-        }[]
-    };
-    images: { url: string; text: string }[]
-
-    // TODO: fix this types
-    name: string;
-    description: string;
-    location: string;
-    guests: number;
-    bedrooms: number;
-    bathrooms: number;
-    rating: number;
-    image_url: string;
-
-};
+import type { PropertyData } from '../../types';
 
 type TabsProps = {
     data: PropertyData;

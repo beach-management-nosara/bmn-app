@@ -5,6 +5,7 @@ import { MapPin, Star } from "lucide-react";
 import MainLayout from "@/layouts/main-layout.astro";
 import Tabs from "@/components/jsx/property-tabs";
 import DateRangePicker from "@/components/jsx/day-picker";
+import type { PropertyData } from "@/types";
 
 export const prerender = false;
 
@@ -12,27 +13,30 @@ const { slug } = Astro.params;
 
 const apiKey = import.meta.env.API_KEY;
 
-const response = await fetch(`https://api.lodgify.com/v2/properties/${slug}/rooms`, {
+const roomsResponse = await fetch(`https://api.lodgify.com/v2/properties/${slug}/rooms`, {
     method: "GET",
     headers: {
         "X-ApiKey": apiKey,
         "Content-Type": "application/json"
     }
 });
-// TODO: add types
-const resjson = await response.json();
-const data = resjson[0];
+const rommsJson = (await roomsResponse.json()) as PropertyData[];
+const data = rommsJson[0];
 
-const response2 = await fetch(`https://api.lodgify.com/v2/properties/${slug}`, {
+const propertyResponse = await fetch(`https://api.lodgify.com/v2/properties/${slug}`, {
     method: "GET",
     headers: {
         "X-ApiKey": apiKey,
         "Content-Type": "application/json"
     }
 });
-// TODO: add types
-const resjson2 = await response2.json();
-const data2 = resjson2;
+const propertyJson = (await propertyResponse.json()) as {
+    city: string;
+    state: string;
+    country: string;
+    rating: number;
+    currency_code: string;
+};
 ---
 
 <MainLayout>
@@ -72,7 +76,7 @@ const data2 = resjson2;
                         ><MapPin size={16} className="text-muted" /><span
                             class="uppercase text-muted"
                         >
-                            {data2.city}, {data2.state}, {data2.country}
+                            {propertyJson.city}, {propertyJson.state}, {propertyJson.country}
                         </span></span
                     >
                     <div class="h-1 w-full border-t border-gray-300"></div>
@@ -85,7 +89,13 @@ const data2 = resjson2;
                         <span class="flex items-center gap-2 font-bold">
                             <span>Rating: </span>
                             <Star size={16} className="text-primary" />
-                            <span>{data2.rating !== 0 ? data2.rating : "Not rated yet"}</span>
+                            <span
+                                >{
+                                    propertyJson.rating !== 0
+                                        ? propertyJson.rating
+                                        : "Not rated yet"
+                                }</span
+                            >
                         </span>
                     </div>
                     <div class="h-1 w-full border-t border-gray-300"></div>
@@ -97,7 +107,7 @@ const data2 = resjson2;
                     <div class="border-b pb-4">
                         <span class="text-xl font-bold text-primary"
                             ><span class="text-sm text-muted">FROM</span>
-                            <span class="text-sm">{data2.currency_code}</span>
+                            <span class="text-sm">{propertyJson.currency_code}</span>
                             {Math.round(data.min_price)} / {
                                 data.price_unit_in_days === 0 ? "" : data.price_unit_in_days
                             }

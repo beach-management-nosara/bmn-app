@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Calendar as CalendarIco } from "lucide-react";
 import { Calendar } from "../ui/calendar";
+import type { SelectRangeEventHandler } from "react-day-picker";
 
 type DateRange = {
     from: Date | undefined;
@@ -13,7 +14,7 @@ function DateRangePicker({ direction = "horizontal" }: { direction?: "horizontal
     const calendarRef = useRef<HTMLDivElement>(null);
 
 
-    const handleSelect = (selectedRange: any) => {
+    const handleSelect: SelectRangeEventHandler = (selectedRange) => {
         if (!selectedRange || !selectedRange.from) return;
 
         const newRange: DateRange = {

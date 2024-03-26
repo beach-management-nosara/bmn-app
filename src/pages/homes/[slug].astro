@@ -5,6 +5,7 @@ import MainLayout from "@/layouts/main-layout.astro";
 import type { PropertyData } from "@/types";
 import { PropertyDetails } from "@/components/jsx/property-details";
 import { BookingCard } from "@/components/jsx/booking-card";
+import DateRangePicker from "@/components/jsx/day-picker";
 
 export const prerender = false;
 
@@ -25,6 +26,21 @@ const data = rommsJson[0];
 function removeHtmlTags(str: string) {
     return str.replace(/<[^>]*>?/gm, "");
 }
+const propertyResponse = await fetch(`https://api.lodgify.com/v2/properties/${slug}`, {
+    method: "GET",
+    headers: {
+        "X-ApiKey": apiKey,
+        "Content-Type": "application/json"
+    }
+});
+const propertyJson = (await propertyResponse.json()) as {
+    id: string;
+    city: string;
+    state: string;
+    country: string;
+    rating: number;
+    currency_code: string;
+};
 ---
 
 <MainLayout
@@ -65,6 +81,37 @@ function removeHtmlTags(str: string) {
 
                 <!-- Right Column (1fr) -->
                 <BookingCard slug={slug as string} client:load />
+                <div class="sticky top-20 m-4 h-fit rounded bg-white p-4 shadow-lg">
+                    <div class="border-b pb-4">
+                        <span class="text-xl font-bold text-primary"
+                            ><span class="text-sm text-muted">FROM</span>
+                            <span class="text-sm">{propertyJson.currency_code}</span>
+                            {Math.round(data.min_price)} / {
+                                data.price_unit_in_days === 0 ? "" : data.price_unit_in_days
+                            }
+                            <span class="text-sm"
+                                >{
+                                    data.price_unit_in_days === 30
+                                        ? "month"
+                                        : data.price_unit_in_days === 7
+                                          ? "week"
+                                          : "night"
+                                }</span
+                            ></span
+                        >
+                    </div>
+
+                    <DateRangePicker
+                        client:load
+                        direction="vertical"
+                        propertyId={propertyJson.id}
+                    />
+
+                    <p class="my-4 text-sm">
+                        Get in touch with Beach Management Nosara to plan your trip or ask any
+                        questions.
+                    </p>
+                </div>
             </div>
         </div>
     </div>

@@ -1,8 +1,9 @@
 import { useState, useRef, useEffect } from "react";
-import { Calendar as CalendarIco } from "lucide-react";
+import { Calendar as CalendarIco, Mail, UserRound } from "lucide-react";
 import type { SelectRangeEventHandler } from "react-day-picker";
 
 import { Calendar } from "../ui/calendar";
+import { Input } from "../ui/input";
 
 type DateRange = {
     from: Date | undefined;
@@ -25,7 +26,7 @@ type AvailabilityData = {
 
 const formatToApiDate = (date: Date) => `${date.toISOString().split('T')[0]} 00:00:00`;
 
-function DateRangePicker({ direction = "horizontal", propertyId }: { direction?: "horizontal" | "vertical"; propertyId?: string }) {
+function DateRangePicker({ direction = "horizontal", propertyId, maxGuests }: { direction?: "horizontal" | "vertical"; propertyId?: string; maxGuests?: number }) {
     const [range, setRange] = useState<DateRange>({ from: undefined, to: undefined });
     const [isCalendarOpen, setCalendarOpen] = useState(false);
     const calendarRef = useRef<HTMLDivElement>(null);
@@ -77,7 +78,6 @@ function DateRangePicker({ direction = "horizontal", propertyId }: { direction?:
         const periodEnd = formatToApiDate(range.to);
 
         try {
-            //  TODO: if no property id, search available properties and display them on the homes page
             const response = await fetch(
                 `/api/availability/${propertyId}?periodStart=${encodeURIComponent(periodStart)}&periodEnd=${encodeURIComponent(periodEnd)}`,
                 {
@@ -174,7 +174,7 @@ function DateRangePicker({ direction = "horizontal", propertyId }: { direction?:
             <div className={`flex ${direction === "vertical" ? 'flex-col' : 'md:w-1/2'}`}>
                 <div className={`flex flex-col gap-2 grow ${direction === "vertical" ? "mb-4" : ""}`}>
                     <div className="flex flex-col gap-2">
-                        <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-2">
                             <CalendarIco size={20} />
                             <p>Check In</p>
                         </div>
@@ -188,7 +188,7 @@ function DateRangePicker({ direction = "horizontal", propertyId }: { direction?:
                 </div>
 
                 <div className="flex flex-col gap-2 grow">
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-2">
                         <CalendarIco size={20} />
                         <p>Check Out</p>
                     </div>
@@ -207,11 +207,34 @@ function DateRangePicker({ direction = "horizontal", propertyId }: { direction?:
                     <Calendar mode="range" selected={range} onSelect={handleSelect} className="shadow rounded" disabled={unavailableDays} fromMonth={currentMonth} />
                 </div>
             )}
+            <div className="flex flex-col gap-2">
+                <div className="flex flex-col gap-2">
+                    <div className="flex items-center gap-2">
+                        <UserRound size={20} />
+                        <p>Guests</p>
+                    </div>
+                    <Input placeholder="Guests" type="number" max={maxGuests} />
+                </div>
+                <div className="flex flex-col gap-2">
+                    <div className="flex items-center gap-2">
+                        <UserRound size={20} />
+                        <p>Name</p>
+                    </div>
+                    <Input placeholder="Name" type="text" />
+                </div>
+                <div className="flex flex-col gap-2">
+                    <div className="flex items-center gap-2">
+                        <Mail size={20} />
+                        <p>Email</p>
+                    </div>
+                    <Input placeholder="Email" type="text" />
+                </div>
+            </div>
 
             <button
                 onClick={handleSearch}
                 className={`rounded-lg bg-primary h-10 text-white hover:bg-secondary ${direction === "vertical" ? '' : 'md:w-1/2'}`}
-            >Search</button>
+            >Book</button>
         </div>
     );
 }

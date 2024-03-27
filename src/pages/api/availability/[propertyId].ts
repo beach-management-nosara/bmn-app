@@ -13,7 +13,6 @@ export const GET: APIRoute = async ({ params, request }) => {
     }
 
     try {
-
         const response = await fetch(
             `https://api.lodgify.com/v2/availability/${params.propertyId}?start=${encodeURIComponent(periodStart)}&end=${encodeURIComponent(periodEnd)}&includeDetails=false`,
 

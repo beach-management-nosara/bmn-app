@@ -105,6 +105,7 @@ const propertyJson = (await propertyResponse.json()) as {
                         client:load
                         direction="vertical"
                         propertyId={propertyJson.id}
+                        maxGuests={data.max_people}
                     />
 
                     <p class="my-4 text-sm">

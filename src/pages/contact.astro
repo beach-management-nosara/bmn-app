@@ -1,11 +1,11 @@
 ---
 import PageHero from "@/components/astro/page-hero.astro";
 import MainLayout from "@/layouts/main-layout.astro";
-import image from "@/assets/images/hero-hospitality.jpeg";
+import { heroContactImg } from "@/assets/images";
 ---
 
 <MainLayout>
     <main class="mx-auto max-w-screen-2xl">
-        <PageHero image={image} title="Get in touch with us" />
+        <PageHero image={heroContactImg} title="Get in touch with us" />
     </main>
 </MainLayout>

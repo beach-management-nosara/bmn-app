@@ -1,0 +1,136 @@
+---
+interface Props {
+    properties: {
+        id: string;
+        name: string;
+    }[];
+}
+
+if (Astro.request.method === "POST") {
+    const formData = await Astro.request.formData();
+    const data = Object.fromEntries(formData.entries());
+    console.log("🚀 ~ data:", data);
+
+    // TODO: get form data and submit it to the server or send it to an email
+}
+
+const { properties } = Astro.props as Props;
+---
+
+<h3 class="mb-3 font-bold">Let us know...</h3>
+<p class="prose">How do you rate your experience with us:</p>
+
+<!-- TODO: Add stars component 👇 -->
+
+<form method="POST" class="my-6 space-y-6">
+    <div class="flex flex-col items-center gap-6 lg:flex-row">
+        <div class="w-full">
+            <label for="name" class="block text-sm font-semibold leading-6 text-gray-700">
+                Name*
+            </label>
+            <div class="mt-2">
+                <input
+                    type="text"
+                    name="name"
+                    id="name"
+                    required
+                    class:list={[
+                        "block w-full rounded-md border-0 text-gray-900 shadow-sm ring-1",
+                        "ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset",
+                        "focus:ring-primary sm:text-sm sm:leading-6"
+                    ]}
+                    placeholder="John Doe"
+                />
+            </div>
+        </div>
+        <div class="w-full">
+            <label for="email" class="block text-sm font-semibold leading-6 text-gray-700">
+                Email*
+            </label>
+            <div class="mt-2">
+                <input
+                    type="email"
+                    name="email"
+                    id="email"
+                    required
+                    class:list={[
+                        "block w-full rounded-md border-0 text-gray-900 shadow-sm ring-1",
+                        "ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset",
+                        "focus:ring-primary sm:text-sm sm:leading-6"
+                    ]}
+                    placeholder="you@example.com"
+                />
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <label for="property" class="block text-sm font-semibold leading-6 text-gray-700">
+            Property*
+        </label>
+        <select
+            id="property"
+            name="property"
+            class:list={[
+                "mt-2 block w-full rounded-md border-0 text-gray-900 ring-1",
+                "ring-inset ring-gray-300 focus:ring-2 focus:ring-primary sm:text-sm sm:leading-6"
+            ]}
+            required
+        >
+            <option value="">Select a property</option>
+            {properties.map(property => <option value={property.name}>{property.name}</option>)}
+        </select>
+    </div>
+
+    <div>
+        <label for="comment" class="block text-sm font-semibold leading-6 text-gray-700">
+            Add your comment*
+        </label>
+        <div class="mt-2">
+            <textarea
+                rows="4"
+                name="comment"
+                id="comment"
+                required
+                class:list={[
+                    "block w-full rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset",
+                    "ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+                ]}
+                placeholder="Your comment here..."></textarea>
+        </div>
+    </div>
+
+    <div class="relative flex items-start">
+        <div class="flex h-6 items-center">
+            <input
+                id="consent"
+                name="consent"
+                type="checkbox"
+                class="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
+            />
+        </div>
+        <div class="ml-3 text-sm leading-6">
+            <label for="consent" class="font-medium text-gray-700">
+                I have read, understand and agreed as indicated below
+            </label>
+        </div>
+    </div>
+
+    <article class="prose-sm rounded-lg border p-4 text-gray-700/90">
+        <h3 class="font-semibold text-gray-700">Consent Agreement</h3>
+        <p>
+            I understand my review and testimonial may be used by Beach Management Nosara in
+            connection with its marketing, publicizing and promotions. I authorize and grant Beach
+            Management Nosara, its representatives and employees, the right to use my name,
+            photograph, and testimonial in various marketing initiatives.
+        </p>
+        <p>
+            I further understand that this information may be used in various mediums (print or
+            electronic formats) for such purposes as publicity, illustration, advertising and Web
+            content. Lastly, I waive any right to inspect or approve the finished product wherein my
+            likeness or my testimony appears.
+        </p>
+    </article>
+
+    <button class="mt-6 rounded-lg bg-primary px-4 py-2 font-semibold text-white">Submit</button>
+</form>

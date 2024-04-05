@@ -2,7 +2,7 @@
 import { Image } from "astro:assets";
 
 interface Props {
-    images: ImageMetadata[];
+    images?: ImageMetadata[];
 }
 
 const { images } = Astro.props as Props;
@@ -22,16 +22,20 @@ const { images } = Astro.props as Props;
             <slot name="description" />
         </p>
 
-        <div class="flex flex-col items-center justify-center gap-8 lg:flex-row">
-            {
-                images.map((image, index) => (
-                    <Image
-                        src={image}
-                        alt={"service image " + index}
-                        class="h-60 w-full rounded-lg object-cover shadow-lg lg:h-40 lg:w-52"
-                    />
-                ))
-            }
-        </div>
+        {
+            images?.length && (
+                <div class="flex flex-col items-center justify-center gap-8 lg:flex-row">
+                    {images.map((image, index) => (
+                        <Image
+                            src={image}
+                            alt={"service image " + index}
+                            class="h-60 w-full rounded-lg object-cover shadow-lg lg:h-40 lg:w-52"
+                        />
+                    ))}
+                </div>
+            )
+        }
+
+        <slot name="other-content" />
     </div>
 </section>

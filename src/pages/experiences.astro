@@ -1,7 +1,15 @@
 ---
+import PageHero from "@/components/astro/page-hero.astro";
 import MainLayout from "@/layouts/main-layout.astro";
+import image from "@/assets/images/hero-hospitality.jpeg";
 ---
 
 <MainLayout>
-    <h1 class="text-4xl font-semibold underline">Experiences Page</h1>
+    <main class="mx-auto max-w-screen-2xl">
+        <PageHero
+            image={image}
+            title="Where Wellness, Surf, Yoga, And adventure Meet"
+            subtitle="Nosara Experiences"
+        />
+    </main>
 </MainLayout>

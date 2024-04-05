@@ -5,16 +5,18 @@ import Navbar from "@/components/astro/navbar.astro";
 import { Toaster } from "@/components/ui/toaster";
 
 import "@/styles/globals.css";
+import ScrollUpButton from "@/components/astro/scroll-up-button.astro";
 ---
 
 <html lang="en">
     <Head />
 
-    <body>
+    <body class="antialiased">
         <Navbar />
         <!-- Application Entry Point -->
         <slot />
         <Toaster client:load />
         <Footer />
+        <ScrollUpButton />
     </body>
 </html>

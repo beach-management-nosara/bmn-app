@@ -9,29 +9,11 @@ import { heroTestimonialsImg } from "@/assets/images";
 
 export const prerender = false;
 
-const API_KEY = import.meta.env.API_KEY;
+const DEV = import.meta.env.DEV;
+const BASE_URL = DEV ? "http://localhost:4321" : import.meta.env.SITE;
 
-const response = await fetch("https://api.lodgify.com/v2/properties", {
-    method: "GET",
-    headers: {
-        "X-ApiKey": API_KEY,
-        "Content-Type": "application/json"
-    }
-});
-const data = (await response.json()) as {
-    items: {
-        id: string;
-        name: string;
-    }[];
-};
-
-const properties = data.items
-    .map(property => ({
-        id: property.id,
-        name: property.name
-    }))
-    .sort((a, b) => a.name.localeCompare(b.name));
-console.log("properties", properties);
+const res = await fetch(BASE_URL + "/api/properties.json");
+const { properties } = (await res.json()) as { properties: { id: string; name: string }[] };
 ---
 
 <MainLayout>

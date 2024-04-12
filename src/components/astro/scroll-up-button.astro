@@ -4,18 +4,29 @@ import { ChevronUpIcon } from "lucide-react";
 
 <button
     id="scroll-up"
-    class="fixed bottom-4 right-4 m-0 rounded-full bg-primary p-2 text-white shadow-lg"
+    class="fixed bottom-8 right-8 m-0 rounded-full bg-primary p-2 text-white shadow-lg"
 >
     <ChevronUpIcon className="size-8" />
 </button>
 
-<script is:inline>
-    const scrollUpButton = document.getElementById("scroll-up");
+<script>
+    function setupScrollToTop() {
+        const scrollUpButtonEl = document.getElementById("scroll-up");
 
-    scrollUpButton.addEventListener("click", () => {
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
-    });
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        }
+
+        scrollUpButtonEl?.removeEventListener("click", scrollToTop);
+        scrollUpButtonEl?.addEventListener("click", scrollToTop);
+    }
+
+    setupScrollToTop();
+
+    // NOTE: We need to trigger the setup function after the page is swapped
+    // This is due to the ViewTransitions API
+    document.addEventListener("astro:after-swap", setupScrollToTop);
 </script>

@@ -1,0 +1,18 @@
+---
+interface Props {
+    id?: string;
+    isAlternate?: boolean;
+}
+
+const { id, isAlternate } = Astro.props as Props;
+---
+
+<section id={id} class:list={["py-16", isAlternate && "bg-[#f2f5fa]"]}>
+    <div class="mx-auto max-w-screen-lg px-6 lg:px-0">
+        <h2 class="mb-6 text-pretty text-center text-2xl font-semibold text-foreground lg:text-5xl">
+            <slot name="title" />
+        </h2>
+
+        <slot name="content" />
+    </div>
+</section>

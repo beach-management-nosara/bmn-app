@@ -1,0 +1,41 @@
+---
+import { Image } from "astro:assets";
+
+interface Props {
+    images?: ImageMetadata[];
+}
+
+const { images } = Astro.props as Props;
+---
+
+<section id="our-promise" class="bg-[#f2f5fa] py-16">
+    <div class="max-w-screen-2xl px-6 text-center lg:px-0">
+        <h3 class="text-xl text-primary lg:text-2xl">
+            <slot name="subtitle" />
+        </h3>
+        <h2
+            class="mx-auto text-pretty text-2xl font-semibold text-foreground lg:max-w-[90%] lg:text-5xl"
+        >
+            <slot name="title" />
+        </h2>
+        <p class="prose-sm mx-auto my-8 text-pretty lg:prose-base lg:max-w-[50%]">
+            <slot name="description" />
+        </p>
+
+        {
+            images?.length && (
+                <div class="flex flex-col items-center justify-center gap-8 lg:flex-row">
+                    {images.map((image, index) => (
+                        <Image
+                            src={image}
+                            alt={"service image " + index}
+                            class="h-60 w-full rounded-lg object-cover shadow-lg lg:h-40 lg:w-52"
+                        />
+                    ))}
+                </div>
+            )
+        }
+
+        <slot name="other-content" />
+    </div>
+</section>

@@ -1,0 +1,38 @@
+---
+import type { ImageMetadata } from "astro";
+import { Image } from "astro:assets";
+
+interface Props {
+    image: ImageMetadata;
+    title: string;
+    subtitle?: string;
+}
+
+const { image, title, subtitle } = Astro.props as Props;
+---
+
+<div class="relative">
+    <Image
+        src={image}
+        alt="Services"
+        class="h-[500px] w-full object-cover"
+        width={1920}
+        height={700}
+    />
+    <div
+        class="absolute inset-0 flex flex-col items-center justify-center space-y-6 bg-black/65 px-6 text-center lg:space-y-0"
+    >
+        {
+            subtitle && (
+                <h1 class="text-center text-xl font-medium uppercase tracking-widest text-white text-opacity-50 lg:text-4xl lg:tracking-[1rem]">
+                    {subtitle}
+                </h1>
+            )
+        }
+        <h1
+            class="text-center text-2xl font-medium uppercase tracking-widest text-white lg:text-[3.5rem] lg:tracking-[1rem]"
+        >
+            {title}
+        </h1>
+    </div>
+</div>

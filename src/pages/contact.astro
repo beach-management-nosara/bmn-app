@@ -1,7 +1,32 @@
 ---
+import PageHero from "@/components/astro/page-hero.astro";
 import MainLayout from "@/layouts/main-layout.astro";
+import ContactForm from "@/components/astro/contact-form.astro";
+import ContactInfo from "@/components/astro/contact-info.astro";
+import { heroContactImg } from "@/assets/images";
+
+export const prerender = false;
+
+const DEV = import.meta.env.DEV;
+const BASE_URL = DEV ? "http://localhost:4321" : import.meta.env.SITE;
+
+const res = await fetch(BASE_URL + "/api/properties.json");
+const { properties } = (await res.json()) as { properties: { id: string; name: string }[] };
 ---
 
 <MainLayout>
-    <h1 class="text-4xl font-semibold underline">Contact Page</h1>
+    <main class="mx-auto max-w-screen-2xl">
+        <PageHero image={heroContactImg} title="Get in touch with us" />
+
+        <section class="py-16">
+            <div class="mx-auto max-w-screen-lg px-6 lg:px-0">
+                <div class="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-3">
+                    <div class="lg:col-span-2">
+                        <ContactForm properties={properties} />
+                    </div>
+                    <ContactInfo />
+                </div>
+            </div>
+        </section>
+    </main>
 </MainLayout>

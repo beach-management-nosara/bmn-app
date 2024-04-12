@@ -1,0 +1,59 @@
+{
+    "sections": {
+        "home_services": {
+            "paragraph": "Beach Management Nosara can accommodate many in-house services to make your vacation, a vacation.",
+            "perks": [
+                "Personal Chefs",
+                "Catering & Bartenders",
+                "Childcare & Babysitting",
+                "Housekeeping",
+                "Grocery Shopping"
+            ]
+        },
+        "fitness_health_beauty": {
+            "paragraph": "Relaxation begins with you! Feel pampered and taken care of with the top beauty and fitness options in Nosara.",
+            "perks": [
+                "Personal Trainer",
+                "Massage Therapies",
+                "Hair Care",
+                "Manicures & Pedicures",
+                "Spa Treatments",
+                "Medical & Healthcare"
+            ]
+        },
+        "rentals_bookings": {
+            "paragraph": "We can organize private transportation, tour buses, or limo service from the airport and any other rental service you desire while in Nosara.",
+            "perks": [
+                "Child Safety & Other Equipment",
+                "Car Rental Reservations",
+                "Private Car Transport",
+                "Golf Carts",
+                "Mountain Bikes",
+                "Four Wheelers",
+                "Surf Boards"
+            ]
+        },
+        "activities_tours": {
+            "paragraph": "Allow our staff to plan your dream activities! For more on what you can choose from, see our “tours and activities” page",
+            "perks": [
+                "Yoga Retreats",
+                "Surfing lessons, rentals, retreats etc.",
+                "Kayaking",
+                "Ziplining",
+                "Horseback Riding",
+                "ATV Trips",
+                "Jungle and nature walks",
+                "Sport fishing",
+                "And more!"
+            ]
+        },
+        "special_requests": {
+            "paragraph": "Is there anything else you would like? Here are some suggestions.",
+            "perks": [
+                "Family Photographer (capture the memories)",
+                "Musicians",
+                "Spanish Lessons"
+            ]
+        }
+    }
+}

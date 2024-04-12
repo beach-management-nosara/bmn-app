@@ -1,38 +1,57 @@
 ---
 import { Image } from "astro:assets";
-import { Instagram, Facebook } from "lucide-react";
 
 import { navBarlinks as links } from "@/lib/utils";
 import MobileNav from "@/components/jsx/mobile-nav";
+import FacebookIcon from "@/components/icons/facebook-icon.astro";
+import InstagramIcon from "@/components/icons/instagram-icon.astro";
 
-import logoImg from "@/assets/images/logo.png";
+import { logoImg } from "@/assets/images";
+
+const pathname = Astro.url.pathname;
 ---
 
 <nav class="sticky top-0 z-50 bg-white px-6 py-2 shadow">
-    <div class="mx-auto mx-auto flex max-w-screen-2xl items-center justify-between">
+    <div class="mx-auto flex max-w-screen-2xl items-center justify-between">
         <a href="/" class="text-2xl font-bold">
             <Image src={logoImg} alt="logo" width={90} format="png" />
         </a>
 
-        <div class="hidden space-x-7 md:flex">
+        <div class="hidden space-x-4 lg:flex">
             {
                 links.map(link => (
                     <a
                         href={link.href}
-                        class="text-xs font-bold uppercase tracking-widest hover:text-gray-300"
+                        class:list={[
+                            "text-xs font-bold uppercase tracking-widest text-gray-600",
+                            "md:text-[0.625rem] xl:text-sm",
+                            pathname.includes(link.href) ? "text-primary" : "hover:text-primary"
+                        ]}
                     >
                         {link.name}
                     </a>
                 ))
             }
         </div>
-        <div class="md:hidden">
+        <div class="lg:hidden">
             <MobileNav client:load />
         </div>
 
-        <div class="hidden gap-10 md:flex">
-            <Facebook className="text-primary" size={20} />
-            <Instagram className="text-primary" size={20} />
+        <div class="hidden gap-4 lg:flex">
+            <a
+                href="https://www.facebook.com/beachmanagementnosara"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                <FacebookIcon className="size-6 text-primary hover:text-primary/70" />
+            </a>
+            <a
+                href="https://www.instagram.com/beachmanagementnosara/"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                <InstagramIcon className="size-6 text-primary hover:text-primary/70" />
+            </a>
         </div>
     </div>
 </nav>

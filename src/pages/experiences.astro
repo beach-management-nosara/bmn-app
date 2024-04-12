@@ -1,7 +1,144 @@
 ---
+import { Image } from "astro:assets";
+import { CircleCheckIcon } from "lucide-react";
+
+import PageHero from "@/components/astro/page-hero.astro";
 import MainLayout from "@/layouts/main-layout.astro";
+import FeatureHighlight from "@/components/astro/feature-highlight.astro";
+import Section from "@/components/astro/section.astro";
+import FeatureShowcase from "@/components/astro/feature-showcase.astro";
+import CustomLink from "@/components/astro/custom-link.astro";
+import { heroExperiencesImg, home6Img, home14Img, hw2Img } from "@/assets/images";
+import data from "@/data/experiences-data.json";
 ---
 
 <MainLayout>
-    <h1 class="text-4xl font-semibold underline">Experiences Page</h1>
+    <main class="mx-auto max-w-screen-2xl">
+        <PageHero
+            image={heroExperiencesImg}
+            title="Where Wellness, Surf, Yoga, And adventure Meet"
+            subtitle="Nosara Experiences"
+        />
+
+        <FeatureShowcase>
+            <Fragment slot="subtitle">Unparalleled, Stress-Free</Fragment>
+            <Fragment slot="title"> Concierge Guest Services </Fragment>
+            <Fragment slot="description">
+                Beach Management Nosara offers services that are unparalleled to other property
+                management companies. Beach Management Nosara offers full-service event planning and
+                catering for guests who book with them to ensure your vacation experience is
+                unforgettable.
+            </Fragment>
+
+            <Fragment slot="other-content">
+                <div class="mt-6">
+                    <CustomLink href="/contact"> Inquire Now </CustomLink>
+                </div>
+            </Fragment>
+        </FeatureShowcase>
+
+        <Section>
+            <Fragment slot="title">Nosara Experiences</Fragment>
+
+            <Fragment slot="content">
+                <FeatureHighlight>
+                    <Fragment slot="content">
+                        <article class="prose">
+                            <p>
+                                Nosara has established itself as a premier destination for health
+                                and wellness enthusiasts, with a thriving active community, rich
+                                natural surroundings, and a wealth of healthy food options. It is
+                                located in one of the world's five Blue Zones, known for having a
+                                high concentration of centenarians and a culture that promotes
+                                longevity and well-being.
+                            </p>
+                            <p>
+                                Yoga and surfing are integral components of the Nosara lifestyle,
+                                with numerous studios throughout the town offering daily classes,
+                                and consistent, high-quality surfing conditions available
+                                year-round. When it comes to food, visitors can find delicious and
+                                nourishing meals to fuel their bodies and support their well-being,
+                                from smoothie bowls to fresh seafood.
+                            </p>
+                        </article>
+                    </Fragment>
+                    <Fragment slot="image">
+                        <Image
+                            src={hw2Img}
+                            alt="about image 4"
+                            class="h-auto w-full rounded-lg object-cover shadow-lg lg:w-2/3"
+                            width={320}
+                            height={250}
+                        />
+                    </Fragment>
+                </FeatureHighlight>
+            </Fragment>
+        </Section>
+
+        <Section>
+            <Fragment slot="title">Local Adventures</Fragment>
+
+            <Fragment slot="content">
+                <FeatureHighlight>
+                    <Fragment slot="content">
+                        <ul class="mt-6 space-y-2">
+                            {
+                                data.local_adventures.map(perk => (
+                                    <li>
+                                        <CircleCheckIcon className="size-4 text-primary inline-block mr-2" />
+                                        <span>{perk}</span>
+                                    </li>
+                                ))
+                            }
+                        </ul>
+                    </Fragment>
+                    <Fragment slot="image">
+                        <Image
+                            src={home6Img}
+                            alt="about image 4"
+                            class="h-auto w-full rounded-lg object-cover shadow-lg"
+                            width={320}
+                            height={250}
+                            quality={100}
+                        />
+                    </Fragment>
+                </FeatureHighlight>
+            </Fragment>
+        </Section>
+
+        <Section isAlternate>
+            <Fragment slot="title">Home Services & More</Fragment>
+
+            <Fragment slot="content">
+                <FeatureHighlight>
+                    <Fragment slot="content">
+                        <ul class="mt-6 space-y-2">
+                            {
+                                data.home_services.map(perk => (
+                                    <li>
+                                        <CircleCheckIcon className="size-4 text-primary inline-block mr-2" />
+                                        <span>{perk}</span>
+                                    </li>
+                                ))
+                            }
+                        </ul>
+                    </Fragment>
+                    <Fragment slot="image">
+                        <Image
+                            src={home14Img}
+                            alt="about image 4"
+                            class="h-auto w-full rounded-lg object-cover shadow-lg"
+                            width={320}
+                            height={250}
+                            quality={100}
+                        />
+                    </Fragment>
+                </FeatureHighlight>
+
+                <div class="mt-12 flex justify-center">
+                    <CustomLink href="/contact"> Inquire Now </CustomLink>
+                </div>
+            </Fragment>
+        </Section>
+    </main>
 </MainLayout>

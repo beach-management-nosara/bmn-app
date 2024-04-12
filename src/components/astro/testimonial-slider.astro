@@ -60,12 +60,14 @@ import testimonials from "@/data/testimonials.json";
     </div>
 </div>
 
-<script is:inline>
-    document.addEventListener("DOMContentLoaded", () => {
+<script>
+    function setupSllider() {
         const slider = document.querySelector("#testimonial-slider");
-        const slide = direction => {
+        if (!slider) return;
+
+        const slide = (direction: string) => {
             const slide = slider.querySelector("div");
-            const slideWidth = slide.offsetWidth;
+            const slideWidth = slide?.offsetWidth || 0;
             const scrollAmount = slideWidth + 8; // Tailwind's gap-x-2 is 8px
 
             slider.scrollBy({
@@ -80,5 +82,11 @@ import testimonials from "@/data/testimonials.json";
         document
             .querySelectorAll("[id^='btn-right']")
             .forEach(button => button.addEventListener("click", () => slide("right")));
-    });
+    }
+
+    document.addEventListener("DOMContentLoaded", setupSllider);
+
+    // NOTE: We need to trigger the setup function after the page is swapped
+    // This is due to the ViewTransitions API
+    document.addEventListener("astro:after-swap", setupSllider);
 </script>

@@ -2,18 +2,12 @@
 import PageHero from "@/components/astro/page-hero.astro";
 import MainLayout from "@/layouts/main-layout.astro";
 import TestimonialSlider from "@/components/astro/testimonial-slider.astro";
-import TestimonialForm from "@/components/astro/testimonial-form.astro";
+import { TestimonialsForm } from "@/components/jsx/testimonials-form";
 import ContactInfo from "@/components/astro/contact-info.astro";
 
 import { heroTestimonialsImg } from "@/assets/images";
 
 export const prerender = false;
-
-const DEV = import.meta.env.DEV;
-const BASE_URL = DEV ? "http://localhost:4321" : import.meta.env.SITE;
-
-const res = await fetch(BASE_URL + "/api/properties.json");
-const { properties } = (await res.json()) as { properties: { id: string; name: string }[] };
 ---
 
 <MainLayout>
@@ -39,7 +33,9 @@ const { properties } = (await res.json()) as { properties: { id: string; name: s
 
                 <div class="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-3">
                     <div class="lg:col-span-2">
-                        <TestimonialForm properties={properties} />
+                        <h3 class="mb-3 font-bold">Let us know...</h3>
+                        <p class="prose">How do you rate your experience with us:</p>
+                        <TestimonialsForm client:visible />
                     </div>
                     <ContactInfo />
                 </div>

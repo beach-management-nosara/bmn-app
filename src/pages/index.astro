@@ -5,14 +5,16 @@ import MainLayout from "@/layouts/main-layout.astro";
 import { SearchBox } from "@/components/jsx/search-box";
 import ContentSection from "@/components/astro/content-section.astro";
 
-import banner from "@/assets/images/banner.jpg";
-import home11 from "@/assets/images/home11.webp";
-import home5 from "@/assets/images/home5.jpg";
-import home7 from "@/assets/images/home7.webp";
-import pochote from "@/assets/images/pochote-banner.jpg";
-import shantapura from "@/assets/images/shantapura-banner.jpg";
-import terrace from "@/assets/images/terrace_house-21.jpeg";
-import treshermanas from "@/assets/images/treshermanas-banner.jpg";
+import {
+    bannerImg,
+    home11Img,
+    home5Img,
+    home7Img,
+    pochoteBannerImg,
+    shantapuraBannerImg,
+    terraceHouse21Img,
+    treshermanasBannerImg
+} from "@/assets/images";
 
 const apiKey = import.meta.env.API_KEY;
 
@@ -36,7 +38,7 @@ const data = (await response.json()) as {
         <div class="mb-[350px] flex flex-col items-center md:mb-32">
             <div class="relative h-[450px] w-full">
                 <Image
-                    src={banner}
+                    src={bannerImg}
                     alt="hero"
                     width={662}
                     height={225}
@@ -71,7 +73,7 @@ const data = (await response.json()) as {
                 description="Your premier source for elite, luxury vacation home rentals and management on the Pacific Coast of Costa Rica. Our top-notch team delivers high-class guest services and professional property management to ensure your ultimate satisfaction. Whether you are a guest, owner, or buyer, we are here to assist you every step of the way. Discover the best selection of vacation homes with Beach Management."
                 link="/homes"
                 linkText="Explore Vacation Homes"
-                imageSrc={home11}
+                imageSrc={home11Img}
                 altText="hero"
             />
         </div>
@@ -80,7 +82,7 @@ const data = (await response.json()) as {
             className="md:px-20"
             title="Escape to the breathtaking Nosara, Costa Rica."
             description="Imagine a stunning beach town nestled in the heart of the jungle, surrounded by exotic wildlife and a vibrant multicultural community - that's Nosara. Immerse yourself in nature, enjoy some of the world's most consistent surfing conditions, and create memories that will last a lifetime. With a plethora of amenities and modern comforts, Nosara offers the perfect balance of tranquility and adventure."
-            imageSrc={home5}
+            imageSrc={home5Img}
             altText="hero"
         />
 
@@ -89,7 +91,7 @@ const data = (await response.json()) as {
             imgRight
             title="Your first visit won't be your last"
             description="Each of our properties have been handpicked by us and carry their own distinct character and style. Whether you're looking for rustic and authentic or modern and fresh, we're here to help bring your dream vacation to life. We believe that your first visit to one of our properties will be just the beginning of a lifelong relationship. Our clients return year after year, drawn back by the unique charm and comfort of our properties, and reliable guest services throughout their Nosara experience."
-            imageSrc={home7}
+            imageSrc={home7Img}
             altText="hero"
         />
 
@@ -99,7 +101,7 @@ const data = (await response.json()) as {
             <div class="grid grid-cols-2 gap-8 md:grid-cols-4">
                 <div>
                     <Image
-                        src={treshermanas}
+                        src={treshermanasBannerImg}
                         alt="Tres Hermanas"
                         width={241}
                         height={123}
@@ -110,7 +112,7 @@ const data = (await response.json()) as {
                 </div>
                 <div>
                     <Image
-                        src={shantapura}
+                        src={shantapuraBannerImg}
                         alt="Shanta Pura"
                         width={241}
                         height={161}
@@ -121,7 +123,7 @@ const data = (await response.json()) as {
                 </div>
                 <div>
                     <Image
-                        src={terrace}
+                        src={terraceHouse21Img}
                         alt="Terrace House"
                         width={241}
                         height={160}
@@ -132,7 +134,7 @@ const data = (await response.json()) as {
                 </div>
                 <div>
                     <Image
-                        src={pochote}
+                        src={pochoteBannerImg}
                         alt="Los Pochotes"
                         width={241}
                         height={192}

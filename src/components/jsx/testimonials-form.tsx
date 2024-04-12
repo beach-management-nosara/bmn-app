@@ -1,6 +1,7 @@
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from 'react-hook-form'
+import { Loader2Icon, SendIcon } from 'lucide-react'
 
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
@@ -15,6 +16,8 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 import { useProperties } from "@/hooks/useProperties"
+import { cn } from "@/lib/utils"
+import { useFormSubmit } from "@/hooks/useFormSubmit"
 
 const formSchema = z.object({
     name: z.string({ required_error: "Your name is required" }).min(2).max(50),
@@ -27,6 +30,7 @@ const formSchema = z.object({
 type FormInput = z.infer<typeof formSchema>
 
 export function TestimonialsForm() {
+    const { submitForm, submitting } = useFormSubmit<FormInput>('testimonial')
     const { propertiesSimple } = useProperties()
 
     const form = useForm<FormInput>({
@@ -40,7 +44,9 @@ export function TestimonialsForm() {
     })
 
     async function onSubmit(values: FormInput) {
-        console.log("🚀 ~ onSubmit ~ values:", values)
+        const success = await submitForm(values)
+
+        if (success) form.reset()
     }
 
     return (
@@ -149,7 +155,14 @@ export function TestimonialsForm() {
                     </p>
                 </article>
 
-                <Button type="submit" className="font-semibold">Submit</Button>
+                <Button type="submit" className={cn("font-semibold", submitting && 'px-16')} disabled={submitting}>
+                    {submitting ? <Loader2Icon className="animate-spin size-5" /> : (
+                        <>
+                            <SendIcon className="mr-2 size-5" />
+                            Send Message
+                        </>
+                    )}
+                </Button>
             </form>
         </Form>
     )

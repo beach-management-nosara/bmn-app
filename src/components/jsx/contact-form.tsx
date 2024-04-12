@@ -1,6 +1,7 @@
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from 'react-hook-form'
+import { Loader2Icon, SendIcon } from 'lucide-react'
 
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
@@ -14,6 +15,8 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 import { useProperties } from "@/hooks/useProperties"
+import { cn } from "@/lib/utils"
+import { useFormSubmit } from "@/hooks/useFormSubmit"
 
 const SELECT_OPTIONS = [
     'Qualify as BMN Property',
@@ -34,6 +37,7 @@ type FormInput = z.infer<typeof formSchema>
 
 export function ContactForm() {
     const { propertiesSimple } = useProperties()
+    const { submitForm, submitting } = useFormSubmit<FormInput>()
 
     const form = useForm<FormInput>({
         resolver: zodResolver(formSchema),
@@ -47,7 +51,9 @@ export function ContactForm() {
     })
 
     async function onSubmit(values: FormInput) {
-        console.log("🚀 ~ onSubmit ~ values:", values)
+        const success = await submitForm(values)
+
+        if (success) form.reset()
     }
 
     return (
@@ -153,7 +159,14 @@ export function ContactForm() {
                     )}
                 />
 
-                <Button type="submit" className="font-semibold">Submit</Button>
+                <Button type="submit" className={cn("font-semibold", submitting && 'px-16')} disabled={submitting}>
+                    {submitting ? <Loader2Icon className="animate-spin size-5" /> : (
+                        <>
+                            <SendIcon className="mr-2 size-5" />
+                            Send Message
+                        </>
+                    )}
+                </Button>
             </form>
         </Form>
     )

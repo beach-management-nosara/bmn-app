@@ -5,6 +5,8 @@ import { navBarlinks as links } from "@/lib/utils";
 import MobileNav from "@/components/jsx/mobile-nav";
 import FacebookIcon from "@/components/icons/facebook-icon.astro";
 import InstagramIcon from "@/components/icons/instagram-icon.astro";
+import WhatsappIcon from "@/components/icons/whatsapp-icon.astro";
+import MailIcon from "@/components/icons/mail-icon.astro";
 
 import { logoImg } from "@/assets/images";
 
@@ -51,6 +53,16 @@ const pathname = Astro.url.pathname;
                 rel="noopener noreferrer"
             >
                 <InstagramIcon className="size-6 text-primary hover:text-primary/70" />
+            </a>
+            <a href="https://wa.me/50688028866" target="_blank" rel="noopener noreferrer">
+                <WhatsappIcon className="size-6 text-primary hover:text-primary/70" />
+            </a>
+            <a
+                href="mailto:info@beachmanagementnosara.com"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                <MailIcon className="size-6 text-primary hover:text-primary/70" />
             </a>
         </div>
     </div>

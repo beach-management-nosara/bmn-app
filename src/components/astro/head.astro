@@ -1,21 +1,58 @@
 ---
 import ViewTransitions from "astro/components/ViewTransitions.astro";
+
+interface Props {
+    title: string;
+    description: string;
+    image?: string;
+}
+
+const { title, description } = Astro.props as Props;
 ---
 
 <head>
+    <!-- global metadata -->
     <meta charset="utf-8" />
-
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <title>Astro</title>
-    <style>
-        @import url("https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap");
-    </style>
 
+    <!-- links tags -->
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="manifest" href="/site.webmanifest" />
 
+    <!-- primary metatags -->
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+    <!-- TODO: Add Sitemap -->
+    <!-- <link rel="sitemap" href="/sitemap-index.xml" /> -->
+
+    <!-- open graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={Astro.url} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <!-- <meta property="og:image" content={image ?? "/og-image.png"} /> -->
+    <!-- <meta property="og:image:alt" content={description} /> -->
+
+    <!-- twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={Astro.url} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+
+    <!-- canonical link -->
+    <link rel="canonical" href={Astro.url} />
+
+    <!-- styles -->
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap");
+    </style>
+
+    <!-- Astro ViewTransitions -->
     <ViewTransitions />
+
+    <!-- scripts -->
 </head>

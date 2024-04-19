@@ -1,7 +1,6 @@
 import useSWR from "swr";
 
 import { fetcher } from "@/lib/fetcher";
-import type { Property } from "@/types/property";
 import type { PropertyData } from "@/types";
 
 const DEV = import.meta.env.DEV;

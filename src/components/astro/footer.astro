@@ -1,5 +1,8 @@
 ---
-import { MessageCircleMore, MapPin, Phone, Facebook, Instagram } from "lucide-react";
+import { MessageCircleMore, MapPin, Phone } from "lucide-react";
+
+import { FacebookIcon } from "../icons/facebook-icon";
+import { InstagramIcon } from "../icons/instagram-icon";
 ---
 
 <footer class="bg-gray-100 py-12 md:p-20">
@@ -48,11 +51,11 @@ import { MessageCircleMore, MapPin, Phone, Facebook, Instagram } from "lucide-re
             </a>
 
             <a href="https://facebook.com/yourpage" class="mb-2 flex items-center pb-2">
-                <Facebook className="mr-2 text-muted" size={16} />
+                <FacebookIcon className="mr-2 size-4 text-muted" />
                 <p class="text-muted">Facebook</p>
             </a>
             <a href="https://instagram.com/yourprofile" class="flex items-center pb-2">
-                <Instagram className="mr-2 text-muted" size={16} />
+                <InstagramIcon className="mr-2 size-4 text-muted" />
                 <p class="text-muted">Instagram</p>
             </a>
         </div>

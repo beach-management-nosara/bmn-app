@@ -1,4 +1,3 @@
-import type { PropsWithChildren } from "react";
 import { Home } from "lucide-react";
 
 import {

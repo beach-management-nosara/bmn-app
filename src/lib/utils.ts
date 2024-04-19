@@ -13,3 +13,10 @@ export const navBarlinks = [
     { name: "TESTIMONIALS", href: "/testimonials" },
     { name: "CONTACT US", href: "/contact" }
 ];
+
+export function formatCurrency(amount: number) {
+    return new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD"
+    }).format(amount);
+}

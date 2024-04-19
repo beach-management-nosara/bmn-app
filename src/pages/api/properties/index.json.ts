@@ -15,7 +15,7 @@ export const GET: APIRoute = async () => {
     });
 
     if (!response.ok) {
-        return new Response(JSON.stringify({ message: "An error occurred" }), {
+        return new Response(JSON.stringify({ success: false, message: "An error occurred" }), {
             status: 500,
             headers: {
                 "Content-Type": "application/json"
@@ -27,7 +27,7 @@ export const GET: APIRoute = async () => {
 
     const properties = data?.items.sort((a, b) => a.name.localeCompare(b.name));
 
-    return new Response(JSON.stringify(properties), {
+    return new Response(JSON.stringify({ properties, success: true }), {
         status: 200,
         headers: {
             "Content-Type": "application/json"

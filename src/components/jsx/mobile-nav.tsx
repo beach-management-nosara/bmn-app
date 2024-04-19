@@ -4,7 +4,7 @@ import { Instagram, Facebook, Menu, X } from "lucide-react";
 
 import { navBarlinks as links } from "@/lib/utils";
 
-function MobileNav() {
+export function MobileNav() {
     const [menuOpen, setMenuOpen] = useState(false);
 
     return (

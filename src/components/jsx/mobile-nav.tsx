@@ -1,10 +1,12 @@
 import { useState } from "react";
 
-import { Instagram, Facebook, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 
+import { FacebookIcon } from "../icons/facebook-icon";
+import { InstagramIcon } from "../icons/instagram-icon";
 import { navBarlinks as links } from "@/lib/utils";
 
-function MobileNav() {
+export function MobileNav() {
     const [menuOpen, setMenuOpen] = useState(false);
 
     return (
@@ -37,8 +39,8 @@ function MobileNav() {
                     </ul>
 
                     <div className="flex w-full justify-between gap-10 p-20">
-                        <Facebook className="text-primary" size={20} />
-                        <Instagram className="text-primary" size={20} />
+                        <FacebookIcon className="text-primary size-4" />
+                        <InstagramIcon className="text-primary size-4" />
                     </div>
                 </div>
             ) : (

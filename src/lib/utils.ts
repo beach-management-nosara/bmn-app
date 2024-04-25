@@ -20,3 +20,10 @@ export function formatCurrency(amount: number) {
         currency: "USD"
     }).format(amount);
 }
+
+export const formatToApiDate = (date: Date) => `${date.toISOString().split("T")[0]} 00:00:00`;
+
+export const validateEmail = (email: string) => {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailPattern.test(email);
+};

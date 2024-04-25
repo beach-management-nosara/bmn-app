@@ -1,29 +1,120 @@
 import { useState, useRef, useEffect } from "react";
 import { Calendar as CalendarIco } from "lucide-react";
-import { Calendar } from "../ui/calendar";
 import type { SelectRangeEventHandler } from "react-day-picker";
 
-type DateRange = {
-    from: Date | undefined;
-    to: Date | undefined;
-};
+import { Calendar } from "../ui/calendar";
+import { formatToApiDate } from "@/lib/utils";
+import type { AvailabilityData, DateRange } from "@/types";
 
-function DateRangePicker({ direction = "horizontal" }: { direction?: "horizontal" | "vertical" }) {
-    const [range, setRange] = useState<DateRange>({ from: undefined, to: undefined });
+type UnavailableDays = {
+    from: Date;
+    to: Date;
+}[];
+
+function DateRangePicker({
+    direction = "horizontal",
+    propertyId,
+    range,
+    setRange
+}: {
+    direction?: "horizontal" | "vertical";
+    propertyId?: string;
+    range: DateRange;
+    setRange: (range: DateRange) => void;
+}) {
     const [isCalendarOpen, setCalendarOpen] = useState(false);
     const calendarRef = useRef<HTMLDivElement>(null);
 
+    const currentMonth = new Date();
+    currentMonth.setDate(1); // Earliest month users can navigate to is current month
+    const [unavailableDays, setUnavailableDays] = useState<UnavailableDays>([
+        { from: currentMonth, to: new Date() }
+    ]);
 
-    const handleSelect: SelectRangeEventHandler = (selectedRange) => {
+    const handleSelect: SelectRangeEventHandler = selectedRange => {
         if (!selectedRange || !selectedRange.from) return;
+
+        if (selectedRange.from && selectedRange.to) {
+            // Validate range only after to has been selected
+            if (!isRangeValid(selectedRange.from, selectedRange.to, unavailableDays)) {
+                return;
+            }
+        }
 
         const newRange: DateRange = {
             from: selectedRange.from,
-            to: selectedRange.to || undefined,
+            to: selectedRange.to || undefined
         };
 
         setRange(newRange);
     };
+
+    const isRangeValid = (rangeStart: Date, rangeEnd: Date, unavailableDays: UnavailableDays) => {
+        const startTimestamp = rangeStart.getTime(); // Convert to timestamp
+        const endTimestamp = rangeEnd.getTime(); // Convert to timestamp
+
+        for (let day of unavailableDays) {
+            const dayStartTimestamp = day.from.getTime(); // Convert to timestamp
+            const dayEndTimestamp = day.to.getTime(); // Convert to timestamp
+
+            // Now perform the comparison using timestamps
+            if (dayStartTimestamp <= endTimestamp && dayEndTimestamp >= startTimestamp) {
+                return false; // The selected range is invalid as it overlaps with an unavailable range
+            }
+        }
+        return true; // The selected range is valid if it does not overlap with any unavailable ranges
+    };
+
+    useEffect(() => {
+        const fetchAvailability = async () => {
+            const now = new Date();
+            const periodStart = formatToApiDate(now);
+
+            const yearFromNow = new Date(now);
+            yearFromNow.setFullYear(yearFromNow.getFullYear() + 1);
+            const periodEnd = formatToApiDate(yearFromNow);
+
+            const response = await fetch(
+                `/api/availability/${propertyId}.json?periodStart=${encodeURIComponent(periodStart)}&periodEnd=${encodeURIComponent(periodEnd)}`,
+                {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                }
+            );
+            const availabilityData = (await response.json()) as AvailabilityData;
+
+            // Map through periods and filter out any undefined values
+            const newUnavailableDays = availabilityData.data[0].periods.reduce(
+                (acc: { from: Date; to: Date }[], period) => {
+                    if (period.available === 0) {
+                        // Make dates UTC midnight
+                        const from = new Date(period.start + "T00:00");
+                        const to = new Date(period.end + "T00:00");
+                        acc.push({ from, to });
+                    }
+                    return acc;
+                },
+                []
+            );
+
+            // The first of the current month to yesterday should always be disabled
+            const yesterday = new Date();
+            yesterday.setDate(yesterday.getDate() - 1);
+            const startOfCurrentMonth = new Date();
+            startOfCurrentMonth.setDate(1);
+            startOfCurrentMonth.setHours(0, 0, 0, 0); // Normalize the start time
+
+            setUnavailableDays(prevState => [
+                ...prevState,
+                ...newUnavailableDays,
+                { from: startOfCurrentMonth, to: yesterday } // Add this to ensure the past days are covered
+            ]);
+        };
+
+        fetchAvailability();
+    }, [propertyId]);
 
     // Click outside handler
     useEffect(() => {
@@ -42,32 +133,37 @@ function DateRangePicker({ direction = "horizontal" }: { direction?: "horizontal
     }, [calendarRef]);
 
     return (
-        <div className="relative" ref={calendarRef}>
-            <div className={`flex ${direction === "vertical" ? 'flex-col' : ''}`}>
-                <div className={`flex flex-col gap-2 grow ${direction === "vertical" ? "mb-4" : ""}`}>
+        <div
+            className={`relative flex grow gap-4 ${direction === "vertical" ? "w-full flex-col" : "flex-col md:w-2/3 md:flex-row md:items-end"}`}
+            ref={calendarRef}
+        >
+            <div className={`flex grow ${direction === "vertical" ? "flex-col" : "md:w-1/2"}`}>
+                <div
+                    className={`flex grow flex-col gap-2 ${direction === "vertical" ? "mb-4" : ""}`}
+                >
                     <div className="flex flex-col gap-2">
-                        <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-2">
                             <CalendarIco size={20} />
                             <p>Check In</p>
                         </div>
                     </div>
                     <button
                         onClick={() => setCalendarOpen(!isCalendarOpen)}
-                        className={`text-sm w-full border px-2 py-2 h-10 text-left text-muted ${direction === "vertical" ? "rounded" : "rounded-l"}`}
+                        className={`h-10 w-full border px-2 py-2 text-left text-sm text-muted ${direction === "vertical" ? "rounded" : "rounded-l"}`}
                     >
                         {range.from ? range.from.toLocaleDateString() : "Add start date"}
                     </button>
                 </div>
 
-                <div className="flex flex-col gap-2 grow">
-                    <div className="flex items-center gap-3">
+                <div className="flex grow flex-col gap-2">
+                    <div className="flex items-center gap-2">
                         <CalendarIco size={20} />
                         <p>Check Out</p>
                     </div>
 
                     <button
                         onClick={() => setCalendarOpen(true)}
-                        className={`text-sm w-full border px-2 py-2 h-10 text-left text-muted ${direction === "vertical" ? "rounded" : "rounded-r"}`}
+                        className={`h-10 w-full border px-2 py-2 text-left text-sm text-muted ${direction === "vertical" ? "rounded" : "rounded-r"}`}
                     >
                         {range.to ? range.to.toLocaleDateString() : "Add end date"}
                     </button>
@@ -76,7 +172,14 @@ function DateRangePicker({ direction = "horizontal" }: { direction?: "horizontal
 
             {isCalendarOpen && (
                 <div className="absolute z-10 bg-white">
-                    <Calendar mode="range" selected={range} onSelect={handleSelect} className="shadow rounded" />
+                    <Calendar
+                        mode="range"
+                        selected={range}
+                        onSelect={handleSelect}
+                        className="rounded shadow"
+                        disabled={unavailableDays}
+                        fromMonth={currentMonth}
+                    />
                 </div>
             )}
         </div>

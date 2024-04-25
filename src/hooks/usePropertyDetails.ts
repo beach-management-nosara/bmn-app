@@ -11,6 +11,7 @@ type PropertyDetailsResponse = {
     message?: string;
     rooms: PropertyData;
     property: {
+        id: string;
         city: string;
         state: string;
         country: string;

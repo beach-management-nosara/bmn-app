@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { LoaderCircle, Mail, UserRound, Users, XIcon } from "lucide-react";
 
 import DateRangePicker from "./day-picker";
@@ -93,6 +93,23 @@ export function BookingCard({ slug }: { slug: string }) {
             console.error("Failed to create booking or quote", error);
         }
     };
+
+    useEffect(() => {
+        // Check if window is defined (client-side)
+        if (typeof window !== 'undefined') {
+            // Get the search parameters from the URL
+            const searchParams = new URLSearchParams(window.location.search);
+            const periodStartString = searchParams.get('periodStart');
+            const periodEndString = searchParams.get('periodEnd');
+
+            // Convert the strings to Date objects
+            const periodStartDate = periodStartString ? new Date(periodStartString) : undefined;
+            const periodEndDate = periodEndString ? new Date(periodEndString) : undefined;
+
+            // Set the state with the obtained Date objects
+            setRange({ from: periodStartDate, to: periodEndDate });
+        }
+    }, []);
 
     return (
         <div className="relative">

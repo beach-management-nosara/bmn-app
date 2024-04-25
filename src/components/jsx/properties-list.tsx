@@ -1,15 +1,13 @@
 import { BathIcon, BedIcon, ChevronRightIcon, MapPinIcon, StarIcon, UsersIcon } from "lucide-react"
 
-import { useProperties } from "@/hooks/useProperties"
 import { Skeleton } from "@/components/ui/skeleton"
+
 import type { Property } from "@/types/property"
 
-export function PropertiesList() {
-    const { properties, success, isLoading } = useProperties()
-
+export function PropertiesList({ selectedProperties, isLoading, success }: { selectedProperties?: Property[]; isLoading: any, success: any }) {
     return <div className="grid w-full max-w-7xl grid-cols-1 gap-6 px-5 md:grid-cols-2 lg:grid-cols-3 xl:px-0 mb-16">
         {isLoading && <CardSkeleton />}
-        {success && properties?.map(property => <PropertyCard key={property.id} property={property} />)}
+        {success && selectedProperties?.map(property => <PropertyCard key={property.id} property={property} />)}
     </div>
 }
 

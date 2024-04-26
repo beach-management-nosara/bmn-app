@@ -8,7 +8,7 @@ import netlify from "@astrojs/netlify";
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://nosara.com',
+  site: 'https://beach-management-nosara.netlify.app',
   integrations: [tailwind({
     applyBaseStyles: false
   }), react(), sitemap(), robotsTxt()],

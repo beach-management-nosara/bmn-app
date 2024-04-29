@@ -1,8 +1,11 @@
+import { useEffect, useState } from "react";
 import { BathIcon, BedIcon, ChevronRightIcon, MapPinIcon, StarIcon, UsersIcon } from "lucide-react"
 
 import { Skeleton } from "@/components/ui/skeleton"
 
 import type { Property } from "@/types/property"
+import { formatToApiDate } from "@/lib/utils";
+import type { DateRange } from "@/types";
 
 export function PropertiesList({ selectedProperties, isLoading, success }: { selectedProperties?: Property[]; isLoading: any, success: any }) {
     return <div className="grid w-full max-w-7xl grid-cols-1 gap-6 px-5 md:grid-cols-2 lg:grid-cols-3 xl:px-0 mb-16">
@@ -12,8 +15,28 @@ export function PropertiesList({ selectedProperties, isLoading, success }: { sel
 }
 
 function PropertyCard({ property }: { property: Property }) {
+    const [range, setRange] = useState<DateRange>({ from: undefined, to: undefined });
     const { id, image_url, name, address, currency_code, min_price, rating } = property
     const imageUrl = 'https:' + image_url
+
+    useEffect(() => {
+        // Check if window is defined (client-side)
+        if (typeof window !== 'undefined') {
+            // Get the search parameters from the URL
+            const searchParams = new URLSearchParams(window.location.search);
+            const periodStartString = searchParams.get('periodStart');
+            const periodEndString = searchParams.get('periodEnd');
+
+
+            if (periodStartString && periodEndString) {
+                // Convert the strings to Date objects
+                const periodStartDate = new Date(periodStartString)
+                const periodEndDate = new Date(periodEndString)
+
+                setRange({ from: periodStartDate, to: periodEndDate });
+            }
+        }
+    }, []);
 
     return (
         <div className="flex h-[550px] flex-col rounded-lg border bg-white shadow-lg">
@@ -80,7 +103,8 @@ function PropertyCard({ property }: { property: Property }) {
 
                 <div className="flex justify-between gap-2">
                     <a
-                        href={`/homes/${id}`}
+                        href={`/homes/${id}?periodStart=${range.from && encodeURIComponent(formatToApiDate(range.from))}&periodEnd=${range.to && encodeURIComponent(formatToApiDate(range.to))}`}
+                        target="_blank"
                         className="w-1/2 rounded-lg bg-gray-100 p-2 text-center transition-colors duration-300 hover:bg-gray-200"
                     >
                         View property

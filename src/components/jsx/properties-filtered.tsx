@@ -10,7 +10,7 @@ export const PropertiesFiltered = () => {
     const { properties, isLoading, success } = useProperties();
     const [selectedProperties, setSelectedProperties] = useState<Property[]>();
     const [isSearchLoading, setIsSearchLoading] = useState(false);
-    const [propertyUnavailable, setPropertyUnavailable] = useState(false)
+    const [propertyUnavailable, setPropertyUnavailable] = useState(false);
 
     useEffect(() => {
         if (success && properties) {
@@ -40,13 +40,21 @@ export const PropertiesFiltered = () => {
                     </div>
 
                     <div className="relative bottom-16 mx-auto w-[90%] md:bottom-20">
-                        <SearchBox setSelectedProperties={setSelectedProperties} setIsSearchLoading={setIsSearchLoading} setPropertyUnavailable={setPropertyUnavailable} propertyUnavailable={propertyUnavailable} />
+                        <SearchBox
+                            setSelectedProperties={setSelectedProperties}
+                            setIsSearchLoading={setIsSearchLoading}
+                            setPropertyUnavailable={setPropertyUnavailable}
+                            propertyUnavailable={propertyUnavailable}
+                        />
                     </div>
                 </div>
             </div>
 
-            {propertyUnavailable && <p className="text-primary md:mb-10">These are properties available for the selected dates!
-            </p>}
+            {propertyUnavailable && (
+                <p className="text-primary md:mb-10">
+                    These are properties available for the selected dates!
+                </p>
+            )}
 
             <PropertiesList
                 selectedProperties={selectedProperties}

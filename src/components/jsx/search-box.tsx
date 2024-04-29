@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Home } from "lucide-react";
 
 import {
@@ -23,7 +23,19 @@ export const SearchBox = ({ setSelectedProperties, setIsSearchLoading, propertyU
 
     const handleSelect = (id: number) => {
         const property = properties?.find(property => property.id === id)
-        setChosenProperty(property)
+        if (property) {
+            setChosenProperty(property);
+
+            // Get the current search parameters from the URL
+            const searchParams = new URLSearchParams(window.location.search);
+
+            // Set the propertyId parameter
+            searchParams.set('propertyId', property.id.toString());
+
+            // Update the URL with the new parameters
+            window.history.pushState({}, '', `${window.location.pathname}?${searchParams}`);
+            return;
+        }
     }
 
     const handleSearch = async () => {
@@ -92,6 +104,34 @@ export const SearchBox = ({ setSelectedProperties, setIsSearchLoading, propertyU
         }
     };
 
+    useEffect(() => {
+        // Check if window is defined (client-side)
+        if (typeof window !== 'undefined') {
+            // Get the search parameters from the URL
+            const searchParams = new URLSearchParams(window.location.search);
+            const periodStartString = searchParams.get('periodStart');
+            const periodEndString = searchParams.get('periodEnd');
+            const propertyIdString = searchParams.get('propertyId');
+            const propertyId = propertyIdString && parseInt(propertyIdString, 10)
+
+            // Convert the strings to Date objects
+            const periodStartDate = periodStartString ? new Date(periodStartString) : undefined;
+            const periodEndDate = periodEndString ? new Date(periodEndString) : undefined;
+
+            // Set the state with the obtained Date objects
+            if (periodStartDate && periodEndDate) {
+                setRange({ from: periodStartDate, to: periodEndDate });
+            }
+
+            const property = properties?.find(property => property.id === propertyId)
+            if (property) {
+                setChosenProperty(property)
+            }
+
+            handleSearch()
+        }
+    }, [properties, chosenProperty]);
+
     return (
         <>
             <div className="flex flex-col justify-between gap-6 rounded-lg bg-white px-10 py-12 md:flex-row md:items-end">
@@ -103,8 +143,7 @@ export const SearchBox = ({ setSelectedProperties, setIsSearchLoading, propertyU
                         </span>
                     </div>
 
-
-                    <Select onValueChange={(value) => handleSelect(parseInt(value, 10))}>
+                    <Select onValueChange={(value) => handleSelect(parseInt(value, 10))} value={chosenProperty?.id.toString()}>
                         <SelectTrigger title="If you already know where you want to stay, select the house from the list. Otherwise, leave it empty to search for all available houses.">
                             <SelectValue />
                         </SelectTrigger>

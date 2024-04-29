@@ -16,8 +16,9 @@ export function BookingCard({ slug }: { slug: string }) {
     const [range, setRange] = useState<DateRange>({ from: undefined, to: undefined });
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
-    const [guests, setGuests] = useState("");
+    const [guests, setGuests] = useState(1);
     const [status, setStatus] = useState<Status>("");
+    const [errorMessage, setErrorMessage] = useState<Status>("");
     const [formError, setFormError] = useState<FormError>("");
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -80,7 +81,13 @@ export function BookingCard({ slug }: { slug: string }) {
                     })
                 });
 
-                if (!response.ok) {
+                const parsedResponse = await response.json()
+
+                if (parsedResponse.error) {
+                    setErrorMessage(parsedResponse.error)
+                    setStatus("");
+                    return
+                } else if (!parsedResponse.error && !response.ok) {
                     setStatus("error");
                     throw new Error("Network response was not ok on booking creation");
                 }
@@ -155,8 +162,17 @@ export function BookingCard({ slug }: { slug: string }) {
                         <Input
                             placeholder="Guests"
                             type="number"
-                            onChange={event => setGuests(event.target.value)}
+                            max={room?.max_people}
+                            value={guests}
+                            onChange={event => {
+                                const guests = parseInt(event.target.value, 10);
+                                if (guests > 0) {
+                                    setGuests(guests);
+                                }
+                            }}
                         />
+
+
                     </div>
                     <div className="flex flex-col gap-2">
                         <div className="flex items-center gap-2">
@@ -193,15 +209,26 @@ export function BookingCard({ slug }: { slug: string }) {
                     Book
                 </button>
                 {formError === "required" && (
-                    <small className="text-red-400">Please complete all fields</small>
+                    <p>
+                        <small className="text-red-400">Please complete all fields</small>
+                    </p>
                 )}
                 {status === "error" && (
-                    <small className="text-red-400">
-                        There was an error creating the booking, please try again or contact us at{" "}
-                        <a href="mailto:info@beachmanagementnosara.com" className="underline">
-                            info@beachmanagementnosara.com
-                        </a>
-                    </small>
+                    <p>
+                        <small className="text-red-400">
+                            There was an error creating the booking, please try again or contact us at{" "}
+                            <a href="mailto:info@beachmanagementnosara.com" className="underline">
+                                info@beachmanagementnosara.com
+                            </a>
+                        </small>
+                    </p>
+                )}
+                {errorMessage && (
+                    <p>
+                        <small className="text-red-400">
+                            {errorMessage}
+                        </small>
+                    </p>
                 )}
 
                 <p className="my-4 text-sm">

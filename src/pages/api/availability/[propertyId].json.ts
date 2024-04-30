@@ -9,6 +9,10 @@ export const GET: APIRoute = async ({ params, request }) => {
     const periodStart = q.get("periodStart");
     const periodEnd = q.get("periodEnd");
 
+    if (!params.propertyId) {
+        throw new Error("No property id provided");
+    }
+
     if (periodStart == null || periodEnd == null) {
         throw new Error("Invalid date range");
     }

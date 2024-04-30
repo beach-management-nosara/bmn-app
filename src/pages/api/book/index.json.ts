@@ -29,13 +29,14 @@ export const POST: APIRoute = async ({ request }) => {
             })
         });
 
-        const bookingId = await response.json();
+        const parsedResponse = (await response.json()) as { message: string };
 
-        if (!response.ok && bookingId) {
-            throw new Error("Error creating booking");
+        if (!response.ok || !parsedResponse) {
+            return new Response(JSON.stringify({ error: parsedResponse.message }), { status: 400 });
         }
+
         const quoteResponse = await fetch(
-            `https://api.lodgify.com/v1/reservation/booking/${bookingId}/quote`,
+            `https://api.lodgify.com/v1/reservation/booking/${parsedResponse}/quote`,
             {
                 method: "POST",
                 headers: {

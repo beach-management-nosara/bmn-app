@@ -66,6 +66,9 @@ function DateRangePicker({
     };
 
     useEffect(() => {
+        // this happens only when searching for available places on certain dates
+        if (!propertyId) return;
+
         const fetchAvailability = async () => {
             const now = new Date();
             const periodStart = formatToApiDate(now);

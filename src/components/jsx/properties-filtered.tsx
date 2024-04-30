@@ -6,11 +6,30 @@ import { PropertiesList } from "./properties-list";
 import { heroHomesImg } from "@/assets/images";
 import type { Property } from "@/types/property";
 
+import {
+    Pagination,
+    PaginationContent,
+    PaginationItem,
+    PaginationLink,
+    PaginationNext,
+    PaginationPrevious
+} from "@/components/ui/pagination";
+
+const PAGE_SIZE = 10;
+
 export const PropertiesFiltered = () => {
-    const { properties, isLoading, success } = useProperties();
+    const [page, setPage] = useState(1);
+    const { properties, count, isLoading, success } = useProperties({ page, size: PAGE_SIZE });
     const [selectedProperties, setSelectedProperties] = useState<Property[]>();
     const [isSearchLoading, setIsSearchLoading] = useState(false);
     const [propertyUnavailable, setPropertyUnavailable] = useState(false);
+
+    const totalPages =
+        count && properties && properties.length > 0 ? Math.ceil(count / PAGE_SIZE) : 0;
+
+    const handlePageChange = (newPage: number) => {
+        setPage(newPage);
+    };
 
     useEffect(() => {
         if (success && properties) {
@@ -61,6 +80,33 @@ export const PropertiesFiltered = () => {
                 isLoading={isLoading || isSearchLoading}
                 success={success}
             />
+
+            <Pagination>
+                <PaginationContent>
+                    <PaginationItem>
+                        <PaginationPrevious
+                            className={`${page === 1 ? "hidden" : ""}`}
+                            onClick={() => handlePageChange(page - 1)}
+                        />
+                    </PaginationItem>
+                    {[...Array(totalPages).keys()].map(pageNumber => (
+                        <PaginationItem key={pageNumber}>
+                            <PaginationLink
+                                className={`${pageNumber + 1 === page ? "underline" : ""}`}
+                                onClick={() => handlePageChange(pageNumber + 1)}
+                            >
+                                {pageNumber + 1}
+                            </PaginationLink>
+                        </PaginationItem>
+                    ))}
+                    <PaginationItem>
+                        <PaginationNext
+                            className={`${page === totalPages ? "hidden" : ""}`}
+                            onClick={() => handlePageChange(page + 1)}
+                        />
+                    </PaginationItem>
+                </PaginationContent>
+            </Pagination>
         </div>
     );
 };

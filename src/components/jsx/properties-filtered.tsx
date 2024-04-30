@@ -24,8 +24,7 @@ export const PropertiesFiltered = () => {
     const [isSearchLoading, setIsSearchLoading] = useState(false);
     const [propertyUnavailable, setPropertyUnavailable] = useState(false);
 
-    const totalPages =
-        count && properties && properties.length > 0 ? Math.ceil(count / PAGE_SIZE) : 0;
+    const totalPages = selectedProperties?.length != 10 ? 1 : Math.ceil((count ?? 0) / PAGE_SIZE);
 
     const handlePageChange = (newPage: number) => {
         setPage(newPage);
@@ -70,7 +69,7 @@ export const PropertiesFiltered = () => {
             </div>
 
             {propertyUnavailable && (
-                <p className="text-primary md:mb-10">
+                <p className="my-6 text-primary md:mb-10">
                     These are properties available for the selected dates!
                 </p>
             )}

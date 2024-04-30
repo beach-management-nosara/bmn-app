@@ -113,7 +113,7 @@ function PropertyCard({ property }: { property: Property }) {
 
                 <div className="flex justify-between gap-2">
                     <a
-                        href={`/homes/${id}?periodStart=${range.from && encodeURIComponent(formatToApiDate(range.from))}&periodEnd=${range.to && encodeURIComponent(formatToApiDate(range.to))}`}
+                        href={`/homes/${id}?periodStart=${range.from ? encodeURIComponent(formatToApiDate(range.from)) : ""}&periodEnd=${range.to ? encodeURIComponent(formatToApiDate(range.to)) : ""}`}
                         target="_blank"
                         className="w-1/2 rounded-lg bg-gray-100 p-2 text-center transition-colors duration-300 hover:bg-gray-200"
                     >

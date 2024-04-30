@@ -105,31 +105,28 @@ export const SearchBox = ({ setSelectedProperties, setIsSearchLoading, propertyU
     };
 
     useEffect(() => {
-        // Check if window is defined (client-side)
-        if (typeof window !== 'undefined') {
-            // Get the search parameters from the URL
-            const searchParams = new URLSearchParams(window.location.search);
-            const periodStartString = searchParams.get('periodStart');
-            const periodEndString = searchParams.get('periodEnd');
-            const propertyIdString = searchParams.get('propertyId');
-            const propertyId = propertyIdString && parseInt(propertyIdString, 10)
+        // Get the search parameters from the URL
+        const searchParams = new URLSearchParams(window.location.search);
+        const periodStartString = searchParams.get('periodStart');
+        const periodEndString = searchParams.get('periodEnd');
+        const propertyIdString = searchParams.get('propertyId');
+        const propertyId = propertyIdString && parseInt(propertyIdString, 10)
 
-            // Convert the strings to Date objects
-            const periodStartDate = periodStartString ? new Date(periodStartString) : undefined;
-            const periodEndDate = periodEndString ? new Date(periodEndString) : undefined;
+        // Convert the strings to Date objects
+        const periodStartDate = periodStartString ? new Date(periodStartString) : undefined;
+        const periodEndDate = periodEndString ? new Date(periodEndString) : undefined;
 
-            // Set the state with the obtained Date objects
-            if (periodStartDate && periodEndDate) {
-                setRange({ from: periodStartDate, to: periodEndDate });
-            }
-
-            const property = properties?.find(property => property.id === propertyId)
-            if (property) {
-                setChosenProperty(property)
-            }
-
-            handleSearch()
+        // Set the state with the obtained Date objects
+        if (periodStartDate && periodEndDate) {
+            setRange({ from: periodStartDate, to: periodEndDate });
         }
+
+        const property = properties?.find(property => property.id === propertyId)
+        if (property) {
+            setChosenProperty(property)
+        }
+
+        handleSearch()
     }, [properties, chosenProperty]);
 
     return (

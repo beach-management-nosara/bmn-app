@@ -22,21 +22,18 @@ function PropertyCard({ property }: { property: Property }) {
     const imageUrl = 'https:' + image_url
 
     useEffect(() => {
-        // Check if window is defined (client-side)
-        if (typeof window !== 'undefined') {
-            // Get the search parameters from the URL
-            const searchParams = new URLSearchParams(window.location.search);
-            const periodStartString = searchParams.get('periodStart');
-            const periodEndString = searchParams.get('periodEnd');
+        // Get the search parameters from the URL
+        const searchParams = new URLSearchParams(window.location.search);
+        const periodStartString = searchParams.get('periodStart');
+        const periodEndString = searchParams.get('periodEnd');
 
 
-            if (periodStartString && periodEndString) {
-                // Convert the strings to Date objects
-                const periodStartDate = new Date(periodStartString)
-                const periodEndDate = new Date(periodEndString)
+        if (periodStartString && periodEndString) {
+            // Convert the strings to Date objects
+            const periodStartDate = new Date(periodStartString)
+            const periodEndDate = new Date(periodEndString)
 
-                setRange({ from: periodStartDate, to: periodEndDate });
-            }
+            setRange({ from: periodStartDate, to: periodEndDate });
         }
     }, []);
 

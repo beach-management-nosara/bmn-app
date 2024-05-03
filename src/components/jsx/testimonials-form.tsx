@@ -24,6 +24,7 @@ const formSchema = z.object({
     email: z.string({ required_error: "Your email is required" }).email(),
     property: z.string({ required_error: "Property is required" }),
     message: z.string({ required_error: "Message is required" }).min(10, { message: 'Message should be at least 10 characters long' }).max(1500),
+    image: z.string().optional(),
     agreeToTerms: z.boolean().default(false)
 })
 
@@ -44,7 +45,8 @@ export function TestimonialsForm() {
     })
 
     async function onSubmit(values: FormInput) {
-        const success = await submitForm(values)
+        const image = propertiesSimple.find(p => p.name === values.property)?.image ?? undefined
+        const success = await submitForm({ ...values, image })
 
         if (success) form.reset()
     }

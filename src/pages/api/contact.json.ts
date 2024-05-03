@@ -2,6 +2,7 @@ import type { APIRoute } from "astro";
 import { z } from "zod";
 
 import { type Options, sendEmail } from "@/lib/email";
+import { db, testimonials } from "astro:db";
 
 const contactFormSchema = z.object({
     name: z.string(),
@@ -9,6 +10,8 @@ const contactFormSchema = z.object({
     subject: z.string().optional(),
     message: z.string(),
     property: z.string(),
+    agreeToTerms: z.boolean(),
+    image: z.string().optional(),
     type: z.union([z.literal("contact"), z.literal("testimonial")])
 });
 
@@ -36,6 +39,17 @@ export const POST: APIRoute = async ({ request }) => {
 
         const { data, error } = await sendEmail(emailOptions);
         if (error) throw new Error("An error occurred while sending the email");
+
+        // If the form is of type "testimonial", we can insert the data into the database here
+        if (body.type === "testimonial") {
+            console.log("DO WE GET HERE?");
+            await db.insert(testimonials).values({
+                author: body.name,
+                property: body.property,
+                comments: body.message,
+                consent: body.agreeToTerms
+            });
+        }
 
         return new Response(
             JSON.stringify({ success: true, message: "Form submitted successfully", data }),

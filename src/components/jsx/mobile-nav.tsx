@@ -39,8 +39,20 @@ export function MobileNav() {
                     </ul>
 
                     <div className="flex w-full justify-between gap-10 p-20">
-                        <FacebookIcon className="text-primary size-4" />
-                        <InstagramIcon className="text-primary size-4" />
+                        <a
+                            href="https://www.facebook.com/beachmanagementnosara"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <FacebookIcon className="size-6 text-primary hover:text-primary/70" />
+                        </a>
+                        <a
+                            href="https://www.instagram.com/beachmanagementnosara"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <InstagramIcon className="size-6 text-primary hover:text-primary/70" />
+                        </a>
                     </div>
                 </div>
             ) : (

@@ -93,21 +93,21 @@ export function PropertyDetailsTabs({ data }: PropertyDetailsTabsProps) {
             <TabsList className="grid h-min w-full grid-cols-3 gap-3 bg-gray-200 p-2.5">
                 <TabsTrigger
                     value="amenities"
-                    className="text-lg bg-white text-foreground/70 text-white"
+                    className="text-lg bg-white text-foreground/ text-secondary"
                 >
                     <Info size={16} className="mr-2 hidden md:inline" />
                     Amenities
                 </TabsTrigger>
                 <TabsTrigger
                     value="description"
-                    className="text-lg bg-white text-foreground/70 text-white"
+                    className="text-lg bg-white text-foreground/ text-secondary"
                 >
                     <TagIcon size={16} className="mr-2 hidden md:inline" />
                     Description
                 </TabsTrigger>
                 <TabsTrigger
                     value="photos"
-                    className="text-lg bg-white text-foreground/70 text-white"
+                    className="text-lg bg-white text-foreground/ text-secondary"
                 >
                     <Image size={16} className="mr-2 hidden md:inline" />
                     Photos

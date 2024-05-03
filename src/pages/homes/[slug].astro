@@ -21,6 +21,7 @@ const roomsResponse = await fetch(`https://api.lodgify.com/v2/properties/${slug}
 });
 const rommsJson = (await roomsResponse.json()) as PropertyData[];
 const data = rommsJson[0];
+const imageUrl = "https:" + data.image_url;
 
 function removeHtmlTags(str: string) {
     return str.replace(/<[^>]*>?/gm, "");
@@ -34,7 +35,7 @@ function removeHtmlTags(str: string) {
     <div class="mx-auto flex max-w-screen-2xl flex-col items-center bg-gray-100">
         <div class="relative h-[450px] w-full">
             <Image
-                src={data.image_url}
+                src={imageUrl}
                 alt="hero"
                 width={662}
                 height={225}

@@ -47,6 +47,18 @@ function DateRangePicker({
         };
 
         setRange(newRange);
+
+        if (selectedRange.to && selectedRange.from) {
+            // Get the current search parameters from the URL
+            const searchParams = new URLSearchParams(window.location.search);
+
+            // Set the propertyId parameter
+            searchParams.set("periodStart", formatToApiDate(selectedRange.from));
+            searchParams.set("periodEnd", formatToApiDate(selectedRange.to));
+
+            // Update the URL with the new parameters
+            window.history.pushState({}, "", `${window.location.pathname}?${searchParams}`);
+        }
     };
 
     const isRangeValid = (rangeStart: Date, rangeEnd: Date, unavailableDays: UnavailableDays) => {

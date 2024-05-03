@@ -15,6 +15,7 @@ import {
     terraceHouse21Img,
     treshermanasBannerImg
 } from "@/assets/images";
+import { HomeSearchBox } from "@/components/jsx/home-search-box";
 ---
 
 <MainLayout title="Home | Beach Management Nosara">
@@ -40,7 +41,8 @@ import {
                 </div>
 
                 <div class="relative bottom-16 mx-auto w-[90%] md:bottom-20">
-                    <SearchBox client:load />
+                    <!-- this needs to redirect to the /homes page and pass the dates and/or property id-->
+                    <HomeSearchBox client:load />
                 </div>
             </div>
         </div>

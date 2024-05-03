@@ -17,7 +17,9 @@ export function useProperties({ page, size }: { page: number; size?: number } = 
     const URL = BASE_URL + `/api/properties.json?page=${page}${size ? `&size=${size}` : ""}`;
     const { data, error, isLoading } = useSWR<PropertiesResponse>(URL, fetcher);
 
-    const propertiesSimple = data?.properties.map(p => ({ id: p.id, name: p.name })) || [];
+    const propertiesSimple =
+        data?.properties.map(p => ({ id: p.id, name: p.name, image: `https:${p.image_url}` })) ||
+        [];
 
     return {
         properties: data?.properties,

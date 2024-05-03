@@ -1,11 +1,11 @@
 ---
 import PageHero from "@/components/astro/page-hero.astro";
 import MainLayout from "@/layouts/main-layout.astro";
-import TestimonialSlider from "@/components/astro/testimonial-slider.astro";
 import { TestimonialsForm } from "@/components/jsx/testimonials-form";
 import ContactInfo from "@/components/astro/contact-info.astro";
 
 import { heroTestimonialsImg } from "@/assets/images";
+import { TestimonialsSlider as NewTestimonialsSlider } from "@/components/jsx/testimonials-slider";
 
 export const prerender = false;
 ---
@@ -15,11 +15,13 @@ export const prerender = false;
         <PageHero image={heroTestimonialsImg} title="Testimonials" />
 
         <section class="bg-secondary py-16 text-white">
-            <h2 class="mb-10 text-pretty text-center text-2xl font-semibold text-white lg:text-5xl">
+            <h2
+                class="mb-16 text-pretty text-center text-2xl font-semibold text-white md:mb-10 lg:text-5xl"
+            >
                 See what clients have to say
             </h2>
             <div class="mx-auto max-w-screen-lg px-6 lg:px-0">
-                <TestimonialSlider />
+                <NewTestimonialsSlider client:load />
             </div>
         </section>
 

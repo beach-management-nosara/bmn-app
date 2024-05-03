@@ -16,7 +16,7 @@ export function useFormSubmit<T>(formType: "contact" | "testimonial" = "contact"
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify({ ...values, type: "contact" })
+                body: JSON.stringify({ ...values, type: formType })
             });
 
             if (!res.ok) throw new Error("Failed to send message");

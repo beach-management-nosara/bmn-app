@@ -1,6 +1,8 @@
 import type { APIRoute } from "astro";
 import { db, eq, testimonials } from "astro:db";
 
+export const prerender = false;
+
 export const GET: APIRoute = async () => {
     const results = await db.select().from(testimonials).where(eq(testimonials.show, true));
 

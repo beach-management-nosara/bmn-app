@@ -15,7 +15,7 @@ import {
     PaginationPrevious
 } from "@/components/ui/pagination";
 
-const PAGE_SIZE = 10;
+const PAGE_SIZE = 33;
 
 export const PropertiesFiltered = () => {
     const [page, setPage] = useState(1);

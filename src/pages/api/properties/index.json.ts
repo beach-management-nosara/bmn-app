@@ -34,14 +34,44 @@ export const GET: APIRoute = async ({ request }) => {
 
     const data = (await response.json()) as { items: Property[]; count: number };
 
-    const properties = data?.items.sort((a, b) => a.name.localeCompare(b.name));
+    const idList: number[] = [
+        368123, 280439, 277894, 439129, 466024, 279982, 481099, 483495, 576665, 530996, 282029,
+        277622, 530060, 482720, 277603, 292658, 292644, 277594, 288487, 570825, 277892, 351551,
+        277727, 342716, 334483, 531664, 531672, 343324, 277895
+    ];
 
-    return new Response(JSON.stringify({ properties, count: data.count, success: true }), {
-        status: 200,
-        headers: {
-            "Content-Type": "application/json"
-            // Set Cache-Control to public and cache for a day
-            // "Cache-Control": "public, max-age=86400, s-maxage=86400"
-        }
+    // Create a map of ID to index in the idList
+    const idIndexMap: { [id: number]: number } = {};
+    idList.forEach((id, index) => {
+        idIndexMap[id] = index;
     });
+
+    const properties = data?.items.sort((a, b) => {
+        const indexA = idIndexMap[a.id];
+        const indexB = idIndexMap[b.id];
+
+        // If either ID is not found in the idList, place it at the end
+        if (indexA === undefined && indexB === undefined) {
+            return 0; // Maintain original order for both items
+        } else if (indexA === undefined) {
+            return 1; // a is considered greater (placed after b)
+        } else if (indexB === undefined) {
+            return -1; // b is considered greater (placed after a)
+        }
+
+        // Both IDs are found in the idList, sort based on their indices
+        return indexA - indexB;
+    });
+
+    return new Response(
+        JSON.stringify({ properties: properties, count: data.count, success: true }),
+        {
+            status: 200,
+            headers: {
+                "Content-Type": "application/json"
+                // Set Cache-Control to public and cache for a day
+                // "Cache-Control": "public, max-age=86400, s-maxage=86400"
+            }
+        }
+    );
 };

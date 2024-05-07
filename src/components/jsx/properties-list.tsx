@@ -29,7 +29,6 @@ export function PropertiesList({
 }
 
 function PropertyCard({ property }: { property: Property }) {
-    const { room } = usePropertyDetails(property.id.toString());
     const [range, setRange] = useState<DateRange>({ from: undefined, to: undefined });
     const { id, image_url, name, address, currency_code, min_price, rating } = property;
     const imageUrl = "https:" + image_url;
@@ -50,7 +49,7 @@ function PropertyCard({ property }: { property: Property }) {
     }, []);
 
     return (
-        <div className="flex h-[550px] flex-col rounded-lg border bg-white shadow-lg">
+        <div className="flex h-[500px] flex-col rounded-lg border bg-white shadow-lg">
             <div className="h-1/2 w-full overflow-hidden rounded-t-lg">
                 <img
                     src={imageUrl}
@@ -91,7 +90,7 @@ function PropertyCard({ property }: { property: Property }) {
                             <span>{address}</span>
                         </p>
 
-                        <div className="flex items-center gap-8">
+                        {/* <div className="flex items-center gap-8">
                             <p className="flex items-center gap-2">
                                 <BathIcon size={16} className="text-primary" />
                                 <span>{room?.bathrooms}</span>
@@ -106,7 +105,7 @@ function PropertyCard({ property }: { property: Property }) {
                                 <UsersIcon size={16} className="text-primary" />
                                 <span>{room?.max_people}</span>
                             </p>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
                 <hr className="border-balance border-1 my-2 border-opacity-50" />

@@ -15,16 +15,17 @@ import {
     PaginationPrevious
 } from "@/components/ui/pagination";
 
-const PAGE_SIZE = 33;
 
 export const PropertiesFiltered = () => {
     const [page, setPage] = useState(1);
-    const { properties, count, isLoading, success } = useProperties({ page, size: PAGE_SIZE });
+    const { properties, isLoading, success } = useProperties({ page });
     const [selectedProperties, setSelectedProperties] = useState<Property[]>();
     const [isSearchLoading, setIsSearchLoading] = useState(false);
     const [propertyUnavailable, setPropertyUnavailable] = useState(false);
 
-    const totalPages = selectedProperties?.length != 10 ? 1 : Math.ceil((count ?? 0) / PAGE_SIZE);
+    // Don't remove, so we can easily add it back
+    // const totalPages = selectedProperties?.length != 10 ? 1 : Math.ceil((count ?? 0) / PAGE_SIZE);
+    const totalPages = 1
 
     const handlePageChange = (newPage: number) => {
         setPage(newPage);

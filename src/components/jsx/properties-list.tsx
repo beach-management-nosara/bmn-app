@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
-import { BathIcon, BedIcon, ChevronRightIcon, MapPinIcon, StarIcon, UsersIcon } from "lucide-react";
+import { ChevronRightIcon, MapPinIcon, StarIcon } from "lucide-react";
 
 import { Skeleton } from "@/components/ui/skeleton";
 
 import type { Property } from "@/types/property";
 import { formatToApiDate } from "@/lib/utils";
 import type { DateRange } from "@/types";
-import { usePropertyDetails } from "@/hooks/usePropertyDetails";
 
 export function PropertiesList({
     selectedProperties,
@@ -90,22 +89,6 @@ function PropertyCard({ property }: { property: Property }) {
                             <span>{address}</span>
                         </p>
 
-                        {/* <div className="flex items-center gap-8">
-                            <p className="flex items-center gap-2">
-                                <BathIcon size={16} className="text-primary" />
-                                <span>{room?.bathrooms}</span>
-                            </p>
-
-                            <p className="flex items-center gap-2">
-                                <BedIcon size={16} className="text-primary" />
-                                <span>{room?.bedrooms}</span>
-                            </p>
-
-                            <p className="flex items-center gap-2">
-                                <UsersIcon size={16} className="text-primary" />
-                                <span>{room?.max_people}</span>
-                            </p>
-                        </div> */}
                     </div>
                 </div>
                 <hr className="border-balance border-1 my-2 border-opacity-50" />

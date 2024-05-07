@@ -35,38 +35,9 @@ export const GET: APIRoute = async ({ request }) => {
     const data = (await response.json()) as { items: Property[]; count: number };
 
     const idList = [
-        368123, // Tres Hermanas, Luxury home
-        280439, // Nai'a Luxury Vacation House
-        277894, // Shanta Pura
-        439129, // Casa Los Pochotes, Luxury Vacation Home (New Listing)
-        466024, // Terrace House, Luxury Vacation Home (New Listing)
-        279982, // Almendra
-        481099, // Calma House, Luxury Vacation Home (New Listing)
-        483495, // Utopia Escapista
-        576665, // Free Spirits House
-        530996, // Ansui House, Vacation Home
-        282029, // Villa Belitza
-        277622, // Hermandad
-        530060, // Last PC Luxury Vacation Home
-        482720, // Verano Eterno
-        277603, // FLOW Main House
-        277588, // FLOW Casita
-        277895, // FLOW - Villa O, Vacation Home
-        277594, // FLOW - Villa W, Vacation Home
-        292658, // FLOW 4 Villas, Luxury Vacation Homes
-        292644, // FLOW MainHouse + Casita
-        288487, // El NIDO 4 Bedroom, 4 Bathroom Luxury House
-        570825, // Villa Paz Shalom
-        277892, // Casa Sierra
-        351551, // Ashaya, Luxury Vacation Home
-        277727, // Robins Nest 3 Bedroom, 2 Bathroom Oasis
-        342716, // Alma del Mar
-        334483, // Casa Catalina, Vacation Home
-        531664, // JOYA: A Modern Jungle Getaway near the Beach
-        531672, // Casita IVY
-        539969, // Calmate
-        277581, // Casa Paco Main House, long term rental available
-        343324 // Paco Studio
+        368123, 280439, 277894, 439129, 466024, 279982, 481099, 483495, 576665, 530996, 282029,
+        277622, 530060, 482720, 277581, 277588, 277603, 277594, 292658, 292644, 288487, 570825,
+        277892, 351551, 277727, 342716, 334483, 531664, 531672, 539969, 277895, 343324
     ];
 
     // Create a map of ID to index in the idList

@@ -42,7 +42,6 @@ export const POST: APIRoute = async ({ request }) => {
 
         // If the form is of type "testimonial", we can insert the data into the database here
         if (body.type === "testimonial") {
-            console.log("DO WE GET HERE?");
             await db.insert(testimonials).values({
                 author: body.name,
                 property: body.property,

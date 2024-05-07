@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
-import { BathIcon, BedIcon, ChevronRightIcon, MapPinIcon, StarIcon, UsersIcon } from "lucide-react";
+import { ChevronRightIcon, MapPinIcon, StarIcon } from "lucide-react";
 
 import { Skeleton } from "@/components/ui/skeleton";
 
 import type { Property } from "@/types/property";
 import { formatToApiDate } from "@/lib/utils";
 import type { DateRange } from "@/types";
-import { usePropertyDetails } from "@/hooks/usePropertyDetails";
 
 export function PropertiesList({
     selectedProperties,
@@ -29,7 +28,6 @@ export function PropertiesList({
 }
 
 function PropertyCard({ property }: { property: Property }) {
-    const { room } = usePropertyDetails(property.id.toString());
     const [range, setRange] = useState<DateRange>({ from: undefined, to: undefined });
     const { id, image_url, name, address, currency_code, min_price, rating } = property;
     const imageUrl = "https:" + image_url;
@@ -50,7 +48,7 @@ function PropertyCard({ property }: { property: Property }) {
     }, []);
 
     return (
-        <div className="flex h-[550px] flex-col rounded-lg border bg-white shadow-lg">
+        <div className="flex h-[500px] flex-col rounded-lg border bg-white shadow-lg">
             <div className="h-1/2 w-full overflow-hidden rounded-t-lg">
                 <img
                     src={imageUrl}
@@ -91,22 +89,6 @@ function PropertyCard({ property }: { property: Property }) {
                             <span>{address}</span>
                         </p>
 
-                        <div className="flex items-center gap-8">
-                            <p className="flex items-center gap-2">
-                                <BathIcon size={16} className="text-primary" />
-                                <span>{room?.bathrooms}</span>
-                            </p>
-
-                            <p className="flex items-center gap-2">
-                                <BedIcon size={16} className="text-primary" />
-                                <span>{room?.bedrooms}</span>
-                            </p>
-
-                            <p className="flex items-center gap-2">
-                                <UsersIcon size={16} className="text-primary" />
-                                <span>{room?.max_people}</span>
-                            </p>
-                        </div>
                     </div>
                 </div>
                 <hr className="border-balance border-1 my-2 border-opacity-50" />

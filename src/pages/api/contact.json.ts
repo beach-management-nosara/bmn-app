@@ -10,7 +10,7 @@ const contactFormSchema = z.object({
     subject: z.string().optional(),
     message: z.string(),
     property: z.string(),
-    agreeToTerms: z.boolean(),
+    agreeToTerms: z.boolean().optional(),
     image: z.string().optional(),
     type: z.union([z.literal("contact"), z.literal("testimonial")])
 });

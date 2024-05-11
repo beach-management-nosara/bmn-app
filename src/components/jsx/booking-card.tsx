@@ -129,14 +129,10 @@ export function BookingCard({ slug }: { slug: string }) {
                     <span className="text-xl font-bold text-primary">
                         <span className="text-sm text-muted">FROM </span>
                         <span className="text-sm">{property?.currency_code} </span>
-                        {Math.round(room?.min_price ?? 0)} /{" "}
-                        {room?.price_unit_in_days === 0 ? "" : room?.price_unit_in_days}
+                        {Math.round(property?.min_price ?? 0)}
+                        {" "}/{" "}
                         <span className="text-sm">
-                            {room?.price_unit_in_days === 7
-                                ? "week"
-                                : room?.price_unit_in_days === 0
-                                    ? "day"
-                                    : "days"}
+                            week
                         </span>
                     </span>
                 </div>

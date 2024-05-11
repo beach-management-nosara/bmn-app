@@ -17,6 +17,8 @@ type PropertyDetailsResponse = {
         country: string;
         rating: number;
         currency_code: string;
+        min_price: number;
+        price_unit_in_days: number;
     };
 };
 

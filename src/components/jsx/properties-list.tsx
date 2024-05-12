@@ -69,7 +69,7 @@ function PropertyCard({ property }: { property: Property }) {
                         <p>
                             Price from{" "}
                             <span className="text-xl font-bold text-primary">
-                                {currency_code} {Math.round(min_price).toFixed(2)}
+                                {currency_code} {(Math.round(min_price) * 7).toFixed(2)}
                             </span>
                         </p>
 

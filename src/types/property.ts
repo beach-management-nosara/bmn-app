@@ -19,9 +19,6 @@ export interface Property {
     rating: number;
     price_unit_in_days: number;
     min_price: number;
-    original_min_price: number;
-    max_price: number;
-    original_max_price: number;
     rooms: Room[];
     in_out_max_date: string;
     in_out: any;

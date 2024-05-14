@@ -38,8 +38,6 @@ export function usePropertyDetails(slug: string) {
         [data, priceMap]
     );
 
-    console.log("updatedProperty", updatedProperty);
-
     return {
         property: updatedProperty,
         room: data?.rooms,

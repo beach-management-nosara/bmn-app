@@ -15,12 +15,14 @@ function DateRangePicker({
     direction = "horizontal",
     propertyId,
     range,
-    setRange
+    setRange,
+    setPropertyUnavailable
 }: {
     direction?: "horizontal" | "vertical";
     propertyId?: string;
     range: DateRange;
     setRange: (range: DateRange) => void;
+    setPropertyUnavailable?: (value: boolean) => void;
 }) {
     const [isCalendarOpen, setCalendarOpen] = useState(false);
     const calendarRef = useRef<HTMLDivElement>(null);
@@ -32,6 +34,7 @@ function DateRangePicker({
     ]);
 
     const handleSelect: SelectRangeEventHandler = selectedRange => {
+        if (setPropertyUnavailable) setPropertyUnavailable(false);
         if (!selectedRange || !selectedRange.from) return;
 
         if (selectedRange.from && selectedRange.to) {

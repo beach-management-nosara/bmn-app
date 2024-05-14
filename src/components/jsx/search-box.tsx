@@ -44,6 +44,8 @@ export const SearchBox = ({
 
             // Update the URL with the new parameters
             window.history.pushState({}, "", `${window.location.pathname}?${searchParams}`);
+
+            setPropertyUnavailable(false)
             return;
         }
     };
@@ -122,6 +124,7 @@ export const SearchBox = ({
         const periodStartString = searchParams.get("periodStart");
         const periodEndString = searchParams.get("periodEnd");
         const propertyIdString = searchParams.get("propertyId");
+        const next = searchParams.get("next");
         const propertyId = propertyIdString && parseInt(propertyIdString, 10);
 
         // Convert the strings to Date objects
@@ -136,9 +139,9 @@ export const SearchBox = ({
         const property = properties?.find(property => property.id === propertyId);
         if (property) {
             setChosenProperty(property);
+            if (next) { handleSearch() }
         }
 
-        handleSearch();
     }, [properties, chosenProperty]);
 
     return (
@@ -173,7 +176,7 @@ export const SearchBox = ({
                 </div>
 
                 <div className="flex grow md:w-1/3">
-                    <DateRangePicker range={range} setRange={setRange} />
+                    <DateRangePicker range={range} setRange={setRange} setPropertyUnavailable={setPropertyUnavailable} />
                 </div>
 
                 <div className="md:w-1/3">

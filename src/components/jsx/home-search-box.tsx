@@ -34,7 +34,7 @@ export const HomeSearchBox = () => {
         const periodStart = formatToApiDate(range.from);
         const periodEnd = formatToApiDate(range.to);
 
-        window.location.href = `/homes?propertyId=${chosenProperty?.id}&periodStart=${encodeURIComponent(periodStart)}&periodEnd=${encodeURIComponent(periodEnd)}`
+        window.location.href = `/homes?propertyId=${chosenProperty?.id}&periodStart=${encodeURIComponent(periodStart)}&periodEnd=${encodeURIComponent(periodEnd)}&next=search`
     };
 
     return (

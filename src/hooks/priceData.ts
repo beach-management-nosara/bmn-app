@@ -31,6 +31,6 @@ export const idToPrice = [
     { id: 539969, min_price: 336 },
     { id: 570825, min_price: 1000 },
     { id: 576665, min_price: 550 },
-    { id: 581332, min_price: 3300 },
-    { id: 581304, min_price: 1900 }
+    { id: 581332, min_price: 471.4 },
+    { id: 581304, min_price: 271.4 }
 ];

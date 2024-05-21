@@ -2,7 +2,6 @@ import useSWR from "swr";
 import { useMemo } from "react";
 
 import { fetcher } from "@/lib/fetcher";
-import { idToPrice } from "./priceData";
 import type { Property } from "@/types/property";
 
 const DEV = import.meta.env.DEV;
@@ -29,22 +28,8 @@ export function useProperties({ page, size }: { page: number; size?: number } = 
         [data]
     );
 
-    const priceMap = useMemo(
-        () => new Map(idToPrice.map(item => [item.id, item.min_price])),
-        [idToPrice]
-    );
-
-    const updatedProperties = useMemo(
-        () =>
-            data?.properties.map(property => ({
-                ...property,
-                min_price: priceMap.get(property.id) || property.min_price // Use existing min_price if no update is found
-            })),
-        [data, priceMap]
-    );
-
     return {
-        properties: updatedProperties,
+        properties: data?.properties,
         count: data?.count,
         propertiesSimple,
         success: data?.success,

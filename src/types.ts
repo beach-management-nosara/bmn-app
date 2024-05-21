@@ -26,3 +26,10 @@ export type DateRange = {
     from: Date | undefined;
     to: Date | undefined;
 };
+
+export type Rate = {
+    prices: {
+        min_stay: number;
+        price_per_day: number;
+    }[];
+};

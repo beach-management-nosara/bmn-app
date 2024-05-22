@@ -12,7 +12,6 @@ type Status = "" | "loading" | "success" | "error";
 type FormError = "" | "required" | "invalid";
 
 export function BookingCard({ slug }: { slug: string }) {
-    const { property, room } = usePropertyDetails(slug);
     const [range, setRange] = useState<DateRange>({ from: undefined, to: undefined });
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -21,6 +20,10 @@ export function BookingCard({ slug }: { slug: string }) {
     const [errorMessage, setErrorMessage] = useState<Status>("");
     const [formError, setFormError] = useState<FormError>("");
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [rangeError, setRangeError] = useState<boolean>(false); // State for range error
+
+
+    const { property, room, rate, isLoading: rateLoading } = usePropertyDetails(slug, range.from, range.to);
 
     const handleSearch = async () => {
         if (!range.from || !range.to) {
@@ -37,6 +40,8 @@ export function BookingCard({ slug }: { slug: string }) {
             setFormError("invalid");
             throw new Error("Invalid email");
         }
+
+        setFormError("")
 
         const periodStart = formatToApiDate(range.from);
         const periodEnd = formatToApiDate(range.to);
@@ -115,6 +120,22 @@ export function BookingCard({ slug }: { slug: string }) {
         setRange({ from: periodStartDate, to: periodEndDate });
     }, []);
 
+
+    useEffect(() => {
+        if (!range.to || !range.from || !rate?.min_stay) return
+
+        const differenceInTime = range.to.getTime() - range.from.getTime();
+        const differenceInDays = differenceInTime / (1000 * 3600 * 24);
+
+        if (differenceInDays < rate?.min_stay) {
+            setRangeError(true);
+            return;
+        } else {
+            setRangeError(false);
+        }
+
+    }, [range.to, range.from, rate?.min_stay]);
+
     return (
         <div className="relative">
             <div className="sticky top-20 m-4 h-fit rounded bg-white p-5 shadow-lg">
@@ -127,17 +148,30 @@ export function BookingCard({ slug }: { slug: string }) {
 
                 <div className="border-b pb-4">
                     <span className="text-xl font-bold text-primary">
-                        <span className="text-sm text-muted">FROM </span>
-                        <span className="text-sm">{property?.currency_code} </span>
-                        {Math.round(property?.min_price ?? 0) * 7}
-                        {" "}/{" "}
-                        <span className="text-sm">
-                            week
-                        </span>
+                        <span className="text-sm text-muted">{(!range.from || !range.to) ? "FROM" : "PRICE"} </span>
+                        <span className="text-sm">{property?.currency_code}{" "}</span>
+
+                        {!rate?.price || rangeError ? <div className="inline-block animate-pulse bg-gray-200 w-16 rounded h-4" /> : <span>{Math.round(rate.price)}</span>}
+
+                        {(!range.from || !range.to) ?
+                            (<>
+                                <span>{" "} / {" "}</span>
+                                < span className="text-sm">
+                                    week
+                                </span>
+                            </>) : ""}
                     </span>
                 </div>
 
-                <div className="py-6">
+                {rangeError && !rateLoading && (
+                    <p>
+                        <small className="text-red-400">
+                            Minimum stay is {rate?.min_stay} nights.
+                        </small>
+                    </p>
+                )}
+
+                <div className={!rangeError ? "py-6" : ""}>
                     <DateRangePicker
                         direction="vertical"
                         propertyId={property?.id}
@@ -197,7 +231,7 @@ export function BookingCard({ slug }: { slug: string }) {
                 <button
                     onClick={handleSearch}
                     className="mt-4 h-10 w-full rounded-lg bg-primary font-bold text-white hover:bg-secondary"
-                    disabled={status === "loading"}
+                    disabled={status === "loading" || rangeError}
                 >
                     Book
                 </button>

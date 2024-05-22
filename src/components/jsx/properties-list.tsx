@@ -6,6 +6,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import type { Property } from "@/types/property";
 import { formatToApiDate } from "@/lib/utils";
 import type { DateRange } from "@/types";
+import { usePropertyDetails } from "@/hooks/usePropertyDetails";
 
 export function PropertiesList({
     selectedProperties,
@@ -28,6 +29,8 @@ export function PropertiesList({
 }
 
 function PropertyCard({ property }: { property: Property }) {
+    const { rate } = usePropertyDetails(property.id.toString());
+
     const [range, setRange] = useState<DateRange>({ from: undefined, to: undefined });
     const { id, image_url, name, address, currency_code, min_price, rating } = property;
     const imageUrl = "https:" + image_url;
@@ -66,12 +69,16 @@ function PropertyCard({ property }: { property: Property }) {
                     <hr className="border-balance border-1 my-2 border-opacity-50" />
 
                     <div className="mb-3 flex items-center justify-between">
-                        <p>
+                        <div>
                             Price from{" "}
                             <span className="text-xl font-bold text-primary">
-                                {currency_code} {(Math.round(min_price) * 7).toFixed(2)}
+                                {currency_code} {" "}
+                                {rate ? <span>{Math.round(rate.price)}</span> : <div className="inline-block animate-pulse bg-gray-200 w-16 rounded h-4" />}
                             </span>
-                        </p>
+                            < span className="text-sm text-primary font-bold">
+                                {" "}/{" "}week
+                            </span>
+                        </div>
 
                         <div className="flex items-center gap-1">
                             <StarIcon size={16} className="text-primary" />

@@ -84,12 +84,17 @@ export const GET: APIRoute = async ({ params, request }) => {
         return Math.max(maxStay, maxRateStay);
     }, 0);
 
-    const rate = rates.reduce((total, datePrice) => {
-        const dayRate = datePrice.prices.reduce((dayTotal, price) => {
+    const rate = rates.reduce((total, datePrices) => {
+        const prices7days = datePrices.prices.filter(price => price.min_stay === 7);
+
+        const prices = prices7days.length > 0 ? prices7days : datePrices.prices;
+
+        const dayRate = prices.reduce((dayTotal, price) => {
             if (price.min_stay === 7) {
-                return dayTotal + price.price_per_day;
+                return (dayTotal += price.price_per_day);
+            } else {
+                return (dayTotal += price.price_per_day);
             }
-            return dayTotal;
         }, 0);
         return total + dayRate;
     }, 0);

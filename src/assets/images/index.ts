@@ -23,6 +23,7 @@ export { default as home11Img } from "./home11.webp";
 export { default as home14Img } from "./home14.webp";
 export { default as hw2Img } from "./hw2.jpg";
 export { default as logoImg } from "./logo.png";
+export { default as logoImg2 } from "./logo2.png";
 export { default as pochoteBannerImg } from "./pochote-banner.jpg";
 export { default as reliableImg2 } from "./reliable2.jpg";
 export { default as reliableImg3 } from "./reliable3.jpg";

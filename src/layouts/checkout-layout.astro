@@ -1,0 +1,29 @@
+---
+import Head from "@/components/astro/head.astro";
+
+import "@/styles/globals.css";
+import CheckoutNavbar from "@/components/astro/checkout-navbar.astro";
+import { Toaster } from "@/components/ui/toaster";
+
+interface Props {
+    title?: string;
+    description?: string;
+}
+
+const { title, description } = Astro.props as Props;
+---
+
+<html lang="en">
+    <Head
+        title={title ?? "Beach Management Nosara"}
+        description={description ??
+            "Beach Management in Costa Rica rents and manages the best selection of elite, luxury vacation homes on the Pacific Coast. Beach Management works in a variety of ways to deliver classy guest services and professional property management. Whether you’re a guest, owner, or buyer; Beach Management is ready to assist you."}
+    />
+
+    <body class="antialiased">
+        <CheckoutNavbar />
+        <!-- Application Entry Point -->
+        <slot />
+        <Toaster client:load />
+    </body>
+</html>

@@ -10,6 +10,7 @@ import {
     SelectTrigger,
     SelectValue
 } from "@/components/ui/select";
+import { useToast } from "../ui/use-toast";
 import DateRangePicker from "./day-picker";
 import { useProperties } from "@/hooks/useProperties";
 import type { AvailabilityData, DateRange } from "@/types";
@@ -30,6 +31,8 @@ export const SearchBox = ({
     const { properties } = useProperties();
     const [range, setRange] = useState<DateRange>({ from: undefined, to: undefined });
     const [chosenProperty, setChosenProperty] = useState<Property>();
+
+    const { toast } = useToast();
 
     const handleSelect = (id: number) => {
         const property = properties?.find(property => property.id === id);
@@ -58,6 +61,14 @@ export const SearchBox = ({
 
         const periodStart = formatToApiDate(range.from);
         const periodEnd = formatToApiDate(range.to);
+
+        if (periodStart === "Invalid Date" || periodEnd === "Invalid date") {
+            toast({
+                title: "Uh oh! Invalid date",
+            });
+            throw new Error("Invalid Date");
+
+        }
 
         if (chosenProperty) {
             // check if it is available on those dates

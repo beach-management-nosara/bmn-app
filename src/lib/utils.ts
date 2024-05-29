@@ -21,7 +21,14 @@ export function formatCurrency(amount: number) {
     }).format(amount);
 }
 
-export const formatToApiDate = (date: Date) => `${date.toISOString().split("T")[0]} 00:00:00`;
+export const formatToApiDate = (date: Date) => {
+    try {
+        return `${date.toISOString().split("T")[0]} 00:00:00`;
+    } catch (e) {
+        console.log(e);
+        return "Invalid date";
+    }
+};
 
 export const validateEmail = (email: string) => {
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

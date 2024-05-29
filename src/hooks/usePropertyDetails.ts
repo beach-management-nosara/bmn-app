@@ -13,11 +13,14 @@ type PropertyDetailsResponse = {
     rooms: PropertyData;
     property: {
         id: string;
+        name: string;
         city: string;
         state: string;
         country: string;
         rating: number;
         currency_code: string;
+        agreement_text: string;
+        image_url: string;
     };
     rate: {
         price: number;

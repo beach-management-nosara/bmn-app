@@ -1,0 +1,24 @@
+---
+import { Checkout as CheckoutPage } from "@/components/jsx/checkout";
+import CheckoutLayout from "@/layouts/checkout-layout.astro";
+
+const url = new URL(Astro.request.url);
+
+const searchParams = new URLSearchParams(url.search);
+const propertyId = searchParams.get("propertyId");
+const periodStart = searchParams.get("periodStart");
+const periodEnd = searchParams.get("periodEnd");
+const guests = searchParams.get("guests");
+
+export const prerender = false;
+---
+
+<CheckoutLayout title="Checkout | Beach Management Nosara">
+    <CheckoutPage
+        slug={propertyId}
+        periodStartString={periodStart}
+        periodEndString={periodEnd}
+        originalGuests={guests}
+        client:load
+    />
+</CheckoutLayout>

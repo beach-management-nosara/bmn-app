@@ -84,7 +84,7 @@ export function BookingCard({ slug }: { slug: string }) {
             setStatus("success");
         } catch (error) {
             setStatus("error");
-            console.error("Failed to create booking or quote", error);
+            console.error("Failed to confirm availability", error);
         }
     };
 
@@ -115,7 +115,6 @@ export function BookingCard({ slug }: { slug: string }) {
         } else {
             setRangeError(false);
         }
-
     }, [range.to, range.from, rate?.min_stay]);
 
     return (
@@ -187,10 +186,10 @@ export function BookingCard({ slug }: { slug: string }) {
 
                 <button
                     onClick={handleSearch}
-                    className="mt-4 h-10 w-full rounded-lg bg-primary font-bold text-white hover:bg-secondary disabled:bg-gray-400"
-                    disabled={status === "loading" || rangeError}
+                    className="mt-4 h-10 w-full rounded-lg bg-primary font-bold text-white text-center hover:bg-secondary disabled:bg-gray-400 flex items-center justify-center"
+                    disabled={status === "loading" || rangeError || rateLoading}
                 >
-                    Reserve now
+                    {rateLoading ? <LoaderCircle className="animate-spin h-4" /> : <span>Confirm dates</span>}
                 </button>
                 {formError === "required" && (
                     <p>

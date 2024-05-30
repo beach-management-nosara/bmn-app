@@ -15,13 +15,7 @@ type PropertiesResponse = {
     success: boolean;
 };
 
-type PropertySimple = {
-    id: number;
-    name: string;
-    image: string;
-};
-
-function mapOrder(array: PropertySimple[], order: number[]): PropertySimple[] {
+function mapOrder<T extends { id: number }>(array: T[], order: number[]): T[] {
     const orderMap = new Map(order.map((id, index) => [id, index]));
     return array
         .slice()
@@ -32,21 +26,20 @@ export function useProperties({ page, size }: { page: number; size?: number } = 
     const URL = BASE_URL + `/api/properties.json?page=${page}${size ? `&size=${size}` : ""}`;
     const { data, error, isLoading } = useSWR<PropertiesResponse>(URL, fetcher);
 
+    const orderedProperties = useMemo(() => mapOrder(data?.properties || [], idsInOrder), [data]);
+
     const propertiesSimple = useMemo(
         () =>
-            mapOrder(
-                data?.properties.map(p => ({
-                    id: p.id,
-                    name: p.name,
-                    image: `https:${p.image_url}`
-                })) || [],
-                idsInOrder
-            ),
-        [data]
+            orderedProperties.map(p => ({
+                id: p.id,
+                name: p.name,
+                image: `https:${p.image_url}`
+            })),
+        [orderedProperties]
     );
 
     return {
-        properties: data?.properties,
+        properties: orderedProperties,
         count: data?.count,
         propertiesSimple,
         success: data?.success,

@@ -49,13 +49,7 @@ export const GET: APIRoute = async ({ params, request }) => {
 
     if (!propertyResponse.ok) return errorResponse("An error occurred");
 
-    const property = (await propertyResponse.json()) as {
-        city: string;
-        state: string;
-        country: string;
-        rating: number;
-        currency_code: string;
-    };
+    const property = await propertyResponse.json();
 
     // Fetch rates data
     const now = new Date();

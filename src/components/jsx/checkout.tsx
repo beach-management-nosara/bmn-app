@@ -1,16 +1,28 @@
 import { useEffect, useState } from "react";
-import { LoaderCircle, Mail, Phone, UserRound, Users, XIcon, Calendar as CalendarIco } from "lucide-react";
+import {
+    LoaderCircle,
+    Mail,
+    Phone,
+    UserRound,
+    Users,
+    XIcon,
+    Calendar as CalendarIco
+} from "lucide-react";
 
 import { useToast } from "@/components/ui/use-toast";
 import { usePropertyDetails } from "@/hooks/usePropertyDetails";
-import { formatToApiDate, validateEmail } from "@/lib/utils";
-import type { AvailabilityData, DateRange } from "@/types";
+import { formatCurrency, formatToApiDate, validateEmail } from "@/lib/utils";
+import type { AvailabilityData, DateRange, PriceType, RoomType } from "@/types";
 
 import { Input } from "../ui/input";
 import { SomethingWrongPage } from "./something-wrong";
 
 type Status = "" | "loading" | "success" | "error" | "Invalid date";
 type FormError = "" | "required" | "invalid";
+type QuoteDataSimple = {
+    total_scheduled_payments: number
+    room_type: RoomType
+}
 
 export function Checkout({
     slug,
@@ -33,8 +45,9 @@ export function Checkout({
     const [formError, setFormError] = useState<FormError>("");
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isAgreementModalOpen, setIsAgreementModalOpen] = useState(false);
-    const [rangeError, setRangeError] = useState<boolean>(false); // State for range error
+    const [rangeError, setRangeError] = useState<boolean>(false);
     const [agreement, setAgreement] = useState<boolean>(false);
+    const [quote, setQuote] = useState<QuoteDataSimple | null>(null);
 
     const { toast } = useToast();
 
@@ -143,6 +156,45 @@ export function Checkout({
         window.history.back();
     };
 
+    const fetchQuote = async () => {
+        if (!range.from || !range.to || !room?.id) return;
+
+        const arrival = formatToApiDate(range.from);
+        const departure = formatToApiDate(range.to);
+        const roomId = room.id;
+
+        if (arrival == null || departure == null) {
+            throw new Error("Invalid date range");
+        }
+
+        if (roomId == null || guests == null) {
+            throw new Error("Incomplete info");
+        }
+
+        try {
+            const response = await fetch(
+                `/api/quote.json?propertyId=${property?.id}&arrival=${encodeURIComponent(arrival)}&departure=${encodeURIComponent(departure)}&roomId=${roomId}&guests=${guests}`
+            );
+
+            if (!response.ok) {
+                throw new Error("Failed to fetch quote");
+            }
+
+            const quoteData = await response.json() as { data: QuoteDataSimple };
+
+            if (quoteData.data) {
+                setQuote(quoteData.data);
+            }
+
+        } catch (error) {
+            console.error("Error fetching quote:", error);
+        }
+    };
+
+    useEffect(() => {
+        fetchQuote();
+    }, [range.to, range.from, room?.id, guests]);
+
     useEffect(() => {
         const periodStartDate = periodStartString ? new Date(periodStartString) : undefined;
         const periodEndDate = periodEndString ? new Date(periodEndString) : undefined;
@@ -176,13 +228,70 @@ export function Checkout({
                     </div>
                 )}
 
-                <div className="flex items-center gap-4 mb-4">
-                    {property?.image_url ? <img src={property?.image_url} alt="property image" className="h-12 w-12 rounded" /> : <div className="h-12 w-12 rounded bg-gray-200 animate-pulse" />}
-                    {property?.name ? <p className="text-primary">{property?.name}</p> : <div className="inline-block h-4 w-16 animate-pulse rounded bg-gray-200" />}
-
+                <div className="mb-4 flex items-center gap-4">
+                    {property?.image_url ? (
+                        <img
+                            src={property?.image_url}
+                            alt="property image"
+                            className="h-12 w-12 rounded"
+                        />
+                    ) : (
+                        <div className="h-12 w-12 animate-pulse rounded bg-gray-200" />
+                    )}
+                    {property?.name ? (
+                        <p className="text-primary">{property?.name}</p>
+                    ) : (
+                        <div className="inline-block h-4 w-16 animate-pulse rounded bg-gray-200" />
+                    )}
                 </div>
 
-                <h2 className="mb-4 text-xl font-bold border-b pb-4">Booking summary</h2>
+                <h2 className="mb-4 border-b pb-4 text-xl font-bold">Booking summary</h2>
+
+                <div className="mb-4 border-b pb-4">
+
+                    <ul className="mt-2 list-disc text-gray-700">
+                        {quote?.room_type.price_types.filter((priceType: PriceType) => priceType.subtotal > 0).map((priceType: PriceType) => (
+                            <li key={priceType.type} className="flex flex-col justify-between list-none pb-4">
+                                <div className="flex justify-between">
+                                    <p className="flex-1">{priceType.description}</p>
+                                    <span className="flex-1 text-right">{formatCurrency(priceType.subtotal, 2)}</span>
+                                </div>
+                                {priceType.type !== 0 && priceType.prices.length > 0 && (
+                                    <ul className="ml-4 mt-1 list-disc text-gray-400">
+                                        {priceType.prices.map((fee) => (
+                                            <li key={fee.uid} className="flex justify-between list-none">
+                                                <p className="flex-1">{fee.description}</p>
+                                                <span className="flex-1 text-right">{formatCurrency(fee.amount, 2)}</span>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                )}
+                            </li>
+                        ))}
+                    </ul>
+
+
+                    <div className="border-b" />
+
+                    <div className="flex justify-between text-xl font-bold text-primary mt-4 items-center">
+                        <span className="text-sm text-muted">TOTAL</span>
+                        <span>
+                            <span className="text-sm">{property?.currency_code} </span>
+                            {!quote?.total_scheduled_payments || rangeError ? (
+                                <div className="inline-block h-4 w-16 animate-pulse rounded bg-gray-200" />
+                            ) : (
+                                <span>{formatCurrency(quote.total_scheduled_payments)}</span>
+                            )}
+                        </span>
+                    </div>
+
+                    <p>
+                        <small>
+                            *To avoid the credit card processing fee, you may opt to make your
+                            payment via wire transfer.
+                        </small>
+                    </p>
+                </div>
 
                 {rangeError && !rateLoading && (
                     <p>
@@ -192,10 +301,8 @@ export function Checkout({
                     </p>
                 )}
 
-                <div className="flex grow mb-4">
-                    <div
-                        className={"flex grow flex-col gap-2"}
-                    >
+                <div className="mb-4 flex grow">
+                    <div className={"flex grow flex-col gap-2"}>
                         <div className="flex flex-col gap-2">
                             <div className="flex items-center gap-2">
                                 <CalendarIco size={20} />
@@ -203,7 +310,9 @@ export function Checkout({
                             </div>
                         </div>
                         <button
-                            className={"h-10 w-full border rounded-l px-2 py-2 text-left text-sm text-muted"}
+                            className={
+                                "h-10 w-full rounded-l border px-2 py-2 text-left text-sm text-muted"
+                            }
                             disabled
                         >
                             {range.from ? range.from.toLocaleDateString() : "Add start date"}
@@ -218,7 +327,7 @@ export function Checkout({
 
                         <button
                             disabled
-                            className={`h-10 w-full border rounded-r px-2 py-2 text-left text-sm text-muted`}
+                            className={`h-10 w-full rounded-r border px-2 py-2 text-left text-sm text-muted`}
                         >
                             {range.to ? range.to.toLocaleDateString() : "Add end date"}
                         </button>
@@ -313,21 +422,6 @@ export function Checkout({
                     questions.
                 </p>
 
-
-                <span className="text-xl font-bold text-primary">
-                    <span className="text-sm text-muted">
-                        TOTAL{" "}
-                    </span>
-                    <span className="text-sm">{property?.currency_code} </span>
-
-                    {!rate?.price || rangeError ? (
-                        <div className="inline-block h-4 w-16 animate-pulse rounded bg-gray-200" />
-                    ) : (
-                        <span>{Math.round(rate.price)}</span>
-                    )}
-                </span>
-
-
                 {isModalOpen && (
                     <div className="fixed left-0 top-0 z-50 flex h-full w-full items-center justify-center bg-gray-800 bg-opacity-90">
                         <div
@@ -338,7 +432,7 @@ export function Checkout({
                                 <button
                                     onClick={() => {
                                         setIsModalOpen(false);
-                                        window.location.href = '/homes'
+                                        window.location.href = "/homes";
                                     }}
                                     className="mb-2 self-end"
                                 >
@@ -364,7 +458,7 @@ export function Checkout({
                             <button
                                 onClick={() => {
                                     setIsModalOpen(false);
-                                    window.location.href = '/homes'
+                                    window.location.href = "/homes";
                                 }}
                                 className="mt-4 h-10 w-full rounded-lg bg-primary font-bold text-white hover:bg-secondary"
                             >
@@ -438,7 +532,7 @@ export function Checkout({
                     <div className="fixed left-0 top-0 z-50 flex h-full w-full items-center justify-center bg-gray-800 bg-opacity-90">
                         <div className="flex flex-col">
                             <div
-                                className="flex flex-col justify-between rounded-lg bg-white p-4 w-full max-w-4xl"
+                                className="flex w-full max-w-4xl flex-col justify-between rounded-lg bg-white p-4"
                                 style={{ maxHeight: "80vh", overflowY: "auto" }}
                             >
                                 <button
@@ -461,8 +555,8 @@ export function Checkout({
                                             className="underline"
                                         >
                                             info@beachmanagementnosara.com
-                                        </a>
-                                        {" "}so we can finalize your reservation.
+                                        </a>{" "}
+                                        so we can finalize your reservation.
                                     </span>
                                 )}
                             </div>

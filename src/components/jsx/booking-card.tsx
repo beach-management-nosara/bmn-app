@@ -171,7 +171,7 @@ export function BookingCard({ slug }: { slug: string }) {
                             placeholder="Guests"
                             type="number"
                             max={room?.max_people}
-                            value={guests}
+                            value={guests ?? 1}
                             onChange={event => {
                                 const value = event.target.value;
                                 if (value === "") {

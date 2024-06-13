@@ -14,10 +14,12 @@ export const navBarlinks = [
     { name: "CONTACT US", href: "/contact" }
 ];
 
-export function formatCurrency(amount: number) {
+export function formatCurrency(amount: number, centsDigits = 0) {
     return new Intl.NumberFormat("en-US", {
         style: "currency",
-        currency: "USD"
+        currency: "USD",
+        minimumFractionDigits: centsDigits,
+        maximumFractionDigits: centsDigits
     }).format(amount);
 }
 

@@ -14,7 +14,7 @@ type FormError = "" | "required" | "invalid";
 
 export function BookingCard({ slug }: { slug: string }) {
     const [range, setRange] = useState<DateRange>({ from: undefined, to: undefined });
-    const [guests, setGuests] = useState<number>();
+    const [guests, setGuests] = useState<number | undefined>(2);
     const [status, setStatus] = useState<Status>("");
     const [formError, setFormError] = useState<FormError>("");
     const [rangeError, setRangeError] = useState<boolean>(false); // State for range error

@@ -150,8 +150,8 @@ export const SearchBox = ({
         const property = properties?.find(property => property.id === propertyId);
         if (property) {
             setChosenProperty(property);
-            if (next) { handleSearch() }
         }
+        if (next) { handleSearch() }
 
     }, [properties, chosenProperty]);
 

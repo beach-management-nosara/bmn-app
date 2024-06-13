@@ -180,7 +180,12 @@ export function Checkout({
             );
 
             if (!response.ok) {
-                throw new Error("Failed to fetch quote");
+                // this is probably caused by arrival dates being on a specific day only
+                // it cannot be fixed using the public API for now
+                // https://docs.lodgify.com/discuss/64f091d6475509000b901cf9
+                setStatus("error")
+
+                return
             }
 
             const quoteData = (await response.json()) as { data: QuoteDataSimple };
@@ -188,8 +193,8 @@ export function Checkout({
             if (quoteData.data) {
                 setQuote(quoteData.data);
             }
-
             setQuoteLoading(false)
+
         } catch (error) {
             console.error("Error fetching quote:", error);
         }
@@ -252,6 +257,11 @@ export function Checkout({
                 <h2 className="mb-4 border-b pb-4 text-xl font-bold">Booking summary</h2>
 
                 <div className="mb-4 border-b pb-4">
+                    {quoteLoading ? <>
+                        <div className="h-4 w-12 animate-pulse rounded bg-gray-200 mb-2" />
+                        <div className="h-4 w-32 animate-pulse rounded bg-gray-200 mb-2" />
+                        <div className="h-4 w-16 animate-pulse rounded bg-gray-200" />
+                    </> : null}
                     <ul className="mt-2 list-disc text-gray-700">
                         {quote?.room_type.price_types
                             .filter((priceType: PriceType) => priceType.subtotal > 0)
@@ -505,17 +515,17 @@ export function Checkout({
                 </div>
                 <div className="mb-6">
                     <h3 className="text-xl font-semibold">Security deposit policy</h3>
-                    <p className="mt-2 text-gray-600">
+                    <div className="mt-2 text-gray-600">
                         {quoteLoading ?
                             <>
                                 <div className="h-4 w-12 animate-pulse rounded bg-gray-200 mb-2" />
                                 <div className="h-4 w-32 animate-pulse rounded bg-gray-200" />
                             </> :
-                            (quote?.security_deposit_text ??
-                                `A pre-authorization is held before arrival and voided after departure. 
-                            You will receive more details in your email shortly after requesting to book`) + "."
+                            <p>{(quote?.security_deposit_text ??
+                                `A pre-authorization is held before arrival and voided after departure.
+                                You will receive more details in your email shortly after requesting to book`) + "."}</p>
                         }
-                    </p>
+                    </div>
                 </div>
                 <div className="mb-4">
                     <input
@@ -585,6 +595,6 @@ export function Checkout({
                     </div>
                 )}
             </div>
-        </div>
+        </div >
     );
 }

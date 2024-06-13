@@ -49,7 +49,8 @@ export const GET: APIRoute = async ({ request }) => {
 
     const quoteDataSimple = {
         total_scheduled_payments: quoteData[0].total_scheduled_payments,
-        room_type: quoteData[0].room_types[0]
+        room_type: quoteData[0].room_types[0],
+        security_deposit_text: quoteData[0].security_deposit_text
     };
 
     return new Response(JSON.stringify({ data: quoteDataSimple, success: true }), {

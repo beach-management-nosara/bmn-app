@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { LoaderCircle, Users, } from "lucide-react";
+import { LoaderCircle, Users } from "lucide-react";
 
 import DateRangePicker from "./day-picker";
 import { usePropertyDetails } from "@/hooks/usePropertyDetails";
@@ -21,33 +21,38 @@ export function BookingCard({ slug }: { slug: string }) {
 
     const { toast } = useToast();
 
-    const { property, room, rate, isLoading: rateLoading } = usePropertyDetails(slug, range.from, range.to);
+    const {
+        property,
+        room,
+        rate,
+        isLoading: rateLoading
+    } = usePropertyDetails(slug, range.from, range.to);
 
     const handleSearch = async () => {
         if (!range.from || !range.to) {
             setFormError("required");
             toast({
-                title: "Uh oh! Date range incomplete",
+                title: "Uh oh! Date range incomplete"
             });
-            return
+            return;
         }
 
         if (!guests) {
             setFormError("required");
             toast({
-                title: "Uh oh! Select a number of guests",
+                title: "Uh oh! Select a number of guests"
             });
-            return
+            return;
         }
 
-        setFormError("")
+        setFormError("");
 
         const periodStart = formatToApiDate(range.from);
         const periodEnd = formatToApiDate(range.to);
 
         if (periodStart === "Invalid Date" || periodEnd === "Invalid date") {
             toast({
-                title: "Uh oh! Invalid date",
+                title: "Uh oh! Invalid date"
             });
             throw new Error("Invalid Date");
         }
@@ -75,13 +80,18 @@ export function BookingCard({ slug }: { slug: string }) {
                 period => period.available === 1
             );
 
-
             if (allAvailable && property?.id != null) {
                 const url = `/checkout?propertyId=${property?.id}&periodStart=${encodeURIComponent(periodStart)}&periodEnd=${encodeURIComponent(periodEnd)}&guests=${guests}`;
                 window.location.href = url;
+                setStatus("success");
+            } else {
+                setStatus("error");
+                toast({
+                    title: "Uh oh! The property is not available on these dates"
+                });
+                return
             }
 
-            setStatus("success");
         } catch (error) {
             setStatus("error");
             console.error("Failed to confirm availability", error);
@@ -91,8 +101,8 @@ export function BookingCard({ slug }: { slug: string }) {
     useEffect(() => {
         // Get the search parameters from the URL
         const searchParams = new URLSearchParams(window.location.search);
-        const periodStartString = searchParams.get('periodStart');
-        const periodEndString = searchParams.get('periodEnd');
+        const periodStartString = searchParams.get("periodStart");
+        const periodEndString = searchParams.get("periodEnd");
 
         // Convert the strings to Date objects
         const periodStartDate = periodStartString ? new Date(periodStartString) : undefined;
@@ -102,9 +112,8 @@ export function BookingCard({ slug }: { slug: string }) {
         setRange({ from: periodStartDate, to: periodEndDate });
     }, []);
 
-
     useEffect(() => {
-        if (!range.to || !range.from || !rate?.min_stay) return
+        if (!range.to || !range.from || !rate?.min_stay) return;
 
         const differenceInTime = range.to.getTime() - range.from.getTime();
         const differenceInDays = differenceInTime / (1000 * 3600 * 24);
@@ -129,18 +138,25 @@ export function BookingCard({ slug }: { slug: string }) {
 
                 <div className="border-b pb-4">
                     <span className="text-xl font-bold text-primary">
-                        <span className="text-sm text-muted">{(!range.from || !range.to) ? "FROM" : "PRICE"} </span>
-                        <span className="text-sm">{property?.currency_code}{" "}</span>
+                        <span className="text-sm text-muted">
+                            {!range.from || !range.to ? "FROM" : "PRICE"}{" "}
+                        </span>
+                        <span className="text-sm">{property?.currency_code} </span>
 
-                        {!rate?.price || rangeError ? <div className="inline-block animate-pulse bg-gray-200 w-16 rounded h-4" /> : <span>{Math.round(rate.price)}</span>}
+                        {!rate?.price || rangeError ? (
+                            <div className="inline-block h-4 w-16 animate-pulse rounded bg-gray-200" />
+                        ) : (
+                            <span>{Math.round(rate.price)}</span>
+                        )}
 
-                        {(!range.from || !range.to) ?
-                            (<>
-                                <span>{" "} / {" "}</span>
-                                < span className="text-sm">
-                                    week
-                                </span>
-                            </>) : ""}
+                        {!range.from || !range.to ? (
+                            <>
+                                <span> / </span>
+                                <span className="text-sm">week</span>
+                            </>
+                        ) : (
+                            ""
+                        )}
                     </span>
                 </div>
 
@@ -184,16 +200,15 @@ export function BookingCard({ slug }: { slug: string }) {
                                 }
                             }}
                         />
-
                     </div>
                 </div>
 
                 <button
                     onClick={handleSearch}
-                    className="mt-4 h-10 w-full rounded-lg bg-primary font-bold text-white text-center hover:bg-secondary disabled:bg-gray-400 flex items-center justify-center"
+                    className="mt-4 flex h-10 w-full items-center justify-center rounded-lg bg-primary text-center font-bold text-white hover:bg-secondary disabled:bg-gray-400"
                     disabled={status === "loading" || rangeError || rateLoading}
                 >
-                    {rateLoading ? <LoaderCircle className="animate-spin h-4" /> : <span>Confirm dates</span>}
+                    {rateLoading ? <LoaderCircle className="h-4 animate-spin" /> : "Confirm dates"}
                 </button>
                 {formError === "required" && (
                     <p>
@@ -203,7 +218,8 @@ export function BookingCard({ slug }: { slug: string }) {
                 {status === "error" && (
                     <p>
                         <small className="text-red-400">
-                            There was an error confirming availability, please try again or contact us at{" "}
+                            There was an error confirming availability, please try again with different dates or contact
+                            us at{" "}
                             <a href="mailto:info@beachmanagementnosara.com" className="underline">
                                 info@beachmanagementnosara.com
                             </a>

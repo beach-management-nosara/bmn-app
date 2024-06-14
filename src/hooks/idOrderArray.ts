@@ -30,7 +30,7 @@ export const idsInOrder = [
     531672, // Casita IVY
     539969, // Casa Calmate
     277895, // Casa Paco Main House, long term rental available
-    343324, // Paco Studio
     581304, // Casa Chiara
-    581332 // Casa Daria
+    581332, // Casa Daria
+    343324 // Paco Studio
 ];

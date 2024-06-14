@@ -16,6 +16,11 @@ function errorResponse(message: string) {
     });
 }
 
+function subtractOneDay(date: Date) {
+    date.setDate(date.getDate() - 1);
+    return date;
+}
+
 export const GET: APIRoute = async ({ params, request }) => {
     if (!params.slug) return errorResponse("No slug provided");
 
@@ -54,7 +59,7 @@ export const GET: APIRoute = async ({ params, request }) => {
     // Fetch rates data
     const now = new Date();
     const startDate = periodStart ? new Date(periodStart) : now;
-    const endDate = periodEnd ? new Date(periodEnd) : now;
+    const endDate = periodEnd ? subtractOneDay(new Date(periodEnd)) : now;
 
     const ratesRes = await fetch(
         BASE_URL +

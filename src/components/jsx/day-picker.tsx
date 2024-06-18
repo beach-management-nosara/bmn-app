@@ -38,6 +38,8 @@ function DateRangePicker({
         if (!selectedRange || !selectedRange.from) return;
 
         if (selectedRange.from && selectedRange.to) {
+            // reset the selection after the third click
+            setRange({ from: undefined, to: undefined });
             // Validate range only after to has been selected
             if (!isRangeValid(selectedRange.from, selectedRange.to, unavailableDays)) {
                 return;

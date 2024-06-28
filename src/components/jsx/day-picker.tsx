@@ -37,13 +37,10 @@ function DateRangePicker({
         if (setPropertyUnavailable) setPropertyUnavailable(false);
         if (!selectedRange || !selectedRange.from) return;
 
-        if (selectedRange.from && selectedRange.to) {
-            // reset the selection after the third click
+        // If both from and to dates are set, reset the range and start a new one
+        if (range.from && range.to) {
             setRange({ from: undefined, to: undefined });
-            // Validate range only after to has been selected
-            if (!isRangeValid(selectedRange.from, selectedRange.to, unavailableDays)) {
-                return;
-            }
+            return;
         }
 
         const newRange: DateRange = {
@@ -54,10 +51,11 @@ function DateRangePicker({
         setRange(newRange);
 
         if (selectedRange.to && selectedRange.from) {
+            if (!isRangeValid(selectedRange.from, selectedRange.to, unavailableDays)) {
+                return;
+            }
             // Get the current search parameters from the URL
             const searchParams = new URLSearchParams(window.location.search);
-
-            // Set the propertyId parameter
             searchParams.set("periodStart", formatToApiDate(selectedRange.from));
             searchParams.set("periodEnd", formatToApiDate(selectedRange.to));
 

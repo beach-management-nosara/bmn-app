@@ -1,18 +1,11 @@
 import { useEffect, useState } from "react";
-import {
-    LoaderCircle,
-    Mail,
-    Phone,
-    UserRound,
-    Users,
-    XIcon,
-    Calendar as CalendarIco
-} from "lucide-react";
+import { LoaderCircle, Mail, Phone, UserRound, Users, XIcon } from "lucide-react";
 
 import { useToast } from "@/components/ui/use-toast";
 import { usePropertyDetails } from "@/hooks/usePropertyDetails";
 import { formatCurrency, formatToApiDate, validateEmail } from "@/lib/utils";
 import type { AvailabilityData, DateRange, PriceType, RoomType } from "@/types";
+import DateRangePicker from "./day-picker";
 
 import { Input } from "../ui/input";
 import { SomethingWrongPage } from "./something-wrong";
@@ -88,10 +81,9 @@ export function Checkout({
         if (periodStart === "Invalid Date" || periodEnd === "Invalid date") {
             setErrorMessage("Invalid date");
             toast({
-                title: "Uh oh! Invalid date",
+                title: "Uh oh! Invalid date"
             });
             throw new Error("Invalid Date");
-
         }
 
         try {
@@ -159,7 +151,7 @@ export function Checkout({
     };
 
     const fetchQuote = async () => {
-        setQuoteLoading(true)
+        setQuoteLoading(true);
         if (!range.from || !range.to || !room?.id) return;
 
         const arrival = formatToApiDate(range.from);
@@ -183,9 +175,9 @@ export function Checkout({
                 // this is probably caused by arrival dates being on a specific day only
                 // it cannot be fixed using the public API for now
                 // https://docs.lodgify.com/discuss/64f091d6475509000b901cf9
-                setStatus("error")
+                setStatus("error");
 
-                return
+                return;
             }
 
             const quoteData = (await response.json()) as { data: QuoteDataSimple };
@@ -193,8 +185,7 @@ export function Checkout({
             if (quoteData.data) {
                 setQuote(quoteData.data);
             }
-            setQuoteLoading(false)
-
+            setQuoteLoading(false);
         } catch (error) {
             console.error("Error fetching quote:", error);
         }
@@ -257,43 +248,46 @@ export function Checkout({
                 <h2 className="mb-4 border-b pb-4 text-xl font-bold">Booking summary</h2>
 
                 <div className="mb-4 border-b pb-4">
-                    {quoteLoading ? <>
-                        <div className="h-4 w-12 animate-pulse rounded bg-gray-200 mb-2" />
-                        <div className="h-4 w-32 animate-pulse rounded bg-gray-200 mb-2" />
-                        <div className="h-4 w-16 animate-pulse rounded bg-gray-200" />
-                    </> : null}
-                    <ul className="mt-2 list-disc text-gray-700">
-                        {quote?.room_type.price_types
-                            .filter((priceType: PriceType) => priceType.subtotal > 0)
-                            .map((priceType: PriceType) => (
-                                <li
-                                    key={priceType.type}
-                                    className="flex list-none flex-col justify-between pb-4"
-                                >
-                                    <div className="flex justify-between">
-                                        <p className="flex-1">{priceType.description}</p>
-                                        <span className="flex-1 text-right">
-                                            {formatCurrency(priceType.subtotal, 2)}
-                                        </span>
-                                    </div>
-                                    {priceType.type !== 0 && priceType.prices.length > 0 && (
-                                        <ul className="ml-4 mt-1 list-disc text-gray-400">
-                                            {priceType.prices.map(fee => (
-                                                <li
-                                                    key={fee.uid}
-                                                    className="flex list-none justify-between"
-                                                >
-                                                    <p className="flex-1">{fee.description}</p>
-                                                    <span className="flex-1 text-right">
-                                                        {formatCurrency(fee.amount, 2)}
-                                                    </span>
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    )}
-                                </li>
-                            ))}
-                    </ul>
+                    {quoteLoading || !(range.from && range.to) ? (
+                        <div className="mb-2">
+                            <div className="mb-2 h-4 w-12 animate-pulse rounded bg-gray-200" />
+                            <div className="mb-2 h-4 w-32 animate-pulse rounded bg-gray-200" />
+                            <div className="h-4 w-16 animate-pulse rounded bg-gray-200" />
+                        </div>
+                    ) : (
+                        <ul className="mt-2 list-disc text-gray-700">
+                            {quote?.room_type.price_types
+                                .filter((priceType: PriceType) => priceType.subtotal > 0)
+                                .map((priceType: PriceType) => (
+                                    <li
+                                        key={priceType.type}
+                                        className="flex list-none flex-col justify-between pb-4"
+                                    >
+                                        <div className="flex justify-between">
+                                            <p className="flex-1">{priceType.description}</p>
+                                            <span className="flex-1 text-right">
+                                                {formatCurrency(priceType.subtotal, 2)}
+                                            </span>
+                                        </div>
+                                        {priceType.type !== 0 && priceType.prices.length > 0 && (
+                                            <ul className="ml-4 mt-1 list-disc text-gray-400">
+                                                {priceType.prices.map(fee => (
+                                                    <li
+                                                        key={fee.uid}
+                                                        className="flex list-none justify-between"
+                                                    >
+                                                        <p className="flex-1">{fee.description}</p>
+                                                        <span className="flex-1 text-right">
+                                                            {formatCurrency(fee.amount, 2)}
+                                                        </span>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        )}
+                                    </li>
+                                ))}
+                        </ul>
+                    )}
 
                     <div className="border-b" />
 
@@ -301,7 +295,7 @@ export function Checkout({
                         <span className="text-sm text-muted">TOTAL</span>
                         <span>
                             <span className="text-sm">{property?.currency_code} </span>
-                            {!quote?.total_scheduled_payments || rangeError ? (
+                            {!quote?.total_scheduled_payments || rangeError || !(range.from && range.to) ? (
                                 <div className="inline-block h-4 w-16 animate-pulse rounded bg-gray-200" />
                             ) : (
                                 <span>{formatCurrency(quote.total_scheduled_payments)}</span>
@@ -325,37 +319,13 @@ export function Checkout({
                     </p>
                 )}
 
-                <div className="mb-4 flex grow">
-                    <div className={"flex grow flex-col gap-2"}>
-                        <div className="flex flex-col gap-2">
-                            <div className="flex items-center gap-2">
-                                <CalendarIco size={20} />
-                                <p>Check In</p>
-                            </div>
-                        </div>
-                        <button
-                            className={
-                                "h-10 w-full rounded-l border px-2 py-2 text-left text-sm text-muted"
-                            }
-                            disabled
-                        >
-                            {range.from ? range.from.toLocaleDateString() : "Add start date"}
-                        </button>
-                    </div>
-
-                    <div className="flex grow flex-col gap-2">
-                        <div className="flex items-center gap-2">
-                            <CalendarIco size={20} />
-                            <p>Check Out</p>
-                        </div>
-
-                        <button
-                            disabled
-                            className={`h-10 w-full rounded-r border px-2 py-2 text-left text-sm text-muted`}
-                        >
-                            {range.to ? range.to.toLocaleDateString() : "Add end date"}
-                        </button>
-                    </div>
+                <div className={!rangeError ? "py-6" : ""}>
+                    <DateRangePicker
+                        propertyId={property?.id}
+                        range={range}
+                        setRange={setRange}
+                        className="top absolute z-10 bg-white"
+                    />
                 </div>
 
                 <div className="flex flex-col gap-4">
@@ -516,15 +486,19 @@ export function Checkout({
                 <div className="mb-6">
                     <h3 className="text-xl font-semibold">Security deposit policy</h3>
                     <div className="mt-2 text-gray-600">
-                        {quoteLoading ?
+                        {quoteLoading ? (
                             <>
-                                <div className="h-4 w-12 animate-pulse rounded bg-gray-200 mb-2" />
+                                <div className="mb-2 h-4 w-12 animate-pulse rounded bg-gray-200" />
                                 <div className="h-4 w-32 animate-pulse rounded bg-gray-200" />
-                            </> :
-                            <p>{(quote?.security_deposit_text ??
-                                `A pre-authorization is held before arrival and voided after departure.
-                                You will receive more details in your email shortly after requesting to book`) + "."}</p>
-                        }
+                            </>
+                        ) : (
+                            <p>
+                                {(quote?.security_deposit_text ??
+                                    `A pre-authorization is held before arrival and voided after departure.
+                                You will receive more details in your email shortly after requesting to book`) +
+                                    "."}
+                            </p>
+                        )}
                     </div>
                 </div>
                 <div className="mb-4">
@@ -595,6 +569,6 @@ export function Checkout({
                     </div>
                 )}
             </div>
-        </div >
+        </div>
     );
 }

@@ -16,13 +16,15 @@ function DateRangePicker({
     propertyId,
     range,
     setRange,
-    setPropertyUnavailable
+    setPropertyUnavailable,
+    className
 }: {
     direction?: "horizontal" | "vertical";
     propertyId?: string;
     range: DateRange;
     setRange: (range: DateRange) => void;
     setPropertyUnavailable?: (value: boolean) => void;
+    className?: string
 }) {
     const [isCalendarOpen, setCalendarOpen] = useState(false);
     const calendarRef = useRef<HTMLDivElement>(null);
@@ -152,7 +154,7 @@ function DateRangePicker({
 
     return (
         <div
-            className={`relative flex grow gap-4 ${direction === "vertical" ? "w-full flex-col" : "flex-col md:w-2/3 md:flex-row md:items-end"}`}
+            className={`relative flex grow gap-4 w-full ${direction === "vertical" ? "flex-col" : "flex-col md:flex-row md:items-end"}`}
             ref={calendarRef}
         >
             <div className={`flex grow ${direction === "vertical" ? "flex-col" : "md:w-1/2"}`}>
@@ -194,9 +196,10 @@ function DateRangePicker({
                         mode="range"
                         selected={range}
                         onSelect={handleSelect}
-                        className="rounded shadow"
+                        className={`rounded shadow ${className}`}
                         disabled={unavailableDays}
                         fromMonth={currentMonth}
+                    // footer={range.from && range.to && <small className="text-primary">Click another date to clear selection</small>}
                     />
                 </div>
             )}

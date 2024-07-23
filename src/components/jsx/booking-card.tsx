@@ -3,7 +3,7 @@ import { LoaderCircle, Users } from "lucide-react";
 
 import DateRangePicker from "./day-picker";
 import { usePropertyDetails } from "@/hooks/usePropertyDetails";
-import { formatToApiDate, validateEmail } from "@/lib/utils";
+import { formatToApiDate } from "@/lib/utils";
 import type { AvailabilityData, DateRange } from "@/types";
 
 import { Input } from "../ui/input";

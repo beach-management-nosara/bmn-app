@@ -1,6 +1,6 @@
 ---
 import ViewTransitions from "astro/components/ViewTransitions.astro";
-import { initializeHotjar } from "../../scripts/hotjar";
+import Hotjar from "../jsx/hotjar";
 
 interface Props {
     title: string;
@@ -9,9 +9,6 @@ interface Props {
 }
 
 const { title, description } = Astro.props as Props;
-
-// Initialize Hotjar
-initializeHotjar(5068658, 6);
 ---
 
 <head>
@@ -55,4 +52,7 @@ initializeHotjar(5068658, 6);
 
     <!-- Astro ViewTransitions -->
     <ViewTransitions />
+
+    <!-- scripts -->
+    <Hotjar client:only="react" />
 </head>

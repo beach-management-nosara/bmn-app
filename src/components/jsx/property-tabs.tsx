@@ -89,7 +89,7 @@ export function PropertyDetailsTabs({ data }: PropertyDetailsTabsProps) {
     };
 
     return (
-        <Tabs defaultValue="amenities" className="mt-4">
+        <Tabs defaultValue="amenities" className="my-4">
             <TabsList className="grid h-min w-full grid-cols-3 gap-3 bg-gray-200 p-2.5">
                 <TabsTrigger
                     value="amenities"

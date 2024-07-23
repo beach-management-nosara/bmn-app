@@ -32,7 +32,7 @@ function PropertyCard({ property }: { property: Property }) {
     const { rate } = usePropertyDetails(property.id.toString());
 
     const [range, setRange] = useState<DateRange>({ from: undefined, to: undefined });
-    const { id, image_url, name, address, currency_code, min_price, rating } = property;
+    const { id, image_url, name, address, currency_code, rating } = property;
     const imageUrl = "https:" + image_url;
 
     useEffect(() => {

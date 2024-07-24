@@ -40,6 +40,7 @@ const ReviewCard = ({ review }: { review: Review }) => (
 const Reviews = ({ propertyId }: { propertyId: string }) => {
     const [reviews, setReviews] = useState<Review[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
+    const [showAll, setShowAll] = useState<boolean>(false);
 
     useEffect(() => {
         const fetchReviews = async () => {
@@ -69,28 +70,52 @@ const Reviews = ({ propertyId }: { propertyId: string }) => {
     }, [propertyId]);
 
     if (loading) {
-        return <div className="mb-2">
-            <div className="mb-2 h-4 w-12 animate-pulse rounded bg-gray-200" />
-            <div className="mb-2 h-4 w-32 animate-pulse rounded bg-gray-200" />
-            <div className="h-4 w-16 animate-pulse rounded bg-gray-200" />
-        </div>;
+        return (
+            <div className="mb-2">
+                <div className="mb-2 h-4 w-12 animate-pulse rounded bg-gray-200" />
+                <div className="mb-2 h-4 w-32 animate-pulse rounded bg-gray-200" />
+                <div className="h-4 w-16 animate-pulse rounded bg-gray-200" />
+            </div>
+        );
     }
 
     return (
         <>
-            {reviews.length > 1 ? (
+            {reviews.length > 0 && (
                 <>
                     <div className="border-b" />
                     <div className="mx-6 mt-4">
                         <h2 className="mb-4 text-2xl font-bold">Reviews</h2>
-
-                        {reviews.map(review => (
-                            <ReviewCard key={review.reviewDate + review.author} review={review} />
-                        ))}
-                    </div>{" "}
+                        <div className="md:hidden">
+                            {reviews.slice(0, showAll ? reviews.length : 1).map((review, index) => (
+                                <ReviewCard
+                                    key={review.reviewDate + review.stayDate + index}
+                                    review={review}
+                                />
+                            ))}
+                            {reviews.length > 1 && !showAll && (
+                                <div className="flex items-center space-x-4">
+                                    <div className="flex-grow border-b" />
+                                    <button
+                                        className="text-blue-500 hover:underline"
+                                        onClick={() => setShowAll(true)}
+                                    >
+                                        Show more
+                                    </button>
+                                    <div className="flex-grow border-b" />
+                                </div>
+                            )}
+                        </div>
+                        <div className="hidden md:block">
+                            {reviews.map((review, index) => (
+                                <ReviewCard
+                                    key={review.reviewDate + review.stayDate + index}
+                                    review={review}
+                                />
+                            ))}
+                        </div>
+                    </div>
                 </>
-            ) : (
-                <></>
             )}
         </>
     );

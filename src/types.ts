@@ -90,3 +90,22 @@ export interface QuoteData {
     security_deposit_text: string;
     is_verification: boolean;
 }
+
+export interface Review {
+    type: string;
+    reviewDate: string;
+    author: string;
+    authorLocation?: string;
+    rating: number;
+    title: string;
+    ownerComment?: string;
+    ownerCommentDate?: string;
+    guestType: string;
+    stayDate: string;
+    text: string;
+}
+
+export interface ReviewsResponse {
+    rating: number;
+    reviews: Review[];
+}

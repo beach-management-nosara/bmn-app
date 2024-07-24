@@ -5,6 +5,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { usePropertyDetails } from "@/hooks/usePropertyDetails";
 import type { PropertyData } from "@/types";
 import { PropertyDetailsTabs } from "./property-tabs";
+import Reviews from "./reviews";
 
 interface PropertyDetailsProps {
     slug: string;
@@ -84,6 +85,8 @@ export function PropertyDetails({ slug }: PropertyDetailsProps) {
             <div className="h-1 w-full border-t border-gray-300"></div>
 
             {room && <PropertyDetailsTabs data={room as PropertyData} />}
+
+            <Reviews propertyId={slug} />
         </div>
     );
 }

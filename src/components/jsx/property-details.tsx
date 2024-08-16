@@ -82,7 +82,21 @@ export function PropertyDetails({ slug }: PropertyDetailsProps) {
                 </div>
             </div>
 
-            <div className="h-1 w-full border-t border-gray-300"></div>
+            <div className="h-1 w-full border-t border-gray-300" />
+
+            <div className="my-4">
+                {property?.videoUrl ? (
+                    <iframe
+                        width="100%"
+                        height="400"
+                        src={property.videoUrl}
+                        title="Property Video"
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                    />
+                ) : null}
+            </div>
 
             {room && <PropertyDetailsTabs data={room as PropertyData} />}
 

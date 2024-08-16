@@ -34,3 +34,8 @@ export const idsInOrder = [
     581332, // Casa Daria
     343324 // Paco Studio
 ];
+
+export const videoUrls: Record<number, string> = {
+    439129: "https://www.youtube.com/embed/dHTySH3ky-U?si=SCojby0hCEXsPKI5"
+    // Add other property IDs and their video URLs here...
+};

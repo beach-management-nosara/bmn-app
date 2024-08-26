@@ -20,7 +20,7 @@ export function PropertyDetails({ slug }: PropertyDetailsProps) {
 
     return (
         <>
-            <section className="relative h-[60vh] overflow-hidden">
+            <section className="relative h-[60vh] lg:h-[40vh] overflow-hidden">
                 <div className="absolute inset-0">
                     <div className={cn("h-full w-full bg-gray-400", !room?.image_url && "animate-pulse")}>
                         {property?.image_url && (
@@ -54,7 +54,7 @@ export function PropertyDetails({ slug }: PropertyDetailsProps) {
                             )
                         }
 
-                        <div className="flex flex-col gap-10 md:flex-row mt-4">
+                        <div className="flex gap-10 mt-4">
                             <div className="flex items-center gap-2">
                                 <UsersIcon className="text-white size-6" />
                                 {isLoading ? (
@@ -90,12 +90,26 @@ export function PropertyDetails({ slug }: PropertyDetailsProps) {
                 <MaxWidthContainer>
                     <div className="grid grid-cols-1 md:grid-cols-3">
                         <div className="w-full col-span-2">
+                            <div className="my-4">
+                                {property?.videoUrl ? (
+                                    <iframe
+                                        width="100%"
+                                        height="400"
+                                        src={property.videoUrl}
+                                        title="Property Video"
+                                        frameBorder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowFullScreen
+                                    />
+                                ) : null}
+                            </div>
                             {room && <PropertyDetailsTabs data={room as PropertyData} />}
                         </div>
                         <BookingCard slug={slug} />
                     </div>
                 </MaxWidthContainer>
             </section>
+            <div className="h-1 w-full border-t border-gray-300" />
 
             <section id="reviews" className="py-10">
                 <MaxWidthContainer>

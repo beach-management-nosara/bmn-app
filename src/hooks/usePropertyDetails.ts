@@ -3,6 +3,7 @@ import { useMemo } from "react";
 import { fetcher } from "@/lib/fetcher";
 import type { PropertyData } from "@/types";
 import { formatToApiDate } from "@/lib/utils";
+import { videoUrls } from "./idOrderArray";
 
 const DEV = import.meta.env.DEV;
 const BASE_URL = DEV ? "http://localhost:4321" : import.meta.env.SITE;
@@ -45,8 +46,16 @@ export function usePropertyDetails(slug: string, startDate?: Date, endDate?: Dat
         fetcher
     );
 
+    // Get the video URL based on the property ID
+    const videoUrl = useMemo(() => {
+        if (data?.property?.id) {
+            return videoUrls[parseInt(data.property.id)];
+        }
+        return null;
+    }, [data?.property?.id]);
+
     return {
-        property: data?.property,
+        property: { ...data?.property, videoUrl },
         room: data?.rooms,
         rate: data?.rate,
         success: data?.success,

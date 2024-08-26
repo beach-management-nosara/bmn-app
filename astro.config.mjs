@@ -5,20 +5,17 @@ import sitemap from "@astrojs/sitemap";
 import robotsTxt from "astro-robots-txt";
 import netlify from "@astrojs/netlify";
 
-import db from "@astrojs/db";
-
 // https://astro.build/config
 export default defineConfig({
-    site: "https://beachmanagementnosara.com",
-    // site: 'https://beach-management-nosara.netlify.app',
+    // site: "https://beachmanagementnosara.com",
+    site: "bmn-new.netlify.app",
     integrations: [
         tailwind({
             applyBaseStyles: false
         }),
         react(),
         sitemap(),
-        robotsTxt(),
-        db()
+        robotsTxt()
     ],
     output: "hybrid",
     adapter: netlify(),

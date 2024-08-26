@@ -6,9 +6,14 @@
 /* Primary: #009ba7 */
 /* Secondary: #112542 */
 
+/* NEW DESIGN COLOR PALETTE */
+/* Background: #0B1D26 -> hsl(200, 55%, 10%) */
+/* Primary: #009BA7 -> hsl(184, 100%, 33%) */
+/* Secondary: #FBD784 -> hsl(42, 94%, 75%) */
+
 @layer base {
     :root {
-        --background: 0 0% 100%;
+        --background: 200 55% 10%;
         --foreground: 222.2 84% 4.9%;
 
         --card: 0 0% 100%;
@@ -20,7 +25,7 @@
         --primary: 184 100% 33%;
         --primary-foreground: 210 40% 98%;
 
-        --secondary: 216 59% 16%;
+        --secondary: 42 94% 75%;
         --secondary-foreground: 184 100% 33%;
 
         --muted: 0 0% 36.86%;
@@ -36,7 +41,7 @@
         --input: 214.3 31.8% 91.4%;
         --ring: 222.2 84% 4.9%;
 
-        --radius: 0.5rem;
+        --radius: 0.75rem;
     }
 }
 
@@ -44,8 +49,16 @@
     * {
         @apply border-border;
     }
+
+    html {
+        scrollbar-width: auto;
+        scrollbar-gutter: stable;
+        font-display: swap;
+    }
+
     body {
         @apply bg-background text-foreground;
+        overflow-y: scroll;
     }
 }
 
@@ -59,5 +72,13 @@
             transform: translateY(0);
             opacity: 1;
         }
+    }
+
+    .clip-path-triangle {
+        clip-path: polygon(18% 0, 100% 0, 100% 100%, 0% 100%);
+    }
+
+    .clip-path-triangle-inverse {
+        clip-path: polygon(0 0, 100% 0, 82% 100%, 0% 100%);
     }
 }

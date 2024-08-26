@@ -9,11 +9,18 @@ import db from "@astrojs/db";
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://beachmanagementnosara.com',
-  // site: 'https://beach-management-nosara.netlify.app',
-  integrations: [tailwind({
-    applyBaseStyles: false
-  }), react(), sitemap(), robotsTxt(), db()],
-  output: "hybrid",
-  adapter: netlify()
+    site: "https://beachmanagementnosara.com",
+    // site: 'https://beach-management-nosara.netlify.app',
+    integrations: [
+        tailwind({
+            applyBaseStyles: false
+        }),
+        react(),
+        sitemap(),
+        robotsTxt(),
+        db()
+    ],
+    output: "hybrid",
+    adapter: netlify(),
+    prefetch: true
 });

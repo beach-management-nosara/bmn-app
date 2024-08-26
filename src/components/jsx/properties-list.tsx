@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ChevronRightIcon, MapPinIcon, StarIcon } from "lucide-react";
+import { ChevronRightIcon, MapPinIcon } from "lucide-react";
 
 import { Skeleton } from "@/components/ui/skeleton";
 

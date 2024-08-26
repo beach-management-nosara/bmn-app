@@ -1,4 +1,4 @@
-import { BathIcon, BedIcon, MapPinIcon, StarIcon, UsersIcon } from "lucide-react";
+import { BathIcon, BedIcon, MapPinIcon, UsersIcon } from "lucide-react";
 
 import { Skeleton } from "@/components/ui/skeleton";
 

@@ -7,7 +7,7 @@ import { removeHtmlTags } from '@/lib/utils'
 import { PropertyRating } from './property-rating'
 
 export function FeaturedProperties() {
-    const { properties, success, isLoading } = useProperties()
+    const { properties, isLoading } = useProperties()
 
     if (isLoading) {
         return <FeaturedPropertiesSkeleton />

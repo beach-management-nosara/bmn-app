@@ -2,130 +2,202 @@
 import { Image } from "astro:assets";
 
 import MainLayout from "@/layouts/main-layout.astro";
-import ContentSection from "@/components/astro/content-section.astro";
+import MaxWidthContainer from "@/components/astro/max-width-container.astro";
 
-import {
-    bannerImg,
-    home11Img,
-    home5Img,
-    home7Img,
-    pochoteBannerImg,
-    shantapuraBannerImg,
-    terraceHouse21Img,
-    treshermanasBannerImg
-} from "@/assets/images";
+import SectionHeader from "@/components/astro/section-header.astro";
 import { HomeSearchBox } from "@/components/jsx/home-search-box";
+import { FeaturedProperties } from "@/components/jsx/featured-properties";
+import { bannerImg, home11Img, home5Img } from "@/assets/images";
+import Logo2White from "@/components/icons/logo2-white.astro";
 ---
 
 <MainLayout title="Home | Beach Management Nosara">
-    <main class="mx-auto max-w-screen-2xl bg-gray-100">
-        <div class="mb-[350px] flex flex-col items-center md:mb-32">
-            <div class="relative h-[450px] w-full">
-                <Image
-                    src={bannerImg}
-                    alt="hero"
-                    width={662}
-                    height={225}
-                    format="webp"
-                    class="h-[450px] w-full object-cover"
-                />
+    <section id="hero" class="relative h-[90vh] overflow-hidden">
+        <div class="absolute inset-0">
+            <div class="h-full w-full bg-gray-400">
+                <Image src={bannerImg} alt="banner" class="h-full w-full object-cover" />
+            </div>
+            <!-- Overlay 👇 -->
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-black/10">
+            </div>
+        </div>
+        <div
+            class="relative mx-auto flex h-full max-w-2xl flex-col justify-center px-4 text-white sm:px-6 lg:px-8"
+        >
+            <div>
+                <div class="lg:flex lg:items-center">
+                    <div class="hidden border-t border-primary lg:block lg:w-1/5 lg:max-w-[4rem]">
+                    </div>
+                    <span
+                        class="border-b-2 border-primary pb-2 text-sm font-semibold uppercase tracking-widest text-primary lg:ml-4 lg:border-none lg:pb-0"
+                    >
+                        Your Dream Vacation Awaits
+                    </span>
+                </div>
+                <h1 class="my-4 text-pretty text-4xl leading-tight md:text-5xl">
+                    Discover Our Collection Of Luxury Vacation Homes in Nosara, Costa Rica
+                </h1>
+                <div class="mb-32 mt-6 flex justify-center md:mb-0 lg:justify-start">
+                    <a
+                        href="/homes"
+                        class="block transform rounded-lg bg-primary px-6 py-3 text-white transition-all duration-300 hover:scale-[1.02] hover:bg-primary/70"
+                    >
+                        Discover our properties
+                    </a>
+                </div>
+            </div>
+        </div>
 
+        <div
+            class="absolute bottom-0 left-1/2 mx-auto w-full max-w-screen-xl -translate-x-1/2 rounded-lg bg-white p-6 text-foreground shadow-lg"
+        >
+            <HomeSearchBox client:load />
+        </div>
+    </section>
+
+    <section id="sub-hero">
+        <div class="relative">
+            <div class="absolute inset-0">
+                <div class="h-full w-full">
+                    <Image src={bannerImg} alt="banner" class="h-full w-full object-cover" />
+                </div>
+                <!-- Overlay 👇 -->
                 <div
-                    class="absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-50 text-center text-white"
+                    class="absolute inset-0 bg-gradient-to-t from-primary via-primary/80 to-primary/5"
                 >
-                    <h1 class="font-serif text-5xl font-light">Your Dream Vacation Awaits</h1>
-                    <h2 class="font-oswald text-3xl font-light">
-                        Discover our collection of luxury vacation homes in Nosara, Costa Rica
-                    </h2>
-                </div>
-
-                <div class="relative bottom-16 mx-auto w-[90%] md:bottom-20">
-                    <!-- this needs to redirect to the /homes page and pass the dates and/or property id-->
-                    <HomeSearchBox client:load />
                 </div>
             </div>
+            <MaxWidthContainer>
+                <div class="relative z-10 flex flex-col items-center gap-16 py-10 lg:flex-row">
+                    <div>
+                        <Logo2White class="mx-auto size-64" />
+                    </div>
+                    <div class="space-y-3">
+                        <div>
+                            <div class="flex items-center">
+                                <div class="w-1/5 border-t border-secondary lg:max-w-[4rem]"></div>
+                                <span
+                                    class="ml-4 text-base font-semibold uppercase tracking-widest text-secondary"
+                                >
+                                    What we are
+                                </span>
+                            </div>
+                            <h2 class="text-4xl font-semibold">Our reason to be</h2>
+                        </div>
+                        <p class="text-pretty text-xl font-light lg:text-2xl">
+                            At Beach Management, we are dedicated to making your vacation dreams a
+                            reality. Our team is committed to providing you and your family or
+                            travel group with an unforgettable experience that will create lifelong
+                            memories. Select from our exclusive range of luxury homes located in
+                            some of the world's most stunning and secure locations and let us help
+                            you bring your dreams to life!
+                        </p>
+                    </div>
+                </div>
+            </MaxWidthContainer>
         </div>
+    </section>
 
-        <div class="-mt-8 md:container">
-            <ContentSection
-                className="md:px-32"
-                isFirstSection
-                imgRight
-                title="To Beach Management Nosara"
-                description="Your premier source for elite, luxury vacation home rentals and management on the Pacific Coast of Costa Rica. Our top-notch team delivers high-class guest services and professional property management to ensure your ultimate satisfaction. Whether you are a guest, owner, or buyer, we are here to assist you every step of the way. Discover the best selection of vacation homes with Beach Management."
-                link="/homes"
-                linkText="Explore Vacation Homes"
-                imageSrc={home11Img}
-                altText="hero"
-            />
-        </div>
+    <section id="featured-homes">
+        <MaxWidthContainer>
+            <div class="py-20">
+                <SectionHeader subheading>
+                    <Fragment slot="background-text">Featured</Fragment>
+                    <Fragment slot="headline">Discover Out</Fragment>
+                    <Fragment slot="heading">Featured Homes</Fragment>
+                </SectionHeader>
+            </div>
 
-        <ContentSection
-            className="md:px-20"
-            title="Escape to the breathtaking Nosara, Costa Rica."
-            description="Imagine a stunning beach town nestled in the heart of the jungle, surrounded by exotic wildlife and a vibrant multicultural community - that's Nosara. Immerse yourself in nature, enjoy some of the world's most consistent surfing conditions, and create memories that will last a lifetime. With a plethora of amenities and modern comforts, Nosara offers the perfect balance of tranquility and adventure."
-            imageSrc={home5Img}
-            altText="hero"
-        />
+            <FeaturedProperties client:load />
+        </MaxWidthContainer>
+    </section>
 
-        <ContentSection
-            className="md:px-20"
-            imgRight
-            title="Your first visit won't be your last"
-            description="Each of our properties have been handpicked by us and carry their own distinct character and style. Whether you're looking for rustic and authentic or modern and fresh, we're here to help bring your dream vacation to life. We believe that your first visit to one of our properties will be just the beginning of a lifelong relationship. Our clients return year after year, drawn back by the unique charm and comfort of our properties, and reliable guest services throughout their Nosara experience."
-            imageSrc={home7Img}
-            altText="hero"
-        />
-
-        <div class="flex-col items-center bg-white px-8 py-32 text-center md:flex md:px-20">
-            <p class="prose text-primary">Discover our</p>
-            <h1 class="prose mb-6 text-5xl font-bold">Featured homes</h1>
-            <div class="grid grid-cols-2 gap-8 md:grid-cols-4">
-                <div>
-                    <Image
-                        src={treshermanasBannerImg}
-                        alt="Tres Hermanas"
-                        width={241}
-                        height={123}
-                        format="webp"
-                        class="h-32 rounded object-cover shadow"
-                    />
-                    <p class="prose">Tres Hermanas</p>
+    <section id="welcome">
+        <MaxWidthContainer>
+            <div class="flex flex-col-reverse items-center gap-8 py-16 lg:flex-row">
+                <div class="w-full">
+                    <SectionHeader subheading>
+                        <Fragment slot="background-text">Welcome</Fragment>
+                        <Fragment slot="headline">Welcome To</Fragment>
+                        <Fragment slot="heading">Beach Management Nosara</Fragment>
+                    </SectionHeader>
+                    <p class="prose-invert mt-8">
+                        Your premier source for elite, luxury vacation home rentals and management
+                        on the Pacific Coast of Costa Rica. Our top-notch team delivers high-class
+                        guest services and professional property management to ensure your ultimate
+                        satisfaction. Whether you are a guest, owner, or buyer, we are here to
+                        assist you every step of the way. Discover the best selection of vacation
+                        homes with Beach Management.
+                    </p>
+                    <a
+                        href="/homes"
+                        class="mt-4 inline-block border border-secondary px-4 py-2.5 text-secondary"
+                    >
+                        Explore Vacation Homes
+                    </a>
                 </div>
-                <div>
-                    <Image
-                        src={shantapuraBannerImg}
-                        alt="Shanta Pura"
-                        width={241}
-                        height={161}
-                        format="webp"
-                        class="h-32 rounded object-cover shadow"
-                    />
-                    <p class="prose">Shanta Pura</p>
-                </div>
-                <div>
-                    <Image
-                        src={terraceHouse21Img}
-                        alt="Terrace House"
-                        width={241}
-                        height={160}
-                        format="webp"
-                        class="h-32 rounded object-cover shadow"
-                    />
-                    <p class="prose">Terrace House</p>
-                </div>
-                <div>
-                    <Image
-                        src={pochoteBannerImg}
-                        alt="Los Pochotes"
-                        width={241}
-                        height={192}
-                        format="webp"
-                        class="h-32 rounded object-cover shadow"
-                    />
-                    <p class="prose">Los Pochotes</p>
+                <div class="w-full">
+                    <Image src={home11Img} alt="hero" class="lg:clip-path-triangle w-full" />
                 </div>
             </div>
-        </div>
-    </main>
+        </MaxWidthContainer>
+    </section>
+
+    <section id="escape">
+        <MaxWidthContainer>
+            <div class="flex flex-col items-center gap-8 py-16 lg:flex-row">
+                <div class="relative z-10 w-full">
+                    <Image src={home5Img} alt="hero" class="clip-path-triangle-inverse w-full" />
+                </div>
+
+                <div class="w-full">
+                    <SectionHeader>
+                        <Fragment slot="background-text">Escape</Fragment>
+                        <Fragment slot="heading">
+                            Escape top the breathtaking Nosara, Costa Rica
+                        </Fragment>
+                    </SectionHeader>
+                    <p class="prose-invert mt-8">
+                        Imagine a stunning beach town nestled in the heart of the jungle, surrounded
+                        by exotic wildlife and a vibrant multicultural community - that's Nosara.
+                        Immerse yourself in nature, enjoy some of the world's most consistent
+                        surfing conditions, and create memories that will last a lifetime. With a
+                        plethora of amenities and modern comforts, Nosara offers the perfect balance
+                        of tranquility and adventure.
+                    </p>
+                </div>
+            </div>
+        </MaxWidthContainer>
+    </section>
+
+    <section id="nosara">
+        <MaxWidthContainer>
+            <div class="flex flex-col-reverse items-center gap-8 py-16 lg:flex-row">
+                <div class="w-full">
+                    <SectionHeader>
+                        <Fragment slot="background-text">Nosara</Fragment>
+                        <Fragment slot="heading">Your first visit won't be your last</Fragment>
+                    </SectionHeader>
+                    <p class="prose-invert mt-8">
+                        Each of our properties have been handpicked by us and carry their own
+                        distinct character and style. Whether you're looking for rustic and
+                        authentic or modern and fresh, we're here to help bring your dream vacation
+                        to life. We believe that your first visit to one of our properties will be
+                        just the beginning of a lifelong relationship. Our clients return year after
+                        year, drawn back by the unique charm and comfort of our properties, and
+                        reliable guest services throughout their Nosara experience.
+                    </p>
+                    <a
+                        href="/homes"
+                        class="mt-4 inline-block border border-secondary px-4 py-2.5 text-secondary"
+                    >
+                        Explore Vacation Homes
+                    </a>
+                </div>
+                <div class="w-full">
+                    <Image src={home11Img} alt="hero" class="clip-path-triangle w-full" />
+                </div>
+            </div>
+        </MaxWidthContainer>
+    </section>
 </MainLayout>

@@ -1,76 +1,120 @@
 ---
-import { MessageCircleMore, MapPin, Phone } from "lucide-react";
+import { MapPin, Phone } from "lucide-react";
 
 import { FacebookIcon } from "../icons/facebook-icon";
 import { InstagramIcon } from "../icons/instagram-icon";
+import { WhatsappIcon } from "../icons/whatsapp-icon";
+import { MailIcon } from "../icons/mail-icon";
+import LogoWhite from "../icons/logo-white.astro";
+import { navBarlinks as links } from "@/lib/utils";
+import MaxWidthContainer from "./max-width-container.astro";
+
+const legalLinks = [
+    { name: "terms of use", href: "#" },
+    { name: "accesibility", href: "#" },
+    { name: "communication opt out", href: "#" },
+    { name: "equal opportunity housting", href: "#" },
+    { name: "FAQs", href: "#" }
+];
+
+const pathname = Astro.url.pathname;
 ---
 
-<footer class="bg-gray-100 py-12 md:p-20">
-    <div class="container mx-auto flex max-w-screen-2xl flex-col gap-16 md:flex-row">
-        <div class="mb-6 md:w-1/2">
-            <h1 class="mb-4 text-3xl font-bold text-muted">Your Dream Vacation Awaits.</h1>
-            <p class="prose text-muted">
-                At Beach Management, we are dedicated to making your vacation dreams a reality. Our
-                team is committed to providing you and your family or travel group with an
-                unforgettable experience that will create lifelong memories. Select from our
-                exclusive range of luxury homes located in some of the world's most stunning and
-                secure locations and let us help you bring your dreams to life!
-            </p>
-        </div>
-        <div>
-            <a href="https://wa.me/50688028866" class="mb-2 flex items-center pb-2">
-                <MessageCircleMore className="mr-2 text-muted" size={16} />
-                <p class="text-muted">WhatsApp Message</p>
-            </a>
-            <a
-                href="https://maps.google.com/?q=Nosara, Guanacaste, Costa Rica"
-                class="mb-2 flex items-center pb-2"
-            >
-                <MapPin className="mr-2 text-muted" size={16} />
-                <p class="text-muted">Nosara, Guanacaste, Costa Rica</p>
-            </a>
-            <a href="tel:+9703233339" class="mb-2 flex items-center pb-2">
-                <Phone className="mr-2 text-muted" size={16} />
-                <p class="text-muted">Main Office: 970 323-3339</p>
-            </a>
-            <a href="tel:+9703233339" class="mb-2 flex items-center pb-2">
-                <Phone className="mr-2 text-muted" size={16} />
-                <p class="text-muted">Costa Rica: +506 8802-8866</p>
-            </a>
-            <a href="tel:+9703233339" class="mb-2 flex items-center pb-2">
-                <Phone className="mr-2 text-muted" size={16} />
-                <p class="text-muted">Guest services: 970 398 4548</p>
-            </a>
-            <a href="tel:+9703233339" class="mb-2 flex items-center pb-2">
-                <Phone className="mr-2 text-muted" size={16} />
-                <p class="text-muted">Fax: 803 753-9812</p>
-            </a>
-            <a href="tel:+9703233339" class="mb-2 flex items-center pb-2">
-                <Phone className="mr-2 text-muted" size={16} />
-                <p class="text-muted">info@beachmanagementnosara.com</p>
-            </a>
+<footer class="border-t-[16px] border-primary">
+    <MaxWidthContainer>
+        <div class="flex flex-col gap-8 py-12 lg:flex-row lg:justify-between">
+            <div class="flex w-full flex-col items-center lg:items-start">
+                <a href="/">
+                    <LogoWhite />
+                </a>
 
-            <a
-                href="https://www.facebook.com/beachmanagementnosara"
-                class="mb-2 flex items-center pb-2"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                <FacebookIcon className="mr-2 size-4 text-muted" />
-                <p class="text-muted">Facebook</p>
-            </a>
-            <a
-                href="https://instagram.com/beachmanagementnosara"
-                class="flex items-center pb-2"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                <InstagramIcon className="mr-2 size-4 text-muted" />
-                <p class="text-muted">Instagram</p>
-            </a>
+                <div class="mt-6 space-y-3">
+                    <a
+                        href="https://maps.google.com/?q=Nosara, Guanacaste, Costa Rica"
+                        class="mb-2 flex items-center"
+                    >
+                        <MapPin className="mr-2 text-primary" size={16} />
+                        <p class="text-sm text-gray-100">Nosara, Guanacaste, Costa Rica</p>
+                    </a>
+                    <a href="tel:+9703233339" class="flex items-center">
+                        <Phone className="mr-2 text-primary" size={16} />
+                        <p class="text-sm text-gray-100">Main Office: 970 323-3339</p>
+                    </a>
+                    <a href="tel:+50688028866" class="flex items-center">
+                        <Phone className="mr-2 text-primary" size={16} />
+                        <p class="text-sm text-gray-100">Costa Rica: +506 8802-8866</p>
+                    </a>
+                    <a href="tel:+9703984548" class="flex items-center">
+                        <Phone className="mr-2 text-primary" size={16} />
+                        <p class="text-sm text-gray-100">Guest Services: 970 398-4548</p>
+                    </a>
+                    <a href="tel:+8037539812" class="flex items-center">
+                        <Phone className="mr-2 text-primary" size={16} />
+                        <p class="text-sm text-gray-100">Fax: 803 753-9812</p>
+                    </a>
+                </div>
+            </div>
+            <div class="w-full text-center lg:text-left">
+                <h3 class="text-xl font-semibold text-secondary">Navigation</h3>
+                <nav class="mt-6 flex flex-col gap-3">
+                    {
+                        links.map(link => (
+                            <a
+                                href={link.href}
+                                class:list={[
+                                    "text-sm capitalize",
+                                    (link.href === "/" && pathname === "/") ||
+                                    (link.href !== "/" && pathname.startsWith(link.href))
+                                        ? "font-bold text-primary underline underline-offset-4"
+                                        : "hover:text-primary"
+                                ]}
+                            >
+                                {link.name}
+                            </a>
+                        ))
+                    }
+                </nav>
+            </div>
+
+            <div class="w-full text-center lg:text-left">
+                <h3 class="text-xl font-semibold text-secondary">Legal</h3>
+                <nav class="mt-6 flex flex-col gap-3">
+                    {
+                        legalLinks.map(link => (
+                            <a
+                                href={link.href}
+                                class:list={[
+                                    "text-sm capitalize",
+                                    (link.href === "/" && pathname === "/") ||
+                                    (link.href !== "/" && pathname.startsWith(link.href))
+                                        ? "font-bold text-primary underline underline-offset-4"
+                                        : "hover:text-primary"
+                                ]}
+                            >
+                                {link.name}
+                            </a>
+                        ))
+                    }
+                </nav>
+            </div>
+
+            <div class="flex w-full items-end justify-center gap-4 lg:justify-end">
+                <a href="https://www.facebook.com/">
+                    <FacebookIcon className="size-8 text-white" />
+                </a>
+                <a href="https://www.instagram.com/">
+                    <InstagramIcon className="size-8 text-white" />
+                </a>
+                <a href="https://wa.me/">
+                    <WhatsappIcon className="size-8 text-white" />
+                </a>
+                <a href="mailto:info@beachmanagementnosara.com">
+                    <MailIcon className="size-8 text-white" />
+                </a>
+            </div>
         </div>
-    </div>
-    <div class="mt-8 text-center text-sm text-muted">
-        <p>Copyright &copy; 2024 Beach Management Nosara</p>
-    </div>
+    </MaxWidthContainer>
 </footer>
+<div class="bg-primary py-3 text-center">
+    <p class="text-sm">Copyright &copy; {new Date().getFullYear()} Beach Management Nosara</p>
+</div>

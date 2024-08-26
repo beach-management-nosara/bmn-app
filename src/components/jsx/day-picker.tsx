@@ -157,7 +157,7 @@ function DateRangePicker({
             className={`relative flex grow gap-4 w-full ${direction === "vertical" ? "flex-col" : "flex-col md:flex-row md:items-end"}`}
             ref={calendarRef}
         >
-            <div className={`flex grow ${direction === "vertical" ? "flex-col" : "md:w-1/2"}`}>
+            <div className={`flex grow gap-4 ${direction === "vertical" ? "flex-col" : "md:w-1/2"}`}>
                 <div
                     className={`flex grow flex-col gap-2 ${direction === "vertical" ? "mb-4" : ""}`}
                 >
@@ -169,7 +169,7 @@ function DateRangePicker({
                     </div>
                     <button
                         onClick={() => setCalendarOpen(!isCalendarOpen)}
-                        className={`h-10 w-full border px-2 py-2 text-left text-sm text-muted ${direction === "vertical" ? "rounded" : "rounded-l"}`}
+                        className={`h-10 w-full border px-2 py-2 text-left text-sm text-muted ${direction === "vertical" ? "rounded-md" : "rounded-md"}`}
                     >
                         {range.from ? range.from.toLocaleDateString() : "Add start date"}
                     </button>
@@ -183,7 +183,7 @@ function DateRangePicker({
 
                     <button
                         onClick={() => setCalendarOpen(true)}
-                        className={`h-10 w-full border px-2 py-2 text-left text-sm text-muted ${direction === "vertical" ? "rounded" : "rounded-r"}`}
+                        className={`h-10 w-full border px-2 py-2 text-left text-sm text-muted ${direction === "vertical" ? "rounded-md" : "rounded-md"}`}
                     >
                         {range.to ? range.to.toLocaleDateString() : "Add end date"}
                     </button>

@@ -1,8 +1,13 @@
 ---
+import { Image } from "astro:assets";
+
 import MainLayout from "@/layouts/main-layout.astro";
-import type { PropertyData } from "@/types";
 import { PropertyDetails } from "@/components/jsx/property-details";
-import { BookingCard } from "@/components/jsx/booking-card";
+import MaxWidthContainer from "@/components/astro/max-width-container.astro";
+import SectionHeader from "@/components/astro/section-header.astro";
+import { reliableImg5 } from "@/assets/images";
+import { removeHtmlTags } from "@/lib/utils";
+import type { PropertyData } from "@/types";
 
 export const prerender = false;
 
@@ -19,51 +24,32 @@ const roomsResponse = await fetch(`https://api.lodgify.com/v2/properties/${slug}
 });
 const rommsJson = (await roomsResponse.json()) as PropertyData[];
 const data = rommsJson[0];
-const imageUrl = "https:" + data.image_url;
-
-function removeHtmlTags(str: string) {
-    return str.replace(/<[^>]*>?/gm, "");
-}
 ---
 
 <MainLayout
     title={data.name + "Beach Management Nosara"}
     description={removeHtmlTags(data.description)}
 >
-    <div class="mx-auto flex max-w-screen-2xl flex-col items-center bg-gray-100">
-        <div class="relative h-[450px] w-full">
-            <img
-                src={imageUrl}
-                alt="hero"
-                width={662}
-                height={225}
-                class="h-[450px] w-full object-cover"
-            />
+    <PropertyDetails client:load slug={slug as string} />
 
-            <div
-                class="absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-50 px-2 text-center text-white"
-            >
-                <h2
-                    class="text-2xl uppercase tracking-[.45em] text-[#ffffff3a] text-gray-400 opacity-40 md:text-4xl"
-                >
-                    HOUSE
-                </h2>
-                <h1
-                    class="text-2xl font-medium uppercase leading-tight tracking-[.35em] text-white md:text-[3.6em]"
-                >
-                    {data.name}
-                </h1>
+    <MaxWidthContainer>
+        <div class="flex flex-col-reverse items-center gap-8 py-16 lg:flex-row">
+            <div class="w-full">
+                <SectionHeader>
+                    <Fragment slot="background-text">Vacation</Fragment>
+                    <Fragment slot="heading">Your Dream Vacation Awaits</Fragment>
+                </SectionHeader>
+                <p class="prose-invert mt-8">
+                    At Beach Management, we are dedicated to making your vacation dreams a reality.
+                    Our team is committed to providing you and your family or travel group with an
+                    unforgettable experience that will create lifelong memories. Select from our
+                    exclusive range of luxury homes located in some of the world's most stunning and
+                    secure locations and let us help you bring your dreams to life!
+                </p>
+            </div>
+            <div class="w-full">
+                <Image src={reliableImg5} alt="hero" class="lg:clip-path-triangle w-full" />
             </div>
         </div>
-
-        <div class="mx-auto md:container md:mx-4">
-            <div class="grid grid-cols-1 bg-white md:grid-cols-3">
-                <!-- Left Column (2fr) -->
-                <PropertyDetails client:load slug={slug as string} />
-
-                <!-- Right Column (1fr) -->
-                <BookingCard slug={slug as string} client:load />
-            </div>
-        </div>
-    </div>
+    </MaxWidthContainer>
 </MainLayout>

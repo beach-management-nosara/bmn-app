@@ -81,7 +81,7 @@ export function PropertyDetailsTabs({ data }: PropertyDetailsTabsProps) {
         ),
         description: (
             <div
-                className="prose mx-auto max-w-none"
+                className="prose mx-auto max-w-none bg-white p-5 rounded-md"
                 dangerouslySetInnerHTML={{ __html: data.description }}
             />
         ),
@@ -93,21 +93,21 @@ export function PropertyDetailsTabs({ data }: PropertyDetailsTabsProps) {
             <TabsList className="grid h-min w-full grid-cols-3 gap-3 bg-gray-200 p-2.5">
                 <TabsTrigger
                     value="amenities"
-                    className="text-lg bg-white text-foreground/ text-secondary"
+                    className="text-lg bg-white text-foreground/ text-primary"
                 >
                     <Info size={16} className="mr-2 hidden md:inline" />
                     Amenities
                 </TabsTrigger>
                 <TabsTrigger
                     value="description"
-                    className="text-lg bg-white text-foreground/ text-secondary"
+                    className="text-lg bg-white text-foreground/ text-primary"
                 >
                     <TagIcon size={16} className="mr-2 hidden md:inline" />
                     Description
                 </TabsTrigger>
                 <TabsTrigger
                     value="photos"
-                    className="text-lg bg-white text-foreground/ text-secondary"
+                    className="text-lg bg-white text-foreground/ text-primary"
                 >
                     <Image size={16} className="mr-2 hidden md:inline" />
                     Photos

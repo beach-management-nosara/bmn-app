@@ -6,12 +6,13 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export const navBarlinks = [
-    { name: "VACATION HOMES", href: "/homes" },
-    { name: "HOMEOWNER SERVICES", href: "/services" },
-    { name: "GUEST HOSPITALITY", href: "/hospitality" },
-    { name: "NOSARA EXPERIENCES", href: "/experiences" },
-    { name: "TESTIMONIALS", href: "/testimonials" },
-    { name: "CONTACT US", href: "/contact" }
+    { name: "home", href: "/" },
+    { name: "vacation homes", href: "/homes" },
+    // { name: "homeowner services", href: "/services" },
+    // { name: "guest hospitality", href: "/hospitality" },
+    { name: "nosara experiences", href: "/experiences" },
+    // { name: "testimonials", href: "/testimonials" },
+    { name: "contact us", href: "/contact" }
 ];
 
 export function formatCurrency(amount: number, centsDigits = 0) {
@@ -36,3 +37,7 @@ export const validateEmail = (email: string) => {
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailPattern.test(email);
 };
+
+export function removeHtmlTags(str: string) {
+    return str.replace(/<[^>]*>?/gm, "");
+}

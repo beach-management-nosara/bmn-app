@@ -4,7 +4,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 import { usePropertyDetails } from "@/hooks/usePropertyDetails";
 import type { PropertyData } from "@/types";
-import { PropertyDetailsTabs } from "./property-tabs";
+import { PropertyDetailsTabs, PropertyDetailsTabsSkeleton } from "./property-tabs";
 import Reviews from "./reviews";
 import { PropertyRating } from "./property-rating";
 import { cn } from "@/lib/utils";
@@ -20,7 +20,7 @@ export function PropertyDetails({ slug }: PropertyDetailsProps) {
 
     return (
         <>
-            <section className="relative h-[60vh] lg:h-[40vh] overflow-hidden">
+            <section className="relative h-[60vh] lg:h-[50vh] overflow-hidden">
                 <div className="absolute inset-0">
                     <div className={cn("h-full w-full bg-gray-400", !room?.image_url && "animate-pulse")}>
                         {property?.image_url && (
@@ -103,7 +103,9 @@ export function PropertyDetails({ slug }: PropertyDetailsProps) {
                                     />
                                 ) : null}
                             </div>
-                            {room && <PropertyDetailsTabs data={room as PropertyData} />}
+                            {room ? <PropertyDetailsTabs data={room as PropertyData} /> : (
+                                <PropertyDetailsTabsSkeleton />
+                            )}
                         </div>
                         <BookingCard slug={slug} />
                     </div>

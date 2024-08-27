@@ -19,7 +19,7 @@ export function PropertiesList({
     success?: boolean;
 }) {
     return (
-        <div className="mb-16 grid mx-auto lg:w-[90%] grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:px-0">
+        <div className="mb-16 grid mx-auto grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:px-0">
             {isLoading && <CardSkeleton />}
             {success &&
                 selectedProperties?.map(property => (
@@ -52,7 +52,7 @@ function PropertyCard({ property }: { property: Property }) {
     }, []);
 
     return (
-        <div className="relative flex h-[500px] flex-col overflow-hidden rounded-lg bg-background shadow-lg">
+        <div className="relative mt-12 flex h-[500px] flex-col overflow-hidden rounded-lg bg-background shadow-lg">
             <div className="h-2/3 w-full overflow-hidden rounded-lg">
                 <img
                     src={imageUrl}
@@ -120,7 +120,7 @@ function PropertyCard({ property }: { property: Property }) {
 
 function CardSkeleton() {
     return Array.from({ length: 6 }).map((_, index) => (
-        <div key={index} className="relative flex h-[500px] flex-col overflow-hidden rounded-lg bg-background shadow-lg">
+        <div key={index} className="relative mt-12 flex h-[500px] flex-col overflow-hidden rounded-lg bg-background shadow-lg">
             <div className="h-2/3 w-full overflow-hidden rounded-lg">
                 <Skeleton className="h-full w-full bg-gray-300" />
                 <div className="absolute inset-x-0 bottom-0 top-0 bg-gradient-to-t from-primary via-black/40 to-black/10"></div>

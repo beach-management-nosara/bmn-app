@@ -156,12 +156,12 @@ export const SearchBox = ({
     }, [properties, chosenProperty]);
 
     return (
-        <div className="flex flex-col justify-between gap-6 rounded-lg bg-white px-10 py-12 md:flex-row md:items-end">
+        <div className="flex flex-col justify-between gap-6 rounded-lg bg-white px-10 py-8 md:flex-row md:items-end">
             <div className="flex grow flex-col gap-2 md:w-1/3">
                 <div className="flex items-center gap-3">
                     <Home size={20} />
                     <span className="font-sans">
-                        Location <span className="text-gray-400">(Optional)</span>
+                        Location <small className="text-gray-400">(Optional)</small>
                     </span>
                 </div>
 
@@ -169,7 +169,7 @@ export const SearchBox = ({
                     onValueChange={value => handleSelect(parseInt(value, 10))}
                     value={chosenProperty?.id.toString()}
                 >
-                    <SelectTrigger title="If you already know where you want to stay, select the house from the list. Otherwise, leave it empty to search for all available houses.">
+                    <SelectTrigger className="bg-white text-gray-900" title="If you already know where you want to stay, select the house from the list. Otherwise, leave it empty to search for all available houses.">
                         <SelectValue />
                     </SelectTrigger>
                     <SelectContent>

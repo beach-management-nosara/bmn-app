@@ -5,9 +5,9 @@ import Head from "@/components/astro/head.astro";
 import Footer from "@/components/astro/footer.astro";
 import { Toaster } from "@/components/ui/toaster";
 
-import "@/styles/globals.css";
 import DesktopNavbar from "@/components/astro/desktop-navbar.astro";
 import { MobileNav } from "@/components/jsx/mobile-nav";
+import "@/styles/globals.css";
 
 interface Props {
     title?: string;
@@ -32,7 +32,7 @@ const { title, description } = Astro.props as Props;
             <!-- Application Entry Point 👇 -->
             <slot />
             <Toaster client:load />
-            <Footer />
         </main>
+        <Footer />
     </body>
 </html>

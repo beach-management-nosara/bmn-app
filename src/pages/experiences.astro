@@ -1,15 +1,15 @@
 ---
 import { Image } from "astro:assets";
 
-import MainLayout from "@/layouts/main-layout.astro";
-import { heroExperiencesImg, home6Img, home14Img, hw2Img, bannerImg } from "@/assets/images";
-import MaxWidthContainer from "@/components/astro/max-width-container.astro";
-import Logo2White from "@/components/icons/logo2-white.astro";
+import Layout from "@/layouts/layout.astro";
+import { MaxWidthContainer } from "@/components/site/max-width-container";
 import SectionHeader from "@/components/astro/section-header.astro";
-import ExperiencesSection from "@/components/astro/experiences-section.astro";
+import ExperienceSection from "@/components/experiences/experience-section.astro";
+import OverviewSection from "@/components/site/overview-section.astro";
+import { heroExperiencesImg, home6Img, home14Img, hw2Img } from "@/assets/images";
 ---
 
-<MainLayout title="Experiences | Beach Management Nosara">
+<Layout title="Experiences | Beach Management Nosara">
     <section id="hero" class="relative h-[66vh] overflow-hidden">
         <div class="absolute inset-0">
             <div class="h-full w-full bg-gray-400">
@@ -38,54 +38,18 @@ import ExperiencesSection from "@/components/astro/experiences-section.astro";
         </MaxWidthContainer>
     </section>
 
-    <section id="sub-hero-experiences">
-        <div class="relative">
-            <div class="absolute inset-0">
-                <div class="h-full w-full">
-                    <Image src={bannerImg} alt="banner" class="h-full w-full object-cover" />
-                </div>
-                <!-- Overlay 👇 -->
-                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-black/10">
-                </div>
-            </div>
-            <MaxWidthContainer>
-                <div class="relative z-10 flex flex-col items-center gap-16 py-10 lg:flex-row">
-                    <div>
-                        <Logo2White class="mx-auto size-64" />
-                    </div>
-                    <div class="space-y-3">
-                        <div>
-                            <div class="flex items-center">
-                                <div class="w-1/5 border-t border-secondary lg:max-w-[4rem]"></div>
-                                <span
-                                    class="ml-4 text-base font-semibold uppercase tracking-widest text-secondary"
-                                >
-                                    Unparalleled, Stress-Free
-                                </span>
-                            </div>
-                            <h2 class="text-4xl font-semibold">Concierge Guest</h2>
-                        </div>
-                        <p class="text-pretty text-xl font-light lg:text-2xl">
-                            Beach Management Nosara offers services that are unparalleled to other
-                            property management companies. Beach Management Nosara offers
-                            full-service event planning and catering for guests who book with them
-                            to ensure your vacation experience is unforgettable.
-                        </p>
-                        <div class="mt-6 flex justify-center lg:justify-start">
-                            <a
-                                href="/contact"
-                                class="block transform rounded-lg bg-primary px-6 py-3 text-white transition-all duration-300 hover:scale-[1.02] hover:bg-primary/70"
-                            >
-                                Inquire Now
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </MaxWidthContainer>
-        </div>
-    </section>
+    <OverviewSection showCta>
+        <Fragment slot="background-text">Unparalleled, stress-free</Fragment>
+        <Fragment slot="headline">Concierge Guest</Fragment>
+        <Fragment slot="description">
+            Beach Management Nosara offers services that are unparalleled to other property
+            management companies. Beach Management Nosara offers full-service event planning and
+            catering for guests who book with them to ensure your vacation experience is
+            unforgettable.
+        </Fragment>
+    </OverviewSection>
 
-    <ExperiencesSection>
+    <ExperienceSection>
         <Fragment slot="image">
             <Image src={hw2Img} alt="banner" class="h-full w-full object-cover" />
         </Fragment>
@@ -113,9 +77,9 @@ import ExperiencesSection from "@/components/astro/experiences-section.astro";
                 </p>
             </div>
         </Fragment>
-    </ExperiencesSection>
+    </ExperienceSection>
 
-    <ExperiencesSection>
+    <ExperienceSection>
         <Fragment slot="image">
             <Image src={home6Img} alt="banner" class="h-full w-full object-cover" />
         </Fragment>
@@ -138,9 +102,9 @@ import ExperiencesSection from "@/components/astro/experiences-section.astro";
                 <li>Nature Tours</li>
             </ul>
         </Fragment>
-    </ExperiencesSection>
+    </ExperienceSection>
 
-    <ExperiencesSection>
+    <ExperienceSection>
         <Fragment slot="image">
             <Image src={home14Img} alt="banner" class="h-full w-full object-cover" />
         </Fragment>
@@ -164,5 +128,5 @@ import ExperiencesSection from "@/components/astro/experiences-section.astro";
                 <li>ATV, Golf Cart, and Car Rentals</li>
             </ul>
         </Fragment>
-    </ExperiencesSection>
-</MainLayout>
+    </ExperienceSection>
+</Layout>

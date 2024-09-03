@@ -1,7 +1,7 @@
 ---
 import { Image } from "astro:assets";
 
-import MainLayout from "@/layouts/main-layout.astro";
+import Layout from "@/layouts/layout.astro";
 import { PropertyDetails } from "@/components/jsx/property-details";
 import MaxWidthContainer from "@/components/astro/max-width-container.astro";
 import SectionHeader from "@/components/astro/section-header.astro";
@@ -26,7 +26,7 @@ const rommsJson = (await roomsResponse.json()) as PropertyData[];
 const data = rommsJson[0];
 ---
 
-<MainLayout
+<Layout
     title={data.name + "Beach Management Nosara"}
     description={removeHtmlTags(data.description)}
 >
@@ -52,4 +52,4 @@ const data = rommsJson[0];
             </div>
         </div>
     </MaxWidthContainer>
-</MainLayout>
+</Layout>

@@ -1,7 +1,7 @@
 ---
 import { Checkout as CheckoutPage } from "@/components/jsx/checkout";
 import CheckoutLayout from "@/layouts/checkout-layout.astro";
-import MainLayout from "@/layouts/main-layout.astro";
+import Layout from "@/layouts/layout.astro";
 
 const url = new URL(Astro.request.url);
 
@@ -14,7 +14,7 @@ const guests = searchParams.get("guests");
 export const prerender = false;
 ---
 
-<MainLayout title="Checkout | Beach Management Nosara">
+<Layout title="Checkout | Beach Management Nosara">
     <CheckoutPage
         slug={propertyId}
         periodStartString={periodStart}
@@ -22,4 +22,4 @@ export const prerender = false;
         originalGuests={guests}
         client:load
     />
-</MainLayout>
+</Layout>

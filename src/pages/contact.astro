@@ -1,17 +1,18 @@
 ---
 import { Image } from "astro:assets";
 
-import MainLayout from "@/layouts/main-layout.astro";
+import Layout from "@/layouts/layout.astro";
 import ContactInfo from "@/components/astro/contact-info.astro";
 import { ContactForm } from "@/components/jsx/contact-form";
-import MaxWidthContainer from "@/components/astro/max-width-container.astro";
+import { MaxWidthContainer } from "@/components/site/max-width-container";
 import SectionHeader from "@/components/astro/section-header.astro";
 import { heroContactImg, reliableImg5 } from "@/assets/images";
+import ContentFeatureSection from "@/components/site/content-feature-section.astro";
 
 export const prerender = false;
 ---
 
-<MainLayout title="Contact Us | Beach Management Nosara">
+<Layout title="Contact Us | Beach Management Nosara">
     <section id="hero" class="relative h-[45vh] overflow-hidden">
         <div class="absolute inset-0">
             <div class="h-full w-full bg-gray-400">
@@ -55,26 +56,26 @@ export const prerender = false;
                 <ContactForm client:visible />
                 <ContactInfo />
             </div>
-
-            <div class="flex flex-col-reverse items-center gap-8 py-16 lg:flex-row">
-                <div class="w-full">
-                    <SectionHeader>
-                        <Fragment slot="background-text">Vacation</Fragment>
-                        <Fragment slot="heading">Your Dream Vacation Awaits</Fragment>
-                    </SectionHeader>
-                    <p class="prose-invert mt-8">
-                        At Beach Management, we are dedicated to making your vacation dreams a
-                        reality. Our team is committed to providing you and your family or travel
-                        group with an unforgettable experience that will create lifelong memories.
-                        Select from our exclusive range of luxury homes located in some of the
-                        world's most stunning and secure locations and let us help you bring your
-                        dreams to life!
-                    </p>
-                </div>
-                <div class="w-full">
-                    <Image src={reliableImg5} alt="hero" class="lg:clip-path-triangle w-full" />
-                </div>
-            </div>
         </MaxWidthContainer>
     </section>
-</MainLayout>
+
+    <ContentFeatureSection
+        id="welcome"
+        image={reliableImg5}
+        ctaLink="/homes"
+        cta={false}
+        className="pb-12"
+    >
+        <SectionHeader slot="header">
+            <Fragment slot="background-text">Contact</Fragment>
+            <Fragment slot="heading">Let us know</Fragment>
+        </SectionHeader>
+        <Fragment slot="description">
+            At Beach Management, we are dedicated to making your vacation dreams a reality. Our team
+            is committed to providing you and your family or travel group with an unforgettable
+            experience that will create lifelong memories. Select from our exclusive range of luxury
+            homes located in some of the world's most stunning and secure locations and let us help
+            you bring your dreams to life!
+        </Fragment>
+    </ContentFeatureSection>
+</Layout>

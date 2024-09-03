@@ -12,7 +12,7 @@ export function MobileNav({ pathname }: { pathname: string }) {
         <header>
             <div className={cn(
                 "fixed left-1/2 top-4 z-50 flex w-[90%] -translate-x-1/2 items-center justify-between px-4 py-4 lg:hidden",
-                "bg-gray-200 rounded-lg bg-clip-padding backdrop-filter backdrop-blur-xl bg-opacity-10"
+                "bg-white rounded-lg"
             )}>
                 <a href="/">
                     <img src='/logo.png' alt="logo" width={90} />

@@ -1,4 +1,4 @@
-import { MapPinIcon, SearchIcon } from 'lucide-react'
+import { SearchIcon } from 'lucide-react'
 
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel'
 import { Skeleton } from '@/components/ui/skeleton'
@@ -35,7 +35,7 @@ export function FeaturedProperties() {
                                     <div className='my-3'>
                                         <p className='text-center lg:text-right text-pretty'>{removeHtmlTags((property?.description.substring(0, 200) + '...') || '')}</p>
                                     </div>
-                                    <a href={`/properties/${property?.id}`} className='flex items-center gap-3 text-white bg-primary px-2 py-1.5 rounded-md'>
+                                    <a href={`/homes/${property?.id}`} className='flex items-center gap-3 text-white bg-primary px-2 py-1.5 rounded-md'>
                                         <SearchIcon className='size-4' />
                                         <span className='text-sm'>View Property</span>
                                     </a>

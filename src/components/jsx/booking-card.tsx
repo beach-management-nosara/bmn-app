@@ -128,7 +128,7 @@ export function BookingCard({ slug }: { slug: string }) {
 
     return (
         <div className="relative text-gray-700">
-            <div className="sticky top-20 m-4 h-fit rounded-md bg-white p-5 shadow-lg">
+            <div className="sticky top-36 m-4 h-fit rounded-md bg-white p-5 shadow-lg">
                 {status === "loading" && (
                     <div className="absolute left-0 top-0 z-50 flex h-full w-full items-center justify-center gap-4 rounded bg-gray-200 bg-opacity-50">
                         <LoaderCircle className="animate-spin" />

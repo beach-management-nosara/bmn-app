@@ -28,7 +28,7 @@ const { title, description } = Astro.props as Props;
     <body class="overflow-x-hidden bg-background text-white antialiased">
         <MobileNav client:load pathname={pathname} />
         <DesktopNavbar />
-        <main class="overflow-x-hidden">
+        <main>
             <!-- Application Entry Point 👇 -->
             <slot />
             <Toaster client:load />

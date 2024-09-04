@@ -97,7 +97,6 @@ export function PropertyDetails({ slug }: PropertyDetailsProps) {
                                         height="400"
                                         src={property.videoUrl}
                                         title="Property Video"
-                                        frameBorder="0"
                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                         allowFullScreen
                                     />

@@ -8,8 +8,8 @@ import type { Property } from "@/types/property";
 import { MaxWidthContainer } from "@/components/site/max-width-container";
 
 export const PropertiesFiltered = () => {
-    const [page, setPage] = useState(1);
-    const { properties, isLoading, success } = useProperties({ page });
+    // const [page, setPage] = useState(1);
+    const { properties, isLoading, success } = useProperties();
     const [selectedProperties, setSelectedProperties] = useState<Property[]>();
     const [isSearchLoading, setIsSearchLoading] = useState(false);
     const [propertyUnavailable, setPropertyUnavailable] = useState(false);

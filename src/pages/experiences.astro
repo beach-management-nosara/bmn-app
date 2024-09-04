@@ -50,17 +50,15 @@ import { heroExperiencesImg, home6Img, home14Img, hw2Img } from "@/assets/images
     </OverviewSection>
 
     <ExperienceSection>
-        <Fragment slot="image">
-            <Image src={hw2Img} alt="banner" class="h-full w-full object-cover" />
-        </Fragment>
-        <Fragment slot="header">
-            <SectionHeader>
-                <Fragment slot="background-text">Experiences</Fragment>
-                <Fragment slot="heading">Experiences</Fragment>
-            </SectionHeader>
-        </Fragment>
+        <Image slot="image" src={hw2Img} alt="banner" class="h-full w-full object-cover" />
+
+        <SectionHeader slot="header">
+            <Fragment slot="background-text">Experiences</Fragment>
+            <Fragment slot="heading">Experiences</Fragment>
+        </SectionHeader>
+
         <Fragment slot="content">
-            <div class="prose mt-6 space-y-6 text-gray-200">
+            <div class="mt-6 space-y-6 text-gray-200">
                 <p>
                     Nosara has established itself as a premier destination for health and wellness
                     enthusiasts, with a thriving active community, rich natural surroundings, and a
@@ -80,17 +78,15 @@ import { heroExperiencesImg, home6Img, home14Img, hw2Img } from "@/assets/images
     </ExperienceSection>
 
     <ExperienceSection>
-        <Fragment slot="image">
-            <Image src={home6Img} alt="banner" class="h-full w-full object-cover" />
-        </Fragment>
-        <Fragment slot="header">
-            <SectionHeader>
-                <Fragment slot="background-text">Adventures</Fragment>
-                <Fragment slot="heading">Local Adventures</Fragment>
-            </SectionHeader>
-        </Fragment>
+        <Image slot="image" src={home6Img} alt="banner" class="h-full w-full object-cover" />
+
+        <SectionHeader slot="header">
+            <Fragment slot="background-text">Adventures</Fragment>
+            <Fragment slot="heading">Local Adventures</Fragment>
+        </SectionHeader>
+
         <Fragment slot="content">
-            <ul class="prose mt-6 list-disc space-y-1 pl-8 text-gray-200">
+            <ul class="mt-6 list-disc space-y-1 pl-8 text-gray-200">
                 <li>Surf Lessons</li>
                 <li>Kayaking and SUP</li>
                 <li>Horesback Riding</li>
@@ -105,17 +101,15 @@ import { heroExperiencesImg, home6Img, home14Img, hw2Img } from "@/assets/images
     </ExperienceSection>
 
     <ExperienceSection>
-        <Fragment slot="image">
-            <Image src={home14Img} alt="banner" class="h-full w-full object-cover" />
-        </Fragment>
-        <Fragment slot="header">
-            <SectionHeader>
-                <Fragment slot="background-text">Services</Fragment>
-                <Fragment slot="heading">Home Services & More</Fragment>
-            </SectionHeader>
-        </Fragment>
+        <Image slot="image" src={home14Img} alt="banner" class="h-full w-full object-cover" />
+
+        <SectionHeader slot="header">
+            <Fragment slot="background-text">Services</Fragment>
+            <Fragment slot="heading">Home Services & More</Fragment>
+        </SectionHeader>
+
         <Fragment slot="content">
-            <ul class="prose mt-6 list-disc space-y-1 pl-8 text-gray-200">
+            <ul class="mt-6 list-disc space-y-1 pl-8 text-gray-200">
                 <li>Private Fitness Classes</li>
                 <li>At-Home Massage Therapy</li>
                 <li>Photography Session</li>

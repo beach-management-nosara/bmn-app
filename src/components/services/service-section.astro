@@ -1,0 +1,37 @@
+---
+import { cn } from "@/lib/utils";
+import { MaxWidthContainer } from "../site/max-width-container";
+
+interface Props {
+    id: string;
+    reverse?: boolean;
+}
+
+const { id, reverse = false } = Astro.props as Props;
+---
+
+<section id={id} class="relative my-8">
+    <!-- Image spans the entire container -->
+    <div class="absolute inset-0 h-full w-full lg:h-[32rem]">
+        <slot name="image" />
+        <!-- Overlay -->
+        <div
+            class={cn(
+                "absolute inset-0 from-black via-black to-black/80 lg:to-transparent",
+                reverse ? "bg-gradient-to-l" : "bg-gradient-to-r"
+            )}
+        >
+        </div>
+    </div>
+
+    <!-- Content Container -->
+    <MaxWidthContainer
+        className="relative mx-auto grid min-h-[32rem] max-w-screen-2xl grid-cols-1 px-5 lg:grid-cols-3"
+    >
+        {reverse && <div class="hidden lg:col-span-1 lg:row-span-2 lg:block" />}
+        <div class="flex w-full flex-col justify-center px-6 text-xl lg:col-span-2 lg:py-6">
+            <slot name="header" />
+            <slot name="content" />
+        </div>
+    </MaxWidthContainer>
+</section>

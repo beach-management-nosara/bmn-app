@@ -1,0 +1,83 @@
+---
+import { Image } from "astro:assets";
+
+import ServiceSection from "@/components/services/service-section.astro";
+import OverviewSection from "@/components/site/overview-section.astro";
+import PageHero from "@/components/site/page-hero.astro";
+import SectionHeader from "@/components/site/section-header.astro";
+import Layout from "@/layouts/layout.astro";
+import { heroServicesImg } from "@/assets/images";
+---
+
+<Layout>
+    <PageHero
+        image={heroServicesImg}
+        title="Management Services"
+        subtitle="Reliable Property Management"
+    />
+
+    <OverviewSection>
+        <Fragment slot="background-text">Beach Management</Fragment>
+        <Fragment slot="headline">
+            We offer professional management services to the finest vacation homes in our area.
+        </Fragment>
+        <Fragment slot="description">
+            At Beach Management Nosara, we take our role as a responsabile stewards and keeper of
+            your property very seriously. Our comprehensive suit of property and rental management
+            services is designed to meet your expectations and safeguard your luxury investment.
+        </Fragment>
+    </OverviewSection>
+
+    <ServiceSection id="our-promise">
+        <Image slot="image" src={heroServicesImg} alt="banner" class="h-full w-full object-cover" />
+
+        <SectionHeader slot="header">
+            <Fragment slot="background-text">Promise</Fragment>
+            <Fragment slot="heading">Our Promise</Fragment>
+        </SectionHeader>
+
+        <Fragment slot="content">
+            <p class="mt-4">
+                We are committed to providing top-quality management of your luxury home, ensuring
+                that it remains in stunning condition, both inside and out, even in the tropical and
+                ever-changing coastal climate. Our services include, but are not limited to,
+                meticulous landscaping, routine care for your pool, and regular housekeeping. We
+                understand the importance of maintaining the highest standards of security for your
+                property, which is why we take all necessary measures to keep it safe and secure at
+                all times.
+            </p>
+            <p>
+                Our team of experts is dedicated to delivering unparalleled service, with a focus on
+                attention to detail and personalized care. With our wealth of experience and
+                in-depth knowledge of the local market, you can trust that your property is in the
+                best hands possible.
+            </p>
+        </Fragment>
+    </ServiceSection>
+
+    <ServiceSection id="rent-your-property" reverse>
+        <Image slot="image" src={heroServicesImg} alt="banner" class="h-full w-full object-cover" />
+
+        <SectionHeader slot="header">
+            <Fragment slot="background-text">Rent</Fragment>
+            <Fragment slot="heading">Rent Your Property</Fragment>
+        </SectionHeader>
+
+        <Fragment slot="content">
+            <p class="mt-4">
+                Our comprehensive suite of services revolves around your home and is aimed at
+                generating consistent guest reservations and increasing your rental returns. Our
+                skilled team is dedicated to ensuring constant marketing and promotion of your
+                property, as well as promptly responding to guest inquiries, answering questions,
+                and following up to excite potential renters and ensure a seamless and personable
+                reservation process.
+            </p>
+            <p>
+                Once guests arrive, we provide a range of services to ensure their complete
+                satisfaction throughout their stay. Our focus is on delighting guests and providing
+                exceptional service that exceeds their expectations, encouraging their return. We
+                offer full guest services and assistance with vacation activities.
+            </p>
+        </Fragment>
+    </ServiceSection>
+</Layout>

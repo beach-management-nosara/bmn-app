@@ -8,7 +8,7 @@ export function cn(...inputs: ClassValue[]) {
 export const navBarlinks = [
     { name: "home", href: "/" },
     { name: "vacation homes", href: "/homes" },
-    // { name: "homeowner services", href: "/services" },
+    { name: "home owner services", href: "/services" },
     // { name: "guest hospitality", href: "/hospitality" },
     { name: "nosara experiences", href: "/experiences" },
     // { name: "testimonials", href: "/testimonials" },

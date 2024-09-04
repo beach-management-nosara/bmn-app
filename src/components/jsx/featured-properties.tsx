@@ -27,13 +27,13 @@ export function FeaturedProperties() {
                                     <div className='hidden lg:block absolute inset-0 bg-gradient-to-l from-background via-background/80 to-background/50 lg:to-transparent w-full'></div>
                                 </div>
                                 <div className='absolute w-full lg:w-2/5 right-0 inset-y-0 p-8 flex flex-col items-center lg:items-end justify-center'>
-                                    <PropertyRating rating={property?.rating ?? 0} />
+                                    <PropertyRating rating={property?.rating || 0} />
                                     <h2 className='font-semibold text-2xl text-center lg:text-right text-pretty'>{property?.name}</h2>
                                     <p className='flex items-center text-primary gap-3 text-center lg:text-right'>
                                         {property?.address}
                                     </p>
                                     <div className='my-3'>
-                                        <p className='text-center lg:text-right text-pretty'>{removeHtmlTags(property?.description.substring(0, 200) + '...' ?? '')}</p>
+                                        <p className='text-center lg:text-right text-pretty'>{removeHtmlTags((property?.description.substring(0, 200) + '...') || '')}</p>
                                     </div>
                                     <a href={`/properties/${property?.id}`} className='flex items-center gap-3 text-white bg-primary px-2 py-1.5 rounded-md'>
                                         <SearchIcon className='size-4' />

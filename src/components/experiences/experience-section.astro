@@ -1,5 +1,5 @@
 ---
-
+import { MaxWidthContainer } from "../site/max-width-container";
 ---
 
 <section id="experiences" class="relative my-8">
@@ -14,12 +14,12 @@
     </div>
 
     <!-- Content Container -->
-    <div
-        class="relative mx-auto grid min-h-[32rem] max-w-screen-xl grid-cols-1 px-5 lg:grid-cols-2"
+    <MaxWidthContainer
+        className="relative grid min-h-[32rem] max-w-screen-2xl grid-cols-1 px-5 lg:grid-cols-3"
     >
-        <div class="flex flex-col justify-center lg:py-6">
+        <div class="flex flex-col justify-center text-xl lg:col-span-2 lg:py-6">
             <slot name="header" />
             <slot name="content" />
         </div>
-    </div>
+    </MaxWidthContainer>
 </section>

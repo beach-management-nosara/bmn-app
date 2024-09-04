@@ -1,6 +1,6 @@
 import { Menu } from "lucide-react";
 
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetDescription } from "@/components/ui/sheet";
 import { FacebookIcon } from "../icons/facebook-icon";
 import { InstagramIcon } from "../icons/instagram-icon";
 import { WhatsappIcon } from "../icons/whatsapp-icon";
@@ -22,7 +22,10 @@ export function MobileNav({ pathname }: { pathname: string }) {
                         <Menu className="text-primary size-8" />
                     </SheetTrigger>
                     <SheetContent side="left" className="border-none text-white flex flex-col">
-                        <nav className="mt-20 space-y-4">
+                        <SheetTitle className="text-2xl text-white">Menu</SheetTitle>
+                        <SheetDescription className="text-lg">Navigation links</SheetDescription>
+
+                        <nav className="mt-12 space-y-4">
                             {links.map((link, index) => (
                                 <a
                                     key={index}

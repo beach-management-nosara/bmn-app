@@ -71,7 +71,7 @@ function PropertyCard({ property }: { property: Property }) {
                         "bg-opacity-20 bg-clip-padding backdrop-blur-md backdrop-filter"
                     )}
                 >
-                    <PropertyRating rating={rating} />
+                    {/* <PropertyRating rating={rating} /> */}
                     <h3 className="text-balance text-base font-bold lg:text-2xl tracking-wide">{name}</h3>
 
                     <p className="flex items-center mt-2 gap-2">

@@ -31,7 +31,7 @@ export const PropertiesFiltered = () => {
                         <img src={heroHomesImg.src} alt="banner" className="h-full w-full object-cover" />
                     </div>
                     {/* Overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-black/10">
+                    <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-background/10">
                     </div>
                 </div>
 
@@ -51,7 +51,7 @@ export const PropertiesFiltered = () => {
                         </h1>
                     </div>
                     <div
-                        className="absolute bottom-0 left-1/2 mx-auto w-full max-w-screen-xl -translate-x-1/2 rounded-lg bg-white text-foreground shadow-lg"
+                        className="absolute bottom-20 left-1/2 mx-auto w-full max-w-screen-xl -translate-x-1/2 rounded-lg bg-white text-foreground shadow-lg"
                     >
                         <SearchBox
                             setSelectedProperties={setSelectedProperties}

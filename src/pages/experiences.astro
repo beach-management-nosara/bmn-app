@@ -6,7 +6,9 @@ import { MaxWidthContainer } from "@/components/site/max-width-container";
 import SectionHeader from "@/components/astro/section-header.astro";
 import ExperienceSection from "@/components/experiences/experience-section.astro";
 import OverviewSection from "@/components/site/overview-section.astro";
-import { heroExperiencesImg, home6Img, home14Img, hw2Img } from "@/assets/images";
+import { heroExperiencesImg, home6Img, home14Img, hw2Img, home11Img } from "@/assets/images";
+import InquireNowBtn from "@/components/site/inquire-now-btn.astro";
+import ContentFeatureSection from "@/components/site/content-feature-section.astro";
 ---
 
 <Layout title="Experiences | Beach Management Nosara">
@@ -123,4 +125,27 @@ import { heroExperiencesImg, home6Img, home14Img, hw2Img } from "@/assets/images
             </ul>
         </Fragment>
     </ExperienceSection>
+
+    <div class="flex w-full justify-center">
+        <InquireNowBtn />
+    </div>
+
+    <ContentFeatureSection
+        id="nosara"
+        image={home11Img}
+        cta={false}
+        className="pb-12 md:pb-24 lg:pb-32"
+    >
+        <SectionHeader slot="header">
+            <Fragment slot="background-text">Vacations</Fragment>
+            <Fragment slot="heading">Your Dream Vacation Awaits.</Fragment>
+        </SectionHeader>
+        <Fragment slot="description">
+            At Beach Management, we are dedicated to making your vacation dreams a reality. Our team
+            is committed to providing you and your family or travel group with an unforgettable
+            experience that will create lifelong memories. Select from our exclusive range of luxury
+            homes located in some of the world's most stunning and secure locations and let us help
+            you bring your dreams to life!
+        </Fragment>
+    </ContentFeatureSection>
 </Layout>

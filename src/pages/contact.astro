@@ -6,7 +6,7 @@ import ContactInfo from "@/components/astro/contact-info.astro";
 import { ContactForm } from "@/components/jsx/contact-form";
 import { MaxWidthContainer } from "@/components/site/max-width-container";
 import SectionHeader from "@/components/astro/section-header.astro";
-import { heroContactImg, reliableImg5 } from "@/assets/images";
+import { heroContactImg, home11Img } from "@/assets/images";
 import ContentFeatureSection from "@/components/site/content-feature-section.astro";
 
 export const prerender = false;
@@ -60,15 +60,14 @@ export const prerender = false;
     </section>
 
     <ContentFeatureSection
-        id="welcome"
-        image={reliableImg5}
-        ctaLink="/homes"
+        id="nosara"
+        image={home11Img}
         cta={false}
-        className="pb-12"
+        className="pb-12 md:pb-24 lg:pb-32"
     >
         <SectionHeader slot="header">
-            <Fragment slot="background-text">Contact</Fragment>
-            <Fragment slot="heading">Let us know</Fragment>
+            <Fragment slot="background-text">Vacations</Fragment>
+            <Fragment slot="heading">Your Dream Vacation Awaits.</Fragment>
         </SectionHeader>
         <Fragment slot="description">
             At Beach Management, we are dedicated to making your vacation dreams a reality. Our team

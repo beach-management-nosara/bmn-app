@@ -48,14 +48,7 @@ const {
                 }
             </div>
             <div class="w-full flex-1">
-                <Image
-                    src={image}
-                    alt="hero"
-                    class={cn(
-                        "min-h-full w-full object-cover",
-                        reverse ? "lg:clip-path-triangle-inverse" : "lg:clip-path-triangle"
-                    )}
-                />
+                <Image src={image} alt="hero" class={cn("min-h-full w-full object-cover")} />
             </div>
         </div>
     </MaxWidthContainer>

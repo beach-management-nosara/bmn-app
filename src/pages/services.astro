@@ -1,12 +1,15 @@
 ---
 import { Image } from "astro:assets";
+import { HandshakeIcon, HomeIcon, SignpostBigIcon } from "lucide-react";
 
+import Layout from "@/layouts/layout.astro";
 import ServiceSection from "@/components/services/service-section.astro";
 import OverviewSection from "@/components/site/overview-section.astro";
 import PageHero from "@/components/site/page-hero.astro";
 import SectionHeader from "@/components/site/section-header.astro";
-import Layout from "@/layouts/layout.astro";
-import { heroServicesImg } from "@/assets/images";
+import InquireNowBtn from "@/components/site/inquire-now-btn.astro";
+import ContentFeatureSection from "@/components/site/content-feature-section.astro";
+import { heroServicesImg, home11Img, whyUsImg } from "@/assets/images";
 ---
 
 <Layout>
@@ -16,7 +19,7 @@ import { heroServicesImg } from "@/assets/images";
         subtitle="Reliable Property Management"
     />
 
-    <OverviewSection>
+    <OverviewSection showImage={false} darkBg showCta>
         <Fragment slot="background-text">Beach Management</Fragment>
         <Fragment slot="headline">
             We offer professional management services to the finest vacation homes in our area.
@@ -80,4 +83,93 @@ import { heroServicesImg } from "@/assets/images";
             </p>
         </Fragment>
     </ServiceSection>
+
+    <section id="why-us" class="relative">
+        <Image src={whyUsImg} alt="banner" class="absolute inset-0 h-full w-full object-cover" />
+        <div class="absolute inset-0 bg-gradient-to-t from-background to-background/90"></div>
+        <div
+            class="relative z-10 mx-auto h-full w-full max-w-screen-xl overflow-x-hidden px-5 py-12 lg:overflow-x-visible"
+        >
+            <SectionHeader subheading slot="header">
+                <Fragment slot="headline">Nosara Beach Management</Fragment>
+                <Fragment slot="heading">Why Choose Us?</Fragment>
+            </SectionHeader>
+
+            <div class="mt-8 grid grid-cols-1 gap-6 md:grid-cols-3">
+                <div>
+                    <HandshakeIcon className="mx-auto size-24 text-primary" />
+                    <div class="mb-4 grid grid-cols-4 gap-3">
+                        <div class="col-span-1 mb-2 border-b-2 border-primary"></div>
+                        <h3 class="col-span-3 self-baseline text-2xl font-semibold text-primary">
+                            Meaningful and Trusting Relationships
+                        </h3>
+                    </div>
+                    <p>
+                        We prioritize gaining the confidence of our homeowners and go above and
+                        beyond by paying close attention to their needs. We value the trust that our
+                        clients place in us and strive to exceed their expectations through our
+                        commitment to excellence. By choosing us, you can rest assured that we are
+                        dedicated to building a strong and reliable partnership with you.
+                    </p>
+                </div>
+
+                <div>
+                    <HomeIcon className="mx-auto size-24 text-primary" />
+                    <div class="mb-4 grid grid-cols-4 gap-3">
+                        <div class="col-span-1 mb-2 border-b-2 border-primary"></div>
+                        <h3 class="col-span-3 self-baseline text-2xl font-semibold text-primary">
+                            Your Reputation is Our Reputation
+                        </h3>
+                    </div>
+                    <p>
+                        Our focus on providing exceptional guest experiences not only contributes to
+                        our own reputation but also has the potential to impact your rental home's
+                        future bookings and referrals. As your trusted property management partner,
+                        we recognize the significance of upholding the highest standards of guest
+                        satisfaction.
+                    </p>
+                </div>
+
+                <div>
+                    <SignpostBigIcon className="mx-auto size-24 text-primary" />
+                    <div class="mb-4 grid grid-cols-4 gap-3">
+                        <div class="col-span-1 mb-2 border-b-2 border-primary"></div>
+                        <h3 class="col-span-3 self-baseline text-2xl font-semibold text-primary">
+                            Long History of Success and Satisfaction
+                        </h3>
+                    </div>
+                    <p>
+                        We are fully committed to meeting and exceeding your expectations. With a
+                        proven track record of success and satisfied clients, we believe that you
+                        deserve nothing but the best service for each and every rental. Our
+                        objective is to deliver exceptional service that reflects our decades of
+                        experience in managing leisure real estate across North America.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="flex w-full justify-center">
+        <InquireNowBtn />
+    </div>
+
+    <ContentFeatureSection
+        id="nosara"
+        image={home11Img}
+        cta={false}
+        className="pb-12 md:pb-24 lg:pb-32"
+    >
+        <SectionHeader slot="header">
+            <Fragment slot="background-text">Vacations</Fragment>
+            <Fragment slot="heading">Your Dream Vacation Awaits.</Fragment>
+        </SectionHeader>
+        <Fragment slot="description">
+            At Beach Management, we are dedicated to making your vacation dreams a reality. Our team
+            is committed to providing you and your family or travel group with an unforgettable
+            experience that will create lifelong memories. Select from our exclusive range of luxury
+            homes located in some of the world's most stunning and secure locations and let us help
+            you bring your dreams to life!
+        </Fragment>
+    </ContentFeatureSection>
 </Layout>

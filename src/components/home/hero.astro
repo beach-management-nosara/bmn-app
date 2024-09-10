@@ -11,7 +11,10 @@ import { bannerImg } from "@/assets/images";
             <Image src={bannerImg} alt="banner" class="h-full w-full object-cover" />
         </div>
         <!-- Overlay 👇 -->
-        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-black/10"></div>
+        <div
+            class="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-background/10"
+        >
+        </div>
     </div>
     <div
         class="relative mx-auto flex h-full max-w-2xl flex-col justify-center px-4 text-white sm:px-6 lg:px-8"
@@ -41,7 +44,7 @@ import { bannerImg } from "@/assets/images";
     </div>
 
     <div
-        class="absolute bottom-0 left-1/2 mx-auto w-full max-w-screen-xl -translate-x-1/2 rounded-lg bg-white p-6 text-foreground shadow-lg"
+        class="absolute bottom-20 left-1/2 mx-auto w-full max-w-screen-xl -translate-x-1/2 rounded-lg bg-white p-6 text-foreground shadow-lg"
     >
         <HomeSearchBox client:load />
     </div>

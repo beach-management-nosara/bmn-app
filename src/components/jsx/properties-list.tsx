@@ -52,8 +52,8 @@ function PropertyCard({ property }: { property: Property }) {
     }, []);
 
     return (
-        <div className="relative mt-12 flex h-[500px] flex-col overflow-hidden rounded-lg bg-background shadow-lg">
-            <div className="h-2/3 w-full overflow-hidden rounded-lg">
+        <div className="mt-12 flex h-[500px] flex-col overflow-hidden rounded-lg bg-background shadow-lg">
+            <div className="w-full overflow-hidden rounded-t flex-1 relative">
                 <img
                     src={imageUrl}
                     alt={name}
@@ -61,56 +61,54 @@ function PropertyCard({ property }: { property: Property }) {
                     height={225}
                     className="h-full w-full object-cover"
                 />
-                {/* Overlay from bottom to top */}
-                <div className="absolute inset-x-0 bottom-0 top-0 bg-gradient-to-t from-primary via-black/40 to-black/10"></div>
+            </div>
 
-                {/* Card content */}
-                <div
-                    className={cn(
-                        "absolute flex flex-col inset-x-0 bottom-0 top-1/2 z-10 rounded-lg p-4 text-white",
-                        "bg-opacity-20 bg-clip-padding backdrop-blur-md backdrop-filter"
-                    )}
-                >
-                    {/* <PropertyRating rating={rating} /> */}
-                    <h3 className="text-balance text-base font-bold lg:text-2xl tracking-wide">{name}</h3>
+            {/* Card content */}
+            <div
+                className={cn(
+                    "flex flex-1 flex-col its rounded-b-md p-4 text-white",
+                    "bg-gradient-to-t from-primary via-primary/40 to-primary/10"
+                )}
+            >
+                {/* <PropertyRating rating={rating} /> */}
+                <h3 className="text-balance text-base font-bold lg:text-2xl tracking-wide">{name}</h3>
 
-                    <p className="flex items-center mt-2 gap-2">
-                        <MapPinIcon className="text-white flex-shrink-0 size-4" />
-                        <span className="text-sm lg:text-base">{address}</span>
-                    </p>
+                <p className="flex items-center mt-2 gap-2">
+                    <MapPinIcon className="text-white flex-shrink-0 size-4" />
+                    <span className="text-sm lg:text-base">{address}</span>
+                </p>
 
 
-                    <div className="mt-auto">
-                        <div>
-                            From{" "}
-                            <span className="text-xl font-bold">
-                                {currency_code} {" "}
-                                {rate ? <span>{Math.round(rate.price)}</span> : <div className="inline-block animate-pulse bg-gray-200 w-16 rounded h-4" />}
-                            </span>
-                            < span className="text-sm font-bold">
-                                {" "}/{" "}week
-                            </span>
-                        </div>
+                <div className="mt-auto">
+                    <div>
+                        From{" "}
+                        <span className="text-xl font-bold">
+                            {currency_code} {" "}
+                            {rate ? <span>{Math.round(rate.price)}</span> : <div className="inline-block animate-pulse bg-gray-200 w-16 rounded h-4" />}
+                        </span>
+                        < span className="text-sm font-bold">
+                            {" "}/{" "}week
+                        </span>
+                    </div>
 
-                        <div className="flex justify-between gap-2 mt-3">
+                    <div className="flex justify-between gap-2 mt-3">
+                        <a
+                            href={`/homes/${id}${range.from ? `?periodStart=${encodeURIComponent(formatToApiDate(range.from))}` : ""}${range.to ? `&periodEnd=${encodeURIComponent(formatToApiDate(range.to))}` : ""}`}
+                            target="_blank"
+                            className="w-1/2 rounded-lg bg-background text-white p-2 text-center transition-colors duration-300 hover:bg-background/90"
+                        >
+                            View property
+                        </a>
+
+                        <button className="flex w-1/2 items-center justify-center rounded-md bg-primary font-semibold text-white transition-colors duration-300 hover:bg-primary/70">
                             <a
                                 href={`/homes/${id}${range.from ? `?periodStart=${encodeURIComponent(formatToApiDate(range.from))}` : ""}${range.to ? `&periodEnd=${encodeURIComponent(formatToApiDate(range.to))}` : ""}`}
                                 target="_blank"
-                                className="w-1/2 rounded-lg bg-background text-white p-2 text-center transition-colors duration-300 hover:bg-background/90"
                             >
-                                View property
+                                Reserve now
                             </a>
-
-                            <button className="flex w-1/2 items-center justify-center rounded-md bg-primary font-semibold text-white transition-colors duration-300 hover:bg-primary/70">
-                                <a
-                                    href={`/homes/${id}${range.from ? `?periodStart=${encodeURIComponent(formatToApiDate(range.from))}` : ""}${range.to ? `&periodEnd=${encodeURIComponent(formatToApiDate(range.to))}` : ""}`}
-                                    target="_blank"
-                                >
-                                    Reserve now
-                                </a>
-                                <ChevronRightIcon size={18} className="ml-2" />
-                            </button>
-                        </div>
+                            <ChevronRightIcon size={18} className="ml-2" />
+                        </button>
                     </div>
                 </div>
             </div>

@@ -20,7 +20,7 @@ export function PropertyDetails({ slug }: PropertyDetailsProps) {
 
     return (
         <>
-            <section className="relative h-[60vh] lg:h-[50vh] overflow-hidden">
+            <section className="relative h-[40vh] overflow-hidden">
                 <div className="absolute inset-0">
                     <div className={cn("h-full w-full bg-gray-400", !room?.image_url && "animate-pulse")}>
                         {property?.image_url && (
@@ -31,13 +31,14 @@ export function PropertyDetails({ slug }: PropertyDetailsProps) {
                     </div>
                 </div>
 
-                <div className="mx-auto h-full max-w-screen-xl overflow-x-hidden px-5 lg:overflow-x-visible">
-                    <div className="relative flex h-full flex-col justify-center">
-                        <div className="flex items-center gap-2">
+                <div className="mx-auto relative h-full max-w-screen-xl overflow-x-hidden px-5 lg:overflow-x-visible">
+                    <div className="absolute bottom-1/3 lg:bottom-20 flex flex-col justify-end">
+                        {/* NOTE: Temp removed by client's request */}
+                        {/* <div className="flex items-center gap-2">
                             <PropertyRating rating={property?.rating ?? 0} />
-                        </div>
+                        </div> */}
                         {property?.name ? (
-                            <h1 className="mb-4 w-full text-4xl font-semibold leading-tight lg:text-5xl">
+                            <h1 className="mb-4 w-full text-5xl font-semibold leading-tight">
                                 {property?.name}
                             </h1>
                         ) : (
@@ -45,7 +46,7 @@ export function PropertyDetails({ slug }: PropertyDetailsProps) {
                         )}
                         {
                             property?.address ? (
-                                <p className="flex items-center gap-3">
+                                <p className="flex items-center gap-3 text-xl">
                                     <MapPinIcon className="inline-block size-5 flex-shrink-0 text-primary" />
                                     {property?.address}
                                 </p>

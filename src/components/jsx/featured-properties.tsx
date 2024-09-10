@@ -4,7 +4,7 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { Skeleton } from '@/components/ui/skeleton'
 import { useProperties } from "@/hooks/useProperties"
 import { removeHtmlTags } from '@/lib/utils'
-import { PropertyRating } from './property-rating'
+// import { PropertyRating } from './property-rating'
 
 export function FeaturedProperties() {
     const { properties, isLoading } = useProperties()
@@ -27,7 +27,8 @@ export function FeaturedProperties() {
                                     <div className='hidden lg:block absolute inset-0 bg-gradient-to-l from-background via-background/80 to-background/50 lg:to-transparent w-full'></div>
                                 </div>
                                 <div className='absolute w-full lg:w-2/5 right-0 inset-y-0 p-8 flex flex-col items-center lg:items-end justify-center'>
-                                    <PropertyRating rating={property?.rating || 0} />
+                                    {/* NOTE: Tempo removed by client's request */}
+                                    {/* <PropertyRating rating={property?.rating || 0} /> */}
                                     <h2 className='font-semibold text-2xl text-center lg:text-right text-pretty'>{property?.name}</h2>
                                     <p className='flex items-center text-primary gap-3 text-center lg:text-right'>
                                         {property?.address}

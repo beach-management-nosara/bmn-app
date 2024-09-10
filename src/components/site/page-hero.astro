@@ -18,7 +18,10 @@ const { image, title, subtitle } = Astro.props as Props;
             <Image src={image} alt="banner" class="h-full w-full object-cover" />
         </div>
         <!-- Overlay -->
-        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-black/10"></div>
+        <div
+            class="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-background/10"
+        >
+        </div>
     </div>
 
     <MaxWidthContainer>

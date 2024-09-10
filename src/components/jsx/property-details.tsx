@@ -32,13 +32,13 @@ export function PropertyDetails({ slug }: PropertyDetailsProps) {
                 </div>
 
                 <div className="mx-auto relative h-full max-w-screen-xl overflow-x-hidden px-5 lg:overflow-x-visible">
-                    <div className="absolute bottom-1/3 lg:bottom-20 flex flex-col justify-end">
+                    <div className="absolute bottom-10 lg:bottom-20 flex flex-col justify-end">
                         {/* NOTE: Temp removed by client's request */}
                         {/* <div className="flex items-center gap-2">
                             <PropertyRating rating={property?.rating ?? 0} />
                         </div> */}
                         {property?.name ? (
-                            <h1 className="mb-4 w-full text-5xl font-semibold leading-tight">
+                            <h1 className="mb-4 w-full text-3xl md:text-5xl font-semibold leading-tight">
                                 {property?.name}
                             </h1>
                         ) : (

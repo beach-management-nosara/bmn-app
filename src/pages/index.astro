@@ -5,7 +5,7 @@ import Hero from "@/components/home/hero.astro";
 import OverviewSection from "@/components/site/overview-section.astro";
 import FeaturedHomes from "@/components/home/featured-homes.astro";
 import ContentFeatureSection from "@/components/site/content-feature-section.astro";
-import { bannerImg, home11Img, home5Img } from "@/assets/images";
+import { bannerImg, djiImg, home11Img, home5Img, sunsetImg } from "@/assets/images";
 ---
 
 <Layout title="Home | Beach Management Nosara">
@@ -39,7 +39,7 @@ import { bannerImg, home11Img, home5Img } from "@/assets/images";
         <span slot="cta">Explore Vacation Homes</span>
     </ContentFeatureSection>
 
-    <ContentFeatureSection id="escape" image={home5Img} reverse cta={false}>
+    <ContentFeatureSection id="escape" image={sunsetImg} reverse cta={false}>
         <SectionHeader slot="header">
             <Fragment slot="background-text">Escape</Fragment>
             <Fragment slot="heading"> Escape top the breathtaking Nosara, Costa Rica </Fragment>
@@ -55,7 +55,7 @@ import { bannerImg, home11Img, home5Img } from "@/assets/images";
 
     <ContentFeatureSection
         id="nosara"
-        image={home11Img}
+        image={djiImg}
         ctaLink="/homes"
         className="pb-12 md:pb-24 lg:pb-32"
     >

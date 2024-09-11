@@ -7,7 +7,6 @@ import type { Property } from "@/types/property";
 import { cn, formatToApiDate } from "@/lib/utils";
 import type { DateRange } from "@/types";
 import { usePropertyDetails } from "@/hooks/usePropertyDetails";
-import { PropertyRating } from "./property-rating";
 
 export function PropertiesList({
     selectedProperties,
@@ -33,7 +32,7 @@ function PropertyCard({ property }: { property: Property }) {
     const { rate } = usePropertyDetails(property.id.toString());
 
     const [range, setRange] = useState<DateRange>({ from: undefined, to: undefined });
-    const { id, image_url, name, address, currency_code, rating } = property;
+    const { id, image_url, name, address, currency_code } = property;
     const imageUrl = "https:" + image_url;
 
     useEffect(() => {

@@ -6,7 +6,6 @@ import { usePropertyDetails } from "@/hooks/usePropertyDetails";
 import type { PropertyData } from "@/types";
 import { PropertyDetailsTabs, PropertyDetailsTabsSkeleton } from "./property-tabs";
 import Reviews from "./reviews";
-import { PropertyRating } from "./property-rating";
 import { cn } from "@/lib/utils";
 import { MaxWidthContainer } from "./max-width-container";
 import { BookingCard } from "./booking-card";

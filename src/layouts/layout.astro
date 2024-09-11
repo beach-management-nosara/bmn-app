@@ -1,0 +1,38 @@
+---
+import "@fontsource-variable/inter";
+
+import Head from "@/components/astro/head.astro";
+import Footer from "@/components/astro/footer.astro";
+import { Toaster } from "@/components/ui/toaster";
+
+import DesktopNavbar from "@/components/astro/desktop-navbar.astro";
+import { MobileNav } from "@/components/jsx/mobile-nav";
+import "@/styles/globals.css";
+
+interface Props {
+    title?: string;
+    description?: string;
+}
+
+const pathname = Astro.url.pathname;
+const { title, description } = Astro.props as Props;
+---
+
+<html lang="en">
+    <Head
+        title={title ?? "Beach Management Nosara"}
+        description={description ??
+            "Beach Management in Costa Rica rents and manages the best selection of elite, luxury vacation homes on the Pacific Coast. Beach Management works in a variety of ways to deliver classy guest services and professional property management. Whether you’re a guest, owner, or buyer; Beach Management is ready to assist you."}
+    />
+
+    <body class="overflow-x-hidden bg-background text-white antialiased">
+        <MobileNav client:load pathname={pathname} />
+        <DesktopNavbar />
+        <main>
+            <!-- Application Entry Point 👇 -->
+            <slot />
+            <Toaster client:load />
+        </main>
+        <Footer />
+    </body>
+</html>

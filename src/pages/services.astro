@@ -1,179 +1,175 @@
 ---
 import { Image } from "astro:assets";
+import { HandshakeIcon, HomeIcon, SignpostBigIcon } from "lucide-react";
 
-import MainLayout from "@/layouts/main-layout.astro";
-import PageHero from "@/components/astro/page-hero.astro";
-import FeatureShowcase from "@/components/astro/feature-showcase.astro";
-import Section from "@/components/astro/section.astro";
-import {
-    heroServicesImg,
-    reliableImg2,
-    reliableImg3,
-    reliableImg4,
-    reliableImg5,
-    reliableImg8
-} from "@/assets/images";
-import { RelationshipIcon, ReputationIcon, SuccessIcon } from "@/assets/icons";
-import CustomLink from "@/components/astro/custom-link.astro";
-
-const images = [reliableImg2, reliableImg3, reliableImg4];
+import Layout from "@/layouts/layout.astro";
+import ServiceSection from "@/components/services/service-section.astro";
+import OverviewSection from "@/components/site/overview-section.astro";
+import PageHero from "@/components/site/page-hero.astro";
+import SectionHeader from "@/components/site/section-header.astro";
+import InquireNowBtn from "@/components/site/inquire-now-btn.astro";
+import ContentFeatureSection from "@/components/site/content-feature-section.astro";
+import { heroServicesImg, pachoteDroneImg, whyUsImg } from "@/assets/images";
 ---
 
-<MainLayout title="Services | Beach Management Nosara">
-    <main class="mx-auto">
-        <PageHero
-            image={heroServicesImg}
-            title="Management Services"
-            subtitle="Reliable Property Management"
-        />
+<Layout>
+    <PageHero
+        image={heroServicesImg}
+        title="Management Services"
+        subtitle="Reliable Property Management"
+    />
 
-        <FeatureShowcase images={images}>
-            <Fragment slot="subtitle"> Beach Management </Fragment>
-            <Fragment slot="title">
-                We offer professional management services to the finest vacation homes in our area.
-            </Fragment>
-            <Fragment slot="description">
-                At Beach Management Nosara, we take our role as a responsible sterwards and keeper
-                of your property very seriously. Our comprehensive suite of property and rental
-                management services is designed to meet your expectations and safeguard your luxury
-                investment.
-            </Fragment>
-        </FeatureShowcase>
+    <OverviewSection showImage={false} darkBg showCta>
+        <Fragment slot="background-text">Beach Management</Fragment>
+        <Fragment slot="headline">
+            We offer professional management services to the finest vacation homes in our area.
+        </Fragment>
+        <Fragment slot="description">
+            At Beach Management Nosara, we take our role as a responsabile stewards and keeper of
+            your property very seriously. Our comprehensive suit of property and rental management
+            services is designed to meet your expectations and safeguard your luxury investment.
+        </Fragment>
+    </OverviewSection>
 
-        <Section id="rent-your-property">
-            <Fragment slot="title">Our Promise</Fragment>
+    <ServiceSection id="our-promise">
+        <Image slot="image" src={heroServicesImg} alt="banner" class="h-full w-full object-cover" />
 
-            <Fragment slot="content">
-                <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
-                    <div class="space-y-3">
-                        <p class="prose">
-                            We are committed to providing top-quality management of your luxury
-                            home, ensuring that it remains in stunning condition, both inside and
-                            out, even in the tropical and ever-changing coastal climate. Our
-                            services include, but are not limited to, meticulous landscaping,
-                            routine care for your pool, and regular housekeeping.
-                        </p>
-                        <p class="prose">
-                            We understand the importance of maintaining the highest standards of
-                            security for your property, which is why we take all necessary measures
-                            to keep it safe and secure at all times. Our team of experts is
-                            dedicated to delivering unparalleled service, with a focus on attention
-                            to detail and personalized care.
-                        </p>
-                        <p class="prose">
-                            With our wealth of experience and in-depth knowledge of the local
-                            market, you can trust that your property is in the best hands possible.
-                        </p>
-                    </div>
-                    <div class="flex justify-center self-center">
-                        <Image
-                            src={reliableImg5}
-                            alt="reliable five"
-                            class="h-auto w-full rounded-lg object-cover shadow-lg lg:w-4/5"
-                        />
-                    </div>
-                </div>
-            </Fragment>
-        </Section>
+        <SectionHeader slot="header">
+            <Fragment slot="background-text">Promise</Fragment>
+            <Fragment slot="heading">Our Promise</Fragment>
+        </SectionHeader>
 
-        <Section isAlternate>
-            <Fragment slot="title">Rent Your Property</Fragment>
+        <Fragment slot="content">
+            <p class="mt-4">
+                We are committed to providing top-quality management of your luxury home, ensuring
+                that it remains in stunning condition, both inside and out, even in the tropical and
+                ever-changing coastal climate. Our services include, but are not limited to,
+                meticulous landscaping, routine care for your pool, and regular housekeeping. We
+                understand the importance of maintaining the highest standards of security for your
+                property, which is why we take all necessary measures to keep it safe and secure at
+                all times.
+            </p>
+            <p>
+                Our team of experts is dedicated to delivering unparalleled service, with a focus on
+                attention to detail and personalized care. With our wealth of experience and
+                in-depth knowledge of the local market, you can trust that your property is in the
+                best hands possible.
+            </p>
+        </Fragment>
+    </ServiceSection>
 
-            <Fragment slot="content">
-                <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
-                    <div class="space-y-3">
-                        <p class="prose">
-                            Our comprehensive suite of services revolves around your home and is
-                            aimed at generating consistent guest reservations and increasing your
-                            rental returns.
-                        </p>
-                        <p class="prose">
-                            Our skilled team is dedicated to ensuring constant marketing and
-                            promotion of your property, as well as promptly responding to guest
-                            inquiries, answering questions, and following up to excite potential
-                            renters and ensure a seamless and personable reservation process.
-                        </p>
-                        <p class="prose mb-4">
-                            Once guests arrive, we provide a range of services to ensure their
-                            complete satisfaction throughout their stay. Our focus is on delighting
-                            guests and providing exceptional service that exceeds their
-                            expectations, encouraging their return.
-                        </p>
-                        <p class="prose mb-4">
-                            We offer full guest services and assistance with vacation activities.
-                        </p>
-                        <div class="mt-6">
-                            <CustomLink href="/contact"> Inquire Now </CustomLink>
-                        </div>
-                    </div>
-                    <div class="flex justify-center self-center">
-                        <Image
-                            src={reliableImg8}
-                            alt="reliable eight"
-                            class="h-auto w-full rounded-lg object-cover lg:w-2/5"
-                        />
-                    </div>
-                </div>
-            </Fragment>
-        </Section>
+    <ServiceSection id="rent-your-property" reverse>
+        <Image slot="image" src={heroServicesImg} alt="banner" class="h-full w-full object-cover" />
 
-        <Section>
-            <Fragment slot="title">Why Choose Us?</Fragment>
+        <SectionHeader slot="header">
+            <Fragment slot="background-text">Rent</Fragment>
+            <Fragment slot="heading">Rent Your Property</Fragment>
+        </SectionHeader>
 
-            <Fragment slot="content">
-                <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-                    <div class="p-4">
-                        <Image
-                            src={RelationshipIcon}
-                            alt="relationship icon"
-                            class="mx-auto size-24"
-                        />
-                        <h3 class="mb-3 text-center text-xl font-semibold">
+        <Fragment slot="content">
+            <p class="mt-4">
+                Our comprehensive suite of services revolves around your home and is aimed at
+                generating consistent guest reservations and increasing your rental returns. Our
+                skilled team is dedicated to ensuring constant marketing and promotion of your
+                property, as well as promptly responding to guest inquiries, answering questions,
+                and following up to excite potential renters and ensure a seamless and personable
+                reservation process.
+            </p>
+            <p>
+                Once guests arrive, we provide a range of services to ensure their complete
+                satisfaction throughout their stay. Our focus is on delighting guests and providing
+                exceptional service that exceeds their expectations, encouraging their return. We
+                offer full guest services and assistance with vacation activities.
+            </p>
+        </Fragment>
+    </ServiceSection>
+
+    <section id="why-us" class="relative">
+        <Image src={whyUsImg} alt="banner" class="absolute inset-0 h-full w-full object-cover" />
+        <div class="absolute inset-0 bg-gradient-to-t from-background to-background/90"></div>
+        <div
+            class="relative z-10 mx-auto h-full w-full max-w-screen-xl overflow-x-hidden px-5 py-12 lg:overflow-x-visible"
+        >
+            <SectionHeader subheading slot="header">
+                <Fragment slot="headline">Nosara Beach Management</Fragment>
+                <Fragment slot="heading">Why Choose Us?</Fragment>
+            </SectionHeader>
+
+            <div class="mt-8 grid grid-cols-1 gap-6 md:grid-cols-3">
+                <div>
+                    <HandshakeIcon className="mx-auto size-24 text-primary" />
+                    <div class="mb-4 grid grid-cols-4 gap-3">
+                        <div class="col-span-1 mb-2 border-b-2 border-primary"></div>
+                        <h3 class="col-span-3 self-baseline text-2xl font-semibold text-primary">
                             Meaningful and Trusting Relationships
                         </h3>
-                        <p class="prose-sm text-pretty text-center">
-                            We prioritize gaining the confidence of our homeowners and go above and
-                            beyond by paying close attention to their needs. We value the trust that
-                            our clients place in us and strive to exceed their expectations through
-                            our commitment to excellence. By choosing us, you can rest assured that
-                            we are dedicated to building a strong and reliable partnership with you.
-                        </p>
                     </div>
-                    <div class="p-4">
-                        <Image
-                            src={ReputationIcon}
-                            alt="relationship icon"
-                            class="mx-auto size-24"
-                        />
-                        <h3 class="mb-3 text-center text-xl font-semibold">
+                    <p>
+                        We prioritize gaining the confidence of our homeowners and go above and
+                        beyond by paying close attention to their needs. We value the trust that our
+                        clients place in us and strive to exceed their expectations through our
+                        commitment to excellence. By choosing us, you can rest assured that we are
+                        dedicated to building a strong and reliable partnership with you.
+                    </p>
+                </div>
+
+                <div>
+                    <HomeIcon className="mx-auto size-24 text-primary" />
+                    <div class="mb-4 grid grid-cols-4 gap-3">
+                        <div class="col-span-1 mb-2 border-b-2 border-primary"></div>
+                        <h3 class="col-span-3 self-baseline text-2xl font-semibold text-primary">
                             Your Reputation is Our Reputation
                         </h3>
-                        <p class="prose-sm text-pretty text-center">
-                            Our focus on providing exceptional guest experiences not only
-                            contributes to our own reputation but also has the potential to impact
-                            your rental home's future bookings and referrals. As your trusted
-                            property management partner, we recognize the significance of upholding
-                            the highest standards of guest satisfaction.
-                        </p>
                     </div>
-                    <div class="p-4">
-                        <Image src={SuccessIcon} alt="relationship icon" class="mx-auto size-24" />
-                        <h3 class="mb-3 text-center text-xl font-semibold">
+                    <p>
+                        Our focus on providing exceptional guest experiences not only contributes to
+                        our own reputation but also has the potential to impact your rental home's
+                        future bookings and referrals. As your trusted property management partner,
+                        we recognize the significance of upholding the highest standards of guest
+                        satisfaction.
+                    </p>
+                </div>
+
+                <div>
+                    <SignpostBigIcon className="mx-auto size-24 text-primary" />
+                    <div class="mb-4 grid grid-cols-4 gap-3">
+                        <div class="col-span-1 mb-2 border-b-2 border-primary"></div>
+                        <h3 class="col-span-3 self-baseline text-2xl font-semibold text-primary">
                             Long History of Success and Satisfaction
                         </h3>
-                        <p class="prose-sm text-pretty text-center">
-                            We are fully committed to meeting and exceeding your expectations. With
-                            a proven track record of success and satisfied clients, we believe that
-                            you deserve nothing but the best service for each and every rental. Our
-                            objective is to deliver exceptional service that reflects our decades of
-                            experience in managing leisure real estate across North America.
-                        </p>
                     </div>
+                    <p>
+                        We are fully committed to meeting and exceeding your expectations. With a
+                        proven track record of success and satisfied clients, we believe that you
+                        deserve nothing but the best service for each and every rental. Our
+                        objective is to deliver exceptional service that reflects our decades of
+                        experience in managing leisure real estate across North America.
+                    </p>
                 </div>
-                <div class="mt-6 flex justify-center">
-                    <CustomLink href="/contact"> Inquire Now </CustomLink>
-                </div>
-            </Fragment>
-        </Section>
-    </main>
-</MainLayout>
+            </div>
+        </div>
+    </section>
+
+    <div class="flex w-full justify-center">
+        <InquireNowBtn />
+    </div>
+
+    <ContentFeatureSection
+        id="nosara"
+        image={pachoteDroneImg}
+        cta={false}
+        className="pb-12 md:pb-24 lg:pb-32"
+    >
+        <SectionHeader slot="header">
+            <Fragment slot="background-text">Vacations</Fragment>
+            <Fragment slot="heading">Your Dream Vacation Awaits.</Fragment>
+        </SectionHeader>
+        <Fragment slot="description">
+            At Beach Management, we are dedicated to making your vacation dreams a reality. Our team
+            is committed to providing you and your family or travel group with an unforgettable
+            experience that will create lifelong memories. Select from our exclusive range of luxury
+            homes located in some of the world's most stunning and secure locations and let us help
+            you bring your dreams to life!
+        </Fragment>
+    </ContentFeatureSection>
+</Layout>

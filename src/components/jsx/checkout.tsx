@@ -219,10 +219,10 @@ export function Checkout({
     }, [range.to, range.from, rate?.min_stay]);
 
     return (
-        <div className="flex flex-col lg:flex-row-reverse">
-            <div className="top-20 m-4 h-fit rounded bg-white p-5 shadow-lg lg:sticky lg:w-[500px]">
+        <div className="flex flex-col lg:flex-row-reverse mt-32">
+            <div className="top-20 m-4 h-fit rounded p-5 shadow-lg lg:sticky bg-white lg:w-[500px]">
                 {status === "loading" && (
-                    <div className="absolute left-0 top-0 z-50 flex h-full w-full items-center justify-center gap-4 rounded bg-gray-200 bg-opacity-50">
+                    <div className="absolute left-0 top-0 z-50 flex h-full w-full items-center justify-center gap-4 rounded bg-opacity-50">
                         <LoaderCircle className="animate-spin" />
                         <p>Loading</p>
                     </div>
@@ -236,26 +236,26 @@ export function Checkout({
                             className="h-12 w-12 rounded"
                         />
                     ) : (
-                        <div className="h-12 w-12 animate-pulse rounded bg-gray-200" />
+                        <div className="h-12 w-12 animate-pulse rounded" />
                     )}
                     {property?.name ? (
                         <p className="text-primary">{property?.name}</p>
                     ) : (
-                        <div className="inline-block h-4 w-16 animate-pulse rounded bg-gray-200" />
+                        <div className="inline-block h-4 w-16 animate-pulse rounded" />
                     )}
                 </div>
 
-                <h2 className="mb-4 border-b pb-4 text-xl font-bold">Booking summary</h2>
+                <h2 className="mb-4 border-b pb-4 text-xl font-bold text-gray-700">Booking summary</h2>
 
                 <div className="mb-4 border-b pb-4">
                     {quoteLoading || !(range.from && range.to) ? (
                         <div className="mb-2">
-                            <div className="mb-2 h-4 w-12 animate-pulse rounded bg-gray-200" />
-                            <div className="mb-2 h-4 w-32 animate-pulse rounded bg-gray-200" />
-                            <div className="h-4 w-16 animate-pulse rounded bg-gray-200" />
+                            <div className="mb-2 h-4 w-12 animate-pulse rounded" />
+                            <div className="mb-2 h-4 w-32 animate-pulse rounded" />
+                            <div className="h-4 w-16 animate-pulse rounded" />
                         </div>
                     ) : (
-                        <ul className="mt-2 list-disc text-gray-700">
+                        <ul className="mt-2 list-disc text-black">
                             {quote?.room_type.price_types
                                 .filter((priceType: PriceType) => priceType.subtotal > 0)
                                 .map((priceType: PriceType) => (
@@ -292,19 +292,19 @@ export function Checkout({
                     <div className="border-b" />
 
                     <div className="mt-4 flex items-center justify-between text-xl font-bold text-primary">
-                        <span className="text-sm text-muted">TOTAL</span>
+                        <span className="text-sm">TOTAL</span>
                         <span>
                             <span className="text-sm">{property?.currency_code} </span>
                             {!quote?.total_scheduled_payments || rangeError || !(range.from && range.to) ? (
-                                <div className="inline-block h-4 w-16 animate-pulse rounded bg-gray-200" />
+                                <div className="inline-block h-4 w-16 animate-pulse rounded" />
                             ) : (
-                                <span>{formatCurrency(quote.total_scheduled_payments)}</span>
+                                <span className="text-primary">{formatCurrency(quote.total_scheduled_payments)}</span>
                             )}
                         </span>
                     </div>
 
                     <p>
-                        <small>
+                        <small className="text-gray-700">
                             *To avoid the credit card processing fee, you may opt to make your
                             payment via wire transfer.
                         </small>
@@ -319,22 +319,23 @@ export function Checkout({
                     </p>
                 )}
 
-                <div className={!rangeError ? "py-6" : ""}>
+                <div className={!rangeError ? "py-6 text-black" : ""}>
                     <DateRangePicker
                         propertyId={property?.id}
                         range={range}
                         setRange={setRange}
-                        className="top absolute z-10 bg-white"
+                        className="top absolute z-10"
                     />
                 </div>
 
-                <div className="flex flex-col gap-4">
+                <div className="flex flex-col gap-4 text-black">
                     <div className="flex flex-col gap-2">
                         <div className="flex items-center gap-2">
                             <Users size={20} />
                             <p>Guests</p>
                         </div>
                         <Input
+                            className="bg-transparent"
                             placeholder="Guests"
                             type="number"
                             max={room?.max_people}
@@ -353,6 +354,7 @@ export function Checkout({
                             <p>Name</p>
                         </div>
                         <Input
+                            className="bg-transparent"
                             placeholder="Name"
                             type="text"
                             onChange={event => setName(event.target.value)}
@@ -364,6 +366,7 @@ export function Checkout({
                             <p>Email</p>
                         </div>
                         <Input
+                            className="bg-transparent"
                             placeholder="Email"
                             type="text"
                             onChange={event => setEmail(event.target.value)}
@@ -379,6 +382,7 @@ export function Checkout({
                                 <p>Phone</p>
                             </div>
                             <Input
+                                className="bg-transparent"
                                 placeholder="Phone"
                                 type="number"
                                 onChange={event => {
@@ -411,13 +415,13 @@ export function Checkout({
                     </p>
                 )}
 
-                <p className="my-4 text-sm">
+                <p className="my-4 text-sm text-black">
                     Get in touch with Beach Management Nosara to plan your trip or ask any
                     questions.
                 </p>
 
                 {isModalOpen && (
-                    <div className="fixed left-0 top-0 z-50 flex h-full w-full items-center justify-center bg-gray-800 bg-opacity-90">
+                    <div className="fixed left-0 top-0 z-50 flex h-full w-full items-center justify-center bg-opacity-90">
                         <div
                             className="flex flex-col justify-between rounded-lg bg-white p-4"
                             style={{ width: "50vw" }}
@@ -463,10 +467,10 @@ export function Checkout({
                 )}
             </div>
 
-            <div className="top-20 m-4 h-fit rounded bg-white p-5 shadow-lg">
-                <h2 className="mb-4 text-2xl font-bold">Payment details</h2>
-                <div className="mb-6 rounded-lg bg-amber-100  p-4">
-                    <p className="text-secondary">
+            <div className="top-20 m-4 h-fit rounded bg-gray-100 p-5 shadow-lg">
+                <h2 className="mb-4 text-2xl font-bold text-gray-800">Payment details</h2>
+                <div className="mb-6 rounded-lg bg-amber-50 ring-amber-400 ring-4 p-4">
+                    <p className="text-foreground">
                         <strong>Payment upon confirmed reservation</strong>
                         <br />
                         No payment will be processed until your reservation is confirmed. We will
@@ -474,8 +478,8 @@ export function Checkout({
                     </p>
                 </div>
                 <div className="mb-6">
-                    <h3 className="text-xl font-semibold">Cancellation policy</h3>
-                    <ul className="ml-5 mt-2 list-disc text-gray-600">
+                    <h3 className="text-xl font-semibold text-gray-700">Cancellation policy</h3>
+                    <ul className="ml-5 mt-2 list-disc text-gray-800">
                         <li>
                             100% of paid prepayments refundable when canceled 75 days before arrival
                             or earlier.
@@ -484,12 +488,12 @@ export function Checkout({
                     </ul>
                 </div>
                 <div className="mb-6">
-                    <h3 className="text-xl font-semibold">Security deposit policy</h3>
-                    <div className="mt-2 text-gray-600">
+                    <h3 className="text-xl font-semibold text-gray-700">Security deposit policy</h3>
+                    <div className="mt-2 text-gray-800">
                         {quoteLoading ? (
                             <>
-                                <div className="mb-2 h-4 w-12 animate-pulse rounded bg-gray-200" />
-                                <div className="h-4 w-32 animate-pulse rounded bg-gray-200" />
+                                <div className="mb-2 h-4 w-12 animate-pulse rounded" />
+                                <div className="h-4 w-32 animate-pulse rounded" />
                             </>
                         ) : (
                             <p>
@@ -505,10 +509,10 @@ export function Checkout({
                     <input
                         type="checkbox"
                         id="agreement"
-                        className="mr-2 outline-none"
+                        className="mr-2 outline-none text-gray-700"
                         onChange={() => setAgreement(prev => !prev)}
                     />
-                    <label htmlFor="agreement" className="text-sm">
+                    <label htmlFor="agreement" className="text-sm text-gray-700">
                         I have read and I accept the{" "}
                         <button onClick={() => setIsAgreementModalOpen(true)} className="underline">
                             Rental agreement
@@ -519,14 +523,14 @@ export function Checkout({
 
                 <div className="flex gap-4">
                     <button
-                        className="rounded-lg bg-gray-400 px-4 py-2 font-bold text-white hover:bg-secondary"
+                        className="rounded-lg px-4 py-2 font-bold text-white bg-background hover:bg-background/70"
                         onClick={handleGoBack}
                     >
                         Return to property
                     </button>
                     <button
                         onClick={handleSearch}
-                        className="rounded-lg bg-primary px-4 py-2 font-bold text-white hover:bg-secondary disabled:bg-gray-300"
+                        className="rounded-lg bg-primary px-4 py-2 font-bold text-white hover:bg-secondary"
                         disabled={rateLoading || status === "loading" || rangeError || !agreement}
                     >
                         Request to book
@@ -534,7 +538,7 @@ export function Checkout({
                 </div>
 
                 {isAgreementModalOpen && (
-                    <div className="fixed left-0 top-0 z-50 flex h-full w-full items-center justify-center bg-gray-800 bg-opacity-90">
+                    <div className="fixed left-0 top-0 z-50 flex h-full w-full items-center justify-center bg-opacity-90">
                         <div className="flex flex-col">
                             <div
                                 className="flex w-full max-w-4xl flex-col justify-between rounded-lg bg-white p-4"

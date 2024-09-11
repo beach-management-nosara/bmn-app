@@ -1,3 +1,4 @@
+import defaultTheme from "tailwindcss/defaultTheme";
 import typography from "@tailwindcss/typography";
 import forms from "@tailwindcss/forms";
 import animate from "tailwindcss-animate";
@@ -27,9 +28,10 @@ export default {
         },
         extend: {
             fontFamily: {
-                serif: ["Times New Roman", "Times", "serif"],
-                sans: ["Helvetica", "sans-serif"],
-                oswald: ["Oswald", "sans-serif"]
+                sans: ["Inter", ...defaultTheme.fontFamily.sans]
+                // serif: ["Times New Roman", "Times", "serif"],
+                // sans: ["Inter Variable", "sans-serif"],
+                // oswald: ["Oswald", "sans-serif"]
             },
             colors: {
                 border: "hsl(var(--border))",

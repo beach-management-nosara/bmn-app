@@ -1,0 +1,51 @@
+---
+import { Image } from "astro:assets";
+
+import { HomeSearchBox } from "@/components/jsx/home-search-box";
+import { bannerImg } from "@/assets/images";
+---
+
+<section id="hero" class="relative h-[90vh] overflow-hidden">
+    <div class="absolute inset-0">
+        <div class="h-full w-full bg-gray-400">
+            <Image src={bannerImg} alt="banner" class="h-full w-full object-cover" />
+        </div>
+        <!-- Overlay 👇 -->
+        <div
+            class="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-background/10"
+        >
+        </div>
+    </div>
+    <div
+        class="relative mx-auto flex h-full max-w-2xl flex-col justify-center px-4 text-white sm:px-6 lg:px-8"
+    >
+        <div>
+            <div class="lg:flex lg:items-center">
+                <div class="hidden border-t border-secondary lg:block lg:w-1/5 lg:max-w-[4rem]">
+                </div>
+                <span
+                    class="border-b-2 border-secondary pb-1 text-sm font-semibold uppercase tracking-widest text-secondary sm:pb-2 lg:ml-4 lg:border-none lg:pb-0"
+                >
+                    Your Dream Vacation Awaits
+                </span>
+            </div>
+            <h1 class="my-4 text-pretty text-3xl leading-tight sm:text-4xl md:text-5xl">
+                Discover Our Collection Of Luxury Vacation Homes in Nosara, Costa Rica
+            </h1>
+            <div class="mb-32 mt-6 flex justify-center md:mb-0 lg:justify-start">
+                <a
+                    href="/homes"
+                    class="block transform rounded-lg bg-primary px-6 py-3 text-white transition-all duration-300 hover:scale-[1.02] hover:bg-primary/90"
+                >
+                    Discover our properties
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div
+        class="absolute bottom-5 left-1/2 mx-auto w-full max-w-screen-xl -translate-x-1/2 rounded-lg bg-white p-6 text-foreground shadow-lg md:bottom-20"
+    >
+        <HomeSearchBox client:load />
+    </div>
+</section>

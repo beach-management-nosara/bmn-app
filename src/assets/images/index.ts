@@ -33,3 +33,7 @@ export { default as reliableImg8 } from "./reliable8.png";
 export { default as shantapuraBannerImg } from "./shantapura-banner.jpg";
 export { default as terraceHouse21Img } from "./terrace_house-21.jpeg";
 export { default as treshermanasBannerImg } from "./treshermanas-banner.jpg";
+export { default as whyUsImg } from "./image.png";
+export { default as djiImg } from "./DJI_0172.jpg";
+export { default as pachoteDroneImg } from "./pachotedrone-9.jpg";
+export { default as sunsetImg } from "./sunset-4830931_1920.jpg";

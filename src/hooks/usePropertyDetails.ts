@@ -15,6 +15,7 @@ type PropertyDetailsResponse = {
     property: {
         id: string;
         name: string;
+        address: string;
         city: string;
         state: string;
         country: string;

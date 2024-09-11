@@ -1,0 +1,19 @@
+---
+import SectionHeader from "@/components/site/section-header.astro";
+import { MaxWidthContainer } from "@/components/site/max-width-container";
+import { FeaturedProperties } from "@/components/jsx/featured-properties";
+---
+
+<section id="featured-homes">
+    <MaxWidthContainer>
+        <div class="py-20">
+            <SectionHeader subheading>
+                <Fragment slot="background-text">Featured</Fragment>
+                <Fragment slot="headline">Discover Out</Fragment>
+                <Fragment slot="heading">Featured Homes</Fragment>
+            </SectionHeader>
+        </div>
+
+        <FeaturedProperties client:load />
+    </MaxWidthContainer>
+</section>

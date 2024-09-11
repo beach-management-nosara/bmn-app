@@ -1,67 +1,61 @@
-import { useState } from "react";
+import { Menu } from "lucide-react";
 
-import { Menu, X } from "lucide-react";
-
+import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetDescription } from "@/components/ui/sheet";
 import { FacebookIcon } from "../icons/facebook-icon";
 import { InstagramIcon } from "../icons/instagram-icon";
-import { navBarlinks as links } from "@/lib/utils";
+import { WhatsappIcon } from "../icons/whatsapp-icon";
+import { MailIcon } from "../icons/mail-icon";
+import { cn, navBarlinks as links } from "@/lib/utils";
 
-export function MobileNav() {
-    const [menuOpen, setMenuOpen] = useState(false);
-
+export function MobileNav({ pathname }: { pathname: string }) {
     return (
-        <>
-            {menuOpen ? (
-                <div
-                    className="animate-slide-in-top fixed left-0 top-0 flex h-screen w-full flex-col items-start justify-between bg-black"
-                    style={{
-                        WebkitAnimation:
-                            "slide-in-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both",
-                        animation:
-                            "slide -in -top 0.5s cubic- bezier(0.250, 0.460, 0.450, 0.940) both"
-                    }}
-                >
-                    <ul className="w-full">
-                        <li className="flex justify-end p-6">
-                            <button onClick={() => setMenuOpen(!menuOpen)}>
-                                <X className="text-white" />
-                            </button>
-                        </li>
-                        <div className="border-t border-gray-100" />
-                        {links.map(link => (
-                            <li key={link.href} className="my-4">
-                                <a href={link.href} className="mx-4 uppercase text-white">
+        <header>
+            <div className={cn(
+                "fixed left-1/2 top-4 z-50 flex w-[90%] -translate-x-1/2 items-center justify-between px-4 py-4 lg:hidden",
+                "bg-white rounded-lg"
+            )}>
+                <a href="/">
+                    <img src='/logo.png' alt="logo" width={90} />
+                </a>
+                <Sheet>
+                    <SheetTrigger>
+                        <Menu className="text-primary size-8" />
+                    </SheetTrigger>
+                    <SheetContent side="left" className="border-none text-white flex flex-col">
+                        <SheetTitle className="text-2xl text-white">Menu</SheetTitle>
+                        <SheetDescription className="text-lg">Navigation links</SheetDescription>
+
+                        <nav className="mt-12 space-y-4">
+                            {links.map((link, index) => (
+                                <a
+                                    key={index}
+                                    href={link.href}
+                                    className={cn(
+                                        "text-lg block py-4 font-semibold uppercase",
+                                        pathname === link.href ? "text-primary" : "text-white"
+                                    )}
+                                >
                                     {link.name}
                                 </a>
-                                <div className="mt-4 border-t border-gray-100" />
-                            </li>
-                        ))}
-                    </ul>
-
-                    <div className="flex w-full justify-between gap-10 p-20">
-                        <a
-                            href="https://www.facebook.com/beachmanagementnosara"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            <FacebookIcon className="size-6 text-primary hover:text-primary/70" />
-                        </a>
-                        <a
-                            href="https://www.instagram.com/beachmanagementnosara"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            <InstagramIcon className="size-6 text-primary hover:text-primary/70" />
-                        </a>
-                    </div>
-                </div>
-            ) : (
-                <button onClick={() => setMenuOpen(!menuOpen)} className="pt-2">
-                    <Menu />
-                </button>
-            )}
-        </>
+                            ))}
+                        </nav>
+                        <div className="mt-auto flex items-center justify-center gap-10">
+                            <a href="https://www.facebook.com/">
+                                <FacebookIcon className="size-8 text-white" />
+                            </a>
+                            <a href="https://www.instagram.com/">
+                                <InstagramIcon className="size-8 text-white" />
+                            </a>
+                            <a href="https://wa.me/">
+                                <WhatsappIcon className="size-8 text-white" />
+                            </a>
+                            <a href="mailto:info@beachmanagementnosara.com">
+                                <MailIcon className="size-8 text-white" />
+                            </a>
+                        </div>
+                    </SheetContent>
+                </Sheet>
+            </div>
+        </header>
     );
 }
-
-export default MobileNav;

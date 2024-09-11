@@ -1,8 +1,10 @@
-export function MailIcon() {
+import { cn } from "@/lib/utils";
+
+export function MailIcon({ className }: { className: string }) {
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="icon icon-tabler icon-tabler-mail"
+            className={cn("icon icon-tabler icon-tabler-mail", className)}
             width="44"
             height="44"
             viewBox="0 0 24 24"

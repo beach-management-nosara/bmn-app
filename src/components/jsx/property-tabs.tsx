@@ -20,8 +20,9 @@ import {
     CheckIcon
 } from "lucide-react";
 
-import { PhotoGallery } from "./photo-gallery";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Skeleton } from "@/components/ui/skeleton";
+import { PhotoGallery } from "./photo-gallery";
 import type { PropertyData } from "../../types";
 
 const AMENITY_ICONS = {
@@ -54,7 +55,7 @@ export function PropertyDetailsTabs({ data }: PropertyDetailsTabsProps) {
     const tabContent = {
         amenities: (
             <div className="grid md:grid-cols-2">
-                {Object.entries(data.amenities)
+                {Object.entries(data.amenities).length > 0 ? Object.entries(data.amenities)
                     .filter(([_, items]) => items.length > 0) // Filtering out empty categories
                     .map(([category, items]) => (
                         <div key={category} className="mb-4">
@@ -76,12 +77,20 @@ export function PropertyDetailsTabs({ data }: PropertyDetailsTabsProps) {
                                 </div>
                             ))}
                         </div>
-                    ))}
+                    )) : (
+                    <div className="flex flex-col items-center justify-center w-full h-96">
+                        <Skeleton className="h-6 w-32 mb-3" />
+                        <Skeleton className="h-4 w-24" />
+                        <Skeleton className="h-4 w-20" />
+                        <Skeleton className="h-4 w-16" />
+                    </div>
+                )
+                }
             </div>
         ),
         description: (
             <div
-                className="prose mx-auto max-w-none"
+                className="prose mx-auto max-w-none bg-white p-5 rounded-md"
                 dangerouslySetInnerHTML={{ __html: data.description }}
             />
         ),
@@ -93,21 +102,21 @@ export function PropertyDetailsTabs({ data }: PropertyDetailsTabsProps) {
             <TabsList className="grid h-min w-full grid-cols-3 gap-3 bg-gray-200 p-2.5">
                 <TabsTrigger
                     value="amenities"
-                    className="text-lg bg-white text-foreground/ text-secondary"
+                    className="text-lg bg-white text-foreground/ text-primary"
                 >
                     <Info size={16} className="mr-2 hidden md:inline" />
                     Amenities
                 </TabsTrigger>
                 <TabsTrigger
                     value="description"
-                    className="text-lg bg-white text-foreground/ text-secondary"
+                    className="text-lg bg-white text-foreground/ text-primary"
                 >
                     <TagIcon size={16} className="mr-2 hidden md:inline" />
                     Description
                 </TabsTrigger>
                 <TabsTrigger
                     value="photos"
-                    className="text-lg bg-white text-foreground/ text-secondary"
+                    className="text-lg bg-white text-foreground/ text-primary"
                 >
                     <Image size={16} className="mr-2 hidden md:inline" />
                     Photos
@@ -119,6 +128,60 @@ export function PropertyDetailsTabs({ data }: PropertyDetailsTabsProps) {
                     {value}
                 </TabsContent>
             ))}
+        </Tabs>
+    );
+}
+
+export function PropertyDetailsTabsSkeleton() {
+    return (
+        <Tabs defaultValue="amenities" className="my-4">
+            <TabsList className="grid h-min w-full grid-cols-3 gap-3 bg-gray-200 p-2.5">
+                <TabsTrigger
+                    value="amenities"
+                    className="text-lg bg-white text-foreground/ text-primary"
+                >
+                    <Info size={16} className="mr-2 hidden md:inline" />
+                    Amenities
+                </TabsTrigger>
+                <TabsTrigger
+                    value="description"
+                    className="text-lg bg-white text-foreground/ text-primary"
+                    disabled // Disable other tabs during loading
+                >
+                    <TagIcon size={16} className="mr-2 hidden md:inline" />
+                    Description
+                </TabsTrigger>
+                <TabsTrigger
+                    value="photos"
+                    className="text-lg bg-white text-foreground/ text-primary"
+                    disabled // Disable other tabs during loading
+                >
+                    <Image size={16} className="mr-2 hidden md:inline" />
+                    Photos
+                </TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="amenities" className="mt-10 px-6">
+                <div className="grid md:grid-cols-2 gap-4">
+                    {[...Array(4)].map((_, index) => (
+                        <div key={index} className="mb-4">
+                            <Skeleton className="h-6 w-32 mb-3" />
+                            <div className="flex items-center gap-2 mb-2">
+                                <Skeleton className="h-4 w-4" />
+                                <Skeleton className="h-4 w-24" />
+                            </div>
+                            <div className="flex items-center gap-2 mb-2">
+                                <Skeleton className="h-4 w-4" />
+                                <Skeleton className="h-4 w-20" />
+                            </div>
+                            <div className="flex items-center gap-2 mb-2">
+                                <Skeleton className="h-4 w-4" />
+                                <Skeleton className="h-4 w-16" />
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </TabsContent>
         </Tabs>
     );
 }

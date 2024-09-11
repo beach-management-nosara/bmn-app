@@ -38,49 +38,44 @@ export const HomeSearchBox = () => {
     };
 
     return (
-        <>
-            <div className="flex flex-col justify-between gap-6 rounded-lg bg-white px-10 py-12 md:flex-row md:items-end">
-                <div className="flex grow flex-col gap-2 md:w-1/3">
-                    <div className="flex items-center gap-3">
-                        <Home size={20} />
-                        <span className="font-sans">
-                            Location <span className="text-gray-400">(Optional)</span>
-                        </span>
-                    </div>
-
-
-                    <Select onValueChange={(value) => handleSelect(parseInt(value, 10))}>
-                        <SelectTrigger title="If you already know where you want to stay, select the house from the list. Otherwise, leave it empty to search for all available houses.">
-                            <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectGroup>
-                                <SelectLabel>Select one house (optional)</SelectLabel>
-                                {propertiesSimple?.map(home => (
-                                    <SelectItem key={home.id} value={home.id.toString()}>
-                                        {home.name}
-                                    </SelectItem>
-                                ))}
-                            </SelectGroup>
-                        </SelectContent>
-                    </Select>
-
+        <div className="flex flex-col justify-between gap-6 rounded-lg bg-white md:flex-row md:items-end">
+            <div className="flex grow flex-col gap-2 w-full">
+                <div className="flex items-center gap-3">
+                    <Home size={20} />
+                    <span className="font-sans">
+                        Location <small className="text-gray-400">(Optional)</small>
+                    </span>
                 </div>
 
-                <div className="flex grow md:w-1/3">
-                    <DateRangePicker range={range} setRange={setRange} />
-                </div>
-
-                <div className="md:w-1/3">
-                    <button
-                        onClick={handleSearch}
-                        className="grow rounded-lg bg-primary p-2 text-white hover:bg-secondary w-full"
-                    >
-                        Search
-                    </button>
-                </div>
-
+                <Select onValueChange={(value) => handleSelect(parseInt(value, 10))}>
+                    <SelectTrigger className="bg-white text-gray-700" title="If you already know where you want to stay, select the house from the list. Otherwise, leave it empty to search for all available houses.">
+                        <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectGroup>
+                            <SelectLabel>Select one house (optional)</SelectLabel>
+                            {propertiesSimple?.map(home => (
+                                <SelectItem key={home.id} value={home.id.toString()}>
+                                    {home.name}
+                                </SelectItem>
+                            ))}
+                        </SelectGroup>
+                    </SelectContent>
+                </Select>
             </div>
-        </>
+
+            <div className="flex grow w-full">
+                <DateRangePicker range={range} setRange={setRange} />
+            </div>
+
+            <div className="w-full">
+                <button
+                    onClick={handleSearch}
+                    className="rounded-lg bg-primary p-2 text-white hover:bg-secondary w-full"
+                >
+                    Search
+                </button>
+            </div>
+        </div>
     );
 };

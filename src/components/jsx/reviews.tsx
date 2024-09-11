@@ -1,5 +1,8 @@
-import type { Review, ReviewsResponse } from "@/types";
 import { useEffect, useState } from "react";
+
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel'
+import type { Review, ReviewsResponse } from "@/types";
+import { MaxWidthContainer } from "./max-width-container";
 
 const renderStars = (rating: number) => {
     const fullStars = Math.floor(rating);
@@ -13,7 +16,7 @@ const renderStars = (rating: number) => {
 };
 
 const ReviewCard = ({ review }: { review: Review }) => (
-    <div className="mb-4 rounded-lg border border-gray-200 p-4 shadow-lg">
+    <div className="mb-4 rounded-lg border border-gray-200 p-4 shadow-lg h-full">
         <div className="mb-2 flex items-center justify-between font-semibold capitalize">
             <div className="mb-2">{review.author.toLowerCase()}</div>
             <div className="text-yellow-500">{renderStars(review.rating)}</div>
@@ -21,7 +24,7 @@ const ReviewCard = ({ review }: { review: Review }) => (
         <div className="mb-2 text-xl font-bold text-primary">{review.title}</div>
         <div className="my-4 whitespace-pre-wrap">{review.text}</div>
         {review.ownerComment && (
-            <div className="my-6 ml-16 rounded-sm border-l-4 border-gray-500 bg-gray-50 p-3">
+            <div className="my-6 ml-16 rounded-sm border-l-4 border-gray-500 bg-gray-600 p-3">
                 <div>{review.ownerComment}</div>
                 <div className="mt-2 text-right italic">
                     <small>
@@ -40,7 +43,6 @@ const ReviewCard = ({ review }: { review: Review }) => (
 const Reviews = ({ propertyId }: { propertyId: string }) => {
     const [reviews, setReviews] = useState<Review[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
-    const [showAll, setShowAll] = useState<boolean>(false);
 
     useEffect(() => {
         const fetchReviews = async () => {
@@ -79,45 +81,29 @@ const Reviews = ({ propertyId }: { propertyId: string }) => {
         );
     }
 
+    if (!reviews.length) return null;
+
     return (
-        <>
-            {reviews.length > 0 && (
-                <>
-                    <div className="border-b" />
-                    <div className="mx-6 mt-4">
-                        <h2 className="mb-4 text-2xl font-bold">Reviews</h2>
-                        <div className="md:hidden">
-                            {reviews.slice(0, showAll ? reviews.length : 1).map((review, index) => (
+        <MaxWidthContainer>
+            <h2 className="mb-4 text-3xl font-bold">Reviews</h2>
+
+            <div className='px-10'>
+                <Carousel>
+                    <CarouselContent>
+                        {reviews.map((review, index) => (
+                            <CarouselItem key={index}>
                                 <ReviewCard
                                     key={review.reviewDate + review.stayDate + index}
                                     review={review}
                                 />
-                            ))}
-                            {reviews.length > 1 && !showAll && (
-                                <div className="flex items-center space-x-4">
-                                    <div className="flex-grow border-b" />
-                                    <button
-                                        className="text-blue-500 hover:underline"
-                                        onClick={() => setShowAll(true)}
-                                    >
-                                        Show more
-                                    </button>
-                                    <div className="flex-grow border-b" />
-                                </div>
-                            )}
-                        </div>
-                        <div className="hidden md:block">
-                            {reviews.map((review, index) => (
-                                <ReviewCard
-                                    key={review.reviewDate + review.stayDate + index}
-                                    review={review}
-                                />
-                            ))}
-                        </div>
-                    </div>
-                </>
-            )}
-        </>
+                            </CarouselItem>
+                        ))}
+                    </CarouselContent>
+                    <CarouselPrevious />
+                    <CarouselNext />
+                </Carousel>
+            </div>
+        </MaxWidthContainer>
     );
 };
 

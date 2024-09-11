@@ -1,0 +1,25 @@
+---
+import { MaxWidthContainer } from "../site/max-width-container";
+---
+
+<section id="experiences" class="relative my-8">
+    <!-- Image spans the entire container -->
+    <div class="absolute inset-0 h-full w-full lg:h-[32rem]">
+        <slot name="image" />
+        <!-- Overlay -->
+        <div
+            class="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-black/80 lg:to-transparent"
+        >
+        </div>
+    </div>
+
+    <!-- Content Container -->
+    <MaxWidthContainer
+        className="relative grid min-h-[32rem] max-w-screen-2xl grid-cols-1 px-5 lg:grid-cols-3"
+    >
+        <div class="flex flex-col justify-center text-xl lg:col-span-2 lg:py-6">
+            <slot name="header" />
+            <slot name="content" />
+        </div>
+    </MaxWidthContainer>
+</section>

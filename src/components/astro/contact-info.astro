@@ -4,27 +4,23 @@ import { PhoneIcon } from "lucide-react";
 import WhatsappIcon from "@/components/icons/whatsapp-icon.astro";
 ---
 
-<div class="">
-    <h3 class="mb-3 font-bold">Contact Information</h3>
-
-    <ul class="mt-8 space-y-6">
-        <li class="flex items-center gap-2">
-            <div class="rounded-full bg-primary p-2 text-white">
-                <WhatsappIcon class="inline-block size-6" />
-            </div>
-            +506 8802 8866 (WhatsApp)
-        </li>
-        <li class="flex items-center gap-2">
-            <div class="rounded-full bg-primary p-2 text-white">
-                <PhoneIcon className="inline-block size-6" />
-            </div>
-            +506 8802 8866 (Call Costa Rica)
-        </li>
-        <li class="flex items-center gap-2">
-            <div class="rounded-full bg-primary p-2 text-white">
-                <PhoneIcon className="inline-block size-6" />
-            </div>
-            +1 970 323-3339 (Call USA)
-        </li>
-    </ul>
-</div>
+<ul class="flex flex-col justify-between py-12 lg:flex-row lg:items-center">
+    <li class="flex items-center gap-2">
+        <div class="rounded-full p-2">
+            <WhatsappIcon class="size-6" />
+        </div>
+        +506 8802 8866 (WhatsApp)
+    </li>
+    <li class="flex items-center gap-2">
+        <div class="rounded-full p-2">
+            <PhoneIcon className="inline-block size-6 text-primary" />
+        </div>
+        +506 8802 8866 (Call Costa Rica)
+    </li>
+    <li class="flex items-center gap-2">
+        <div class="rounded-full p-2">
+            <PhoneIcon className="inline-block size-6 text-primary" />
+        </div>
+        +1 970 323-3339 (Call USA)
+    </li>
+</ul>

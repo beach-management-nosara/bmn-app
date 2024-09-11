@@ -1,0 +1,88 @@
+---
+import Image from "astro/components/Image.astro";
+
+import FacebookIcon from "@/components/icons/facebook-icon.astro";
+import InstagramIcon from "@/components/icons/instagram-icon.astro";
+import WhatsappIcon from "@/components/icons/whatsapp-icon.astro";
+import MailIcon from "@/components/icons/mail-icon.astro";
+import { MaxWidthContainer } from "@/components/site/max-width-container";
+import { navBarlinks as links } from "@/lib/utils";
+import { logoImg } from "@/assets/images";
+
+const pathname = Astro.url.pathname;
+---
+
+<MaxWidthContainer>
+    <header
+        id="desktop-navbar"
+        class="fixed top-10 z-50 mx-auto hidden w-[90%] max-w-screen-2xl rounded-lg bg-white/90 px-6 py-4 text-foreground shadow-md lg:left-1/2 lg:top-10 lg:block lg:-translate-x-1/2"
+    >
+        <div class="flex items-center justify-between">
+            <a href="/">
+                <Image src={logoImg} alt="logo" width={70} format="png" />
+            </a>
+            <nav class="space-x-6">
+                {
+                    links.map(link => (
+                        <a
+                            href={link.href}
+                            data-astro-prefetch
+                            class:list={[
+                                "text-xs font-medium uppercase tracking-wide text-gray-600 md:text-[0.625rem] xl:text-sm",
+                                (link.href === "/" && pathname === "/") ||
+                                (link.href !== "/" && pathname.startsWith(link.href))
+                                    ? "font-semibold text-primary underline underline-offset-4"
+                                    : "hover:text-primary"
+                            ]}
+                        >
+                            {link.name}
+                        </a>
+                    ))
+                }
+            </nav>
+            <div class="flex gap-4">
+                <a
+                    href="https://www.facebook.com/beachmanagementnosara"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    <FacebookIcon className="size-6 text-primary hover:text-primary/70" />
+                </a>
+                <a
+                    href="https://www.instagram.com/beachmanagementnosara/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    <InstagramIcon className="size-6 text-primary hover:text-primary/70" />
+                </a>
+                <a href="https://wa.me/50688028866" target="_blank" rel="noopener noreferrer">
+                    <WhatsappIcon className="size-6 text-primary hover:text-primary/70" />
+                </a>
+                <a
+                    href="mailto:info@beachmanagementnosara.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    <MailIcon className="size-6 text-primary hover:text-primary/70" />
+                </a>
+            </div>
+        </div>
+    </header>
+</MaxWidthContainer>
+
+<style>
+    .scrolled {
+        @apply bg-white shadow-lg backdrop-blur-lg transition-colors duration-500;
+    }
+</style>
+
+<script>
+    document.addEventListener("scroll", function () {
+        const navbar = document.getElementById("desktop-navbar");
+        if (window.scrollY > 50) {
+            navbar?.classList.add("scrolled");
+        } else {
+            navbar?.classList.remove("scrolled");
+        }
+    });
+</script>

@@ -1,0 +1,59 @@
+---
+import { Image } from "astro:assets";
+
+import { MaxWidthContainer } from "./max-width-container";
+import { cn } from "@/lib/utils";
+
+interface ContentFeatureSectionProps {
+    id: string;
+    image: ImageMetadata;
+    ctaLink?: string;
+    className?: string;
+    reverse?: boolean;
+    cta?: boolean;
+}
+
+const {
+    id,
+    image,
+    ctaLink,
+    className,
+    reverse = false,
+    cta = true
+} = Astro.props as ContentFeatureSectionProps;
+---
+
+<section id={id} class="pt-12 md:pt-24 lg:pt-32">
+    <MaxWidthContainer className={className}>
+        <div
+            class={cn(
+                "flex flex-col-reverse items-stretch gap-8",
+                reverse ? "lg:flex-row-reverse" : "lg:flex-row"
+            )}
+        >
+            <div class="w-full flex-1">
+                <slot name="header" />
+                <p class="mt-8 text-xl">
+                    <slot name="description" />
+                </p>
+                {
+                    cta && (
+                        <a
+                            href={ctaLink}
+                            class="mt-4 inline-block border border-secondary px-4 py-2.5 text-secondary"
+                        >
+                            <slot name="cta" />
+                        </a>
+                    )
+                }
+            </div>
+            <div class="w-full flex-1">
+                <Image
+                    src={image}
+                    alt="hero"
+                    class={cn("min-h-full w-full object-cover rounded-lg")}
+                />
+            </div>
+        </div>
+    </MaxWidthContainer>
+</section>

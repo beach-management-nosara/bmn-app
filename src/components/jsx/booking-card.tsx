@@ -127,8 +127,8 @@ export function BookingCard({ slug }: { slug: string }) {
     }, [range.to, range.from, rate?.min_stay]);
 
     return (
-        <div className="relative">
-            <div className="sticky top-20 m-4 h-fit rounded bg-white p-5 shadow-lg">
+        <div className="relative text-gray-700">
+            <div className="sticky top-36 m-4 h-fit rounded-md bg-white p-5 shadow-lg">
                 {status === "loading" && (
                     <div className="absolute left-0 top-0 z-50 flex h-full w-full items-center justify-center gap-4 rounded bg-gray-200 bg-opacity-50">
                         <LoaderCircle className="animate-spin" />
@@ -138,7 +138,7 @@ export function BookingCard({ slug }: { slug: string }) {
 
                 <div className="border-b pb-4">
                     <span className="text-xl font-bold text-primary">
-                        <span className="text-sm text-muted">
+                        <span className="text-sm text-gray-700">
                             {!range.from || !range.to ? "FROM" : "PRICE"}{" "}
                         </span>
                         <span className="text-sm">{property?.currency_code} </span>
@@ -184,6 +184,7 @@ export function BookingCard({ slug }: { slug: string }) {
                             <p>Guests</p>
                         </div>
                         <Input
+                            className="bg-white text-black"
                             placeholder="Guests"
                             type="number"
                             max={room?.max_people}

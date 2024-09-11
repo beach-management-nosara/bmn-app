@@ -21,7 +21,7 @@ export function FeaturedProperties() {
                         <CarouselItem key={property.id} className='overflow-hidden'>
                             <div className='relative'>
                                 <div className='relative'>
-                                    <img src={`https://${property?.image_url}`} alt={property?.name} className='w-full rounded-md h-96 object-cover' />
+                                    <img src={`https://${property?.image_url}`} alt={property?.name} className='w-full rounded-lg h-96 object-cover' />
                                     {/* Add black overlay from right to left */}
                                     <div className='absolute inset-0 bg-gradient-to-t from-background via-background/90 to-background/50 lg:to-transparent w-full lg:hidden'></div>
                                     <div className='hidden lg:block absolute inset-0 bg-gradient-to-l from-background via-background/80 to-background/50 lg:to-transparent w-full'></div>

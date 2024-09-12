@@ -51,7 +51,7 @@ export const PropertiesFiltered = () => {
                         </h1>
                     </div>
                     <div
-                        className="absolute bottom-32 md:bottom-10 left-1/2 mx-auto w-full max-w-screen-xl -translate-x-1/2 rounded-lg bg-white text-foreground shadow-lg overflow-visible"
+                        className="absolute bottom-32 md:bottom-10 left-1/2 mx-auto w-full max-w-screen-xl -translate-x-1/2 rounded-lg z-50 bg-white text-foreground shadow-lg overflow-visible"
                     >
                         <SearchBox
                             setSelectedProperties={setSelectedProperties}

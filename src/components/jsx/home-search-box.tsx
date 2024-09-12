@@ -38,7 +38,7 @@ export const HomeSearchBox = () => {
     };
 
     return (
-        <div className="flex flex-col justify-between gap-6 rounded-lg bg-white md:flex-row md:items-end">
+        <div className="flex flex-col justify-between gap-6 rounded-lg bg-white md:flex-row md:items-end overflow-visible">
             <div className="flex grow flex-col gap-2 w-full">
                 <div className="flex items-center gap-3">
                     <Home size={20} />

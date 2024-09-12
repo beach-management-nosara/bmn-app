@@ -25,7 +25,7 @@ export const PropertiesFiltered = () => {
 
     return (
         <>
-            <section id="home-hero" className="relative h-[66vh] overflow-hidden">
+            <section id="home-hero" className="relative h-screen md:h-[66vh] ">
                 <div className="absolute inset-0">
                     <div className="h-full w-full bg-gray-400">
                         <img src={heroHomesImg.src} alt="banner" className="h-full w-full object-cover" />
@@ -51,7 +51,7 @@ export const PropertiesFiltered = () => {
                         </h1>
                     </div>
                     <div
-                        className="absolute bottom-20 left-1/2 mx-auto w-full max-w-screen-xl -translate-x-1/2 rounded-lg bg-white text-foreground shadow-lg"
+                        className="absolute bottom-32 md:bottom-10 left-1/2 mx-auto w-full max-w-screen-xl -translate-x-1/2 rounded-lg bg-white text-foreground shadow-lg overflow-visible"
                     >
                         <SearchBox
                             setSelectedProperties={setSelectedProperties}

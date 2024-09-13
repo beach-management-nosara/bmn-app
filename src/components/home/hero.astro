@@ -2,13 +2,13 @@
 import { Image } from "astro:assets";
 
 import { HomeSearchBox } from "@/components/jsx/home-search-box";
-import { bannerImg } from "@/assets/images";
+import { heroImg } from "@/assets/images";
 ---
 
 <section id="hero" class="relative h-[90vh]">
     <div class="absolute inset-0">
         <div class="h-full w-full bg-gray-400">
-            <Image src={bannerImg} alt="banner" class="h-full w-full object-cover" />
+            <Image src={heroImg} alt="banner" class="h-full w-full object-cover" />
         </div>
         <!-- Overlay -->
         <div

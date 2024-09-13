@@ -17,7 +17,7 @@ export function FeaturedProperties() {
         <div className='px-10'>
             <Carousel>
                 <CarouselContent>
-                    {properties.slice(0, 3).map(property => (
+                    {properties.slice(0, 4).map(property => (
                         <CarouselItem key={property.id} className='overflow-hidden'>
                             <div className='relative'>
                                 <div className='relative'>

@@ -37,3 +37,4 @@ export { default as whyUsImg } from "./image.png";
 export { default as djiImg } from "./DJI_0172.jpg";
 export { default as pachoteDroneImg } from "./pachotedrone-9.jpg";
 export { default as sunsetImg } from "./sunset-4830931_1920.jpg";
+export { default as heroImg } from "./hero.jpg";

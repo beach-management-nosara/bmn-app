@@ -84,7 +84,19 @@ export const SearchBox = ({
                 );
                 const availabilityData = (await response.json()) as AvailabilityData;
 
-                const availableOnSelectedPeriod = availabilityData.data[0].periods.every(
+                // Filter the periods to include only those within the selected range
+                const filteredPeriods = availabilityData.data[0].periods.filter(period => {
+                    const periodStart = new Date(period.start);
+                    const periodEnd = new Date(period.end);
+
+                    // Check if the period overlaps with the user-selected range
+                    return (
+                        (periodStart <= range!.to! && periodEnd >= range!.from!)
+                    );
+                });
+
+                // Now check if every period within the filtered periods is available
+                const availableOnSelectedPeriod = filteredPeriods.every(
                     period => period.available === 1
                 );
 

@@ -538,10 +538,10 @@ export function Checkout({
                 </div>
 
                 {isAgreementModalOpen && (
-                    <div className="fixed left-0 top-0 z-50 flex h-full w-full items-center justify-center bg-opacity-90">
+                    <div className="fixed left-0 top-0 z-50 flex h-full w-full items-center justify-center bg-opacity-90 text-foreground">
                         <div className="flex flex-col">
                             <div
-                                className="flex w-full max-w-4xl flex-col justify-between rounded-lg bg-white p-4"
+                                className="flex w-full max-w-4xl flex-col justify-between rounded-lg bg-white p-8"
                                 style={{ maxHeight: "80vh", overflowY: "auto" }}
                             >
                                 <button
@@ -552,6 +552,7 @@ export function Checkout({
                                 </button>
                                 {property?.agreement_text ? (
                                     <div
+                                        className="prose max-w-none"
                                         dangerouslySetInnerHTML={{
                                             __html: property?.agreement_text
                                         }}

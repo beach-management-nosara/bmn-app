@@ -24,18 +24,40 @@ export const GET: APIRoute = async ({ request }) => {
         }
     );
 
-    const properties = (await response.json()) as {
-        property_id: number;
-        periods: { available: 1 | 0 }[];
-    }[];
-
-    const availableProperties = properties.filter(property => {
-        return property.periods.every(period => period.available === 1);
-    });
-
     if (!response.ok) {
         throw new Error("Network response was not ok on availability");
     }
+
+    const properties = (await response.json()) as {
+        property_id: number;
+        periods: { available: 1 | 0; start: string; end: string }[];
+    }[];
+
+    const userPeriodStart = new Date(periodStart);
+    const userPeriodEnd = new Date(periodEnd);
+
+    const availableProperties = properties.filter(property => {
+        // Check if there are valid periods for check-in and check-out on the selected range
+        const validPeriods = property.periods.filter(period => {
+            const periodStart = new Date(period.start);
+            const periodEnd = new Date(period.end);
+
+            // Allow check-in on the start date and check-out on the end date
+            const startDateAvailable =
+                period.available === 1 || periodStart.getTime() === userPeriodStart.getTime();
+            const endDateAvailable =
+                period.available === 1 || periodEnd.getTime() === userPeriodEnd.getTime();
+
+            // Include period if start and end dates match the user-selected range
+            return (
+                (startDateAvailable && periodEnd >= userPeriodStart) ||
+                (endDateAvailable && periodStart <= userPeriodEnd)
+            );
+        });
+
+        // If there are valid periods that cover the user's selected range, return true
+        return validPeriods.length > 0;
+    });
 
     // Extract IDs of available properties
     const availablePropertyIds = availableProperties.map(property => property.property_id);

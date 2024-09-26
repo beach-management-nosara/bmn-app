@@ -38,7 +38,6 @@ function adjustAvailabilityPeriods(periods: Period[]) {
 }
 
 export const GET: APIRoute = async ({ params, request }) => {
-    console.log("🚀 ~ constGET:APIRoute= ~ params:", params);
     const url = new URL(request.url);
 
     const q = new URLSearchParams(url.search);

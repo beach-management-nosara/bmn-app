@@ -219,7 +219,7 @@ export function Checkout({
     }, [range.to, range.from, rate?.min_stay]);
 
     return (
-        <div className="flex flex-col lg:flex-row-reverse mt-32">
+        <div className="flex flex-col lg:flex-row-reverse mt-32 justify-center">
             <div className="top-20 m-4 h-fit rounded p-5 shadow-lg lg:sticky bg-white lg:w-[500px]">
                 {status === "loading" && (
                     <div className="absolute left-0 top-0 z-50 flex h-full w-full items-center justify-center gap-4 rounded bg-opacity-50">
@@ -538,10 +538,10 @@ export function Checkout({
                 </div>
 
                 {isAgreementModalOpen && (
-                    <div className="fixed left-0 top-0 z-50 flex h-full w-full items-center justify-center bg-opacity-90">
+                    <div className="fixed left-0 top-0 z-50 flex h-full w-full items-center justify-center bg-opacity-90 text-foreground">
                         <div className="flex flex-col">
                             <div
-                                className="flex w-full max-w-4xl flex-col justify-between rounded-lg bg-white p-4"
+                                className="flex w-full max-w-4xl flex-col justify-between rounded-lg bg-white p-8"
                                 style={{ maxHeight: "80vh", overflowY: "auto" }}
                             >
                                 <button
@@ -552,6 +552,7 @@ export function Checkout({
                                 </button>
                                 {property?.agreement_text ? (
                                     <div
+                                        className="prose max-w-none"
                                         dangerouslySetInnerHTML={{
                                             __html: property?.agreement_text
                                         }}

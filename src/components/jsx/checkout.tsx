@@ -481,7 +481,7 @@ export function Checkout({
                     <h3 className="text-xl font-semibold text-gray-700">Cancellation policy</h3>
                     <ul className="ml-5 mt-2 list-disc text-gray-800">
                         <li>
-                            100% of paid prepayments refundable when canceled 75 days before arrival
+                            100% of paid prepayments refundable when canceled 90 days before arrival
                             or earlier.
                         </li>
                         <li>0% refundable if canceled after.</li>

@@ -83,10 +83,16 @@ function PropertyCard({ property }: { property: Property }) {
                         From{" "}
                         <span className="text-xl font-bold">
                             {currency_code} {" "}
-                            {rate ? <span>{Math.round(rate.price)}</span> : <div className="inline-block animate-pulse bg-gray-200 w-16 rounded h-4" />}
+                            {/* NOTE: This is a hack to display the correct price per month for the property with id 334483 (CASA CATALINA) */}
+                            {property.id === 334483 ? (
+                                <span>15000</span>
+                            ) : (
+                                rate ? <span>{Math.round(rate.price)}</span> : <div className="inline-block animate-pulse bg-gray-200 w-16 rounded h-4" />
+                            )}
                         </span>
                         < span className="text-sm font-bold">
-                            {" "}/{" "}week
+                            {/* NOTE: This is a hack to display the correct price per month for the property with id 334483 (CASA CATALINA) */}
+                            {" "}/{" "}{property.id === 334483 ? 'Month' : 'Week'}
                         </span>
                     </div>
 

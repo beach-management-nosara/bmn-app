@@ -37,6 +37,35 @@ function adjustAvailabilityPeriods(periods: Period[]) {
     });
 }
 
+function isPeriodFullyAvailable(periods: Period[], startDate: string, endDate: string): boolean {
+    const rangeStart = new Date(startDate);
+    const rangeEnd = new Date(endDate);
+
+    // Loop through each day of the selected range
+    for (let day = rangeStart; day <= rangeEnd; day.setDate(day.getDate() + 1)) {
+        const formattedDay = day.toISOString().split("T")[0]; // yyyy-mm-dd
+
+        // Find if there is any period covering this specific day
+        const periodForDay = periods.find(period => {
+            const periodStart = new Date(period.start);
+            const periodEnd = new Date(period.end);
+            return day >= periodStart && day <= periodEnd;
+        });
+
+        // Allow check-out on the start date and check-in on the end date
+        if (formattedDay === startDate || formattedDay === endDate) {
+            continue; // Skip this check for start or end day to allow check-in/check-out
+        }
+
+        // If no period covers this day or it's unavailable, return false
+        if (!periodForDay || periodForDay.available === 0) {
+            return false;
+        }
+    }
+
+    return true; // All other days in the range are available
+}
+
 export const GET: APIRoute = async ({ params, request }) => {
     const url = new URL(request.url);
 
@@ -66,7 +95,30 @@ export const GET: APIRoute = async ({ params, request }) => {
         );
 
         let availabilityData = await response.json();
+
+        // Adjust periods for check-in and check-out flexibility
         const modifiedPeriods = adjustAvailabilityPeriods(availabilityData[0]?.periods);
+
+        // Ensure the property is available for the entire selected range
+        const isAvailableForEntireRange = isPeriodFullyAvailable(
+            modifiedPeriods,
+            periodStart,
+            periodEnd
+        );
+
+        if (!isAvailableForEntireRange) {
+            return new Response(
+                JSON.stringify({
+                    data: [], // No properties available for the full range
+                    success: true
+                }),
+                {
+                    status: 200
+                }
+            );
+        }
+
+        // If available, return the data
         availabilityData[0].periods = modifiedPeriods;
 
         return new Response(

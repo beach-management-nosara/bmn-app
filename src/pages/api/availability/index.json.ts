@@ -2,6 +2,41 @@ import type { APIRoute } from "astro";
 
 export const prerender = false;
 
+type Period = {
+    start: string;
+    end: string;
+    available: number; // 0 = not available, 1 = available
+};
+
+function isPeriodFullyAvailable(periods: Period[], startDate: string, endDate: string): boolean {
+    const rangeStart = new Date(startDate);
+    const rangeEnd = new Date(endDate);
+
+    // Loop through each day of the selected range
+    for (let day = rangeStart; day <= rangeEnd; day.setDate(day.getDate() + 1)) {
+        const formattedDay = day.toISOString().split("T")[0]; // yyyy-mm-dd
+
+        // Find if there is any period covering this specific day
+        const periodForDay = periods.find(period => {
+            const periodStart = new Date(period.start);
+            const periodEnd = new Date(period.end);
+            return day >= periodStart && day <= periodEnd;
+        });
+
+        // Allow check-out on the start date and check-in on the end date
+        if (formattedDay === startDate || formattedDay === endDate) {
+            continue; // Skip this check for start or end day to allow check-in/check-out
+        }
+
+        // If no period covers this day or it's unavailable, return false
+        if (!periodForDay || periodForDay.available === 0) {
+            return false;
+        }
+    }
+
+    return true; // All other days in the range are available
+}
+
 export const GET: APIRoute = async ({ request }) => {
     const url = new URL(request.url);
 
@@ -37,35 +72,9 @@ export const GET: APIRoute = async ({ request }) => {
         periods: { available: 1 | 0; start: string; end: string }[];
     }[];
 
-    const userPeriodStart = new Date(`${periodStart}T00:00:00Z`);
-    const userPeriodEnd = new Date(`${periodEnd}T00:00:00Z`);
-
+    // Ensure property is available for the entire selected range except for check-in/check-out days
     const availableProperties = properties.filter(property => {
-        // Check if there are valid periods for check-in and check-out on the selected range
-        const validPeriods = property.periods.filter(period => {
-            const periodStart = new Date(`${period.start}T00:00:00Z`);
-            const periodEnd = new Date(`${period.end}T00:00:00Z`);
-
-            // Allow check-out on the start date (first day of booking)
-            const startDateAvailable =
-                (periodStart.getTime() === userPeriodStart.getTime() && period.available === 1) ||
-                periodStart.getTime() === userPeriodEnd.getTime();
-
-            // Allow check-in on the end date (last day of booking)
-            const endDateAvailable =
-                (periodEnd.getTime() === userPeriodEnd.getTime() && period.available === 1) ||
-                periodEnd.getTime() === userPeriodStart.getTime();
-
-            // Block all other days between start and end dates
-            const isBlocked =
-                periodStart > userPeriodStart &&
-                periodEnd < userPeriodEnd &&
-                period.available === 0;
-
-            return (startDateAvailable || endDateAvailable) && !isBlocked;
-        });
-
-        return validPeriods.length > 0;
+        return isPeriodFullyAvailable(property.periods, periodStart, periodEnd);
     });
 
     const availablePropertyIds = availableProperties.map(property => property.property_id);

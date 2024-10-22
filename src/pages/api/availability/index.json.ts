@@ -23,13 +23,18 @@ function isPeriodFullyAvailable(periods: Period[], startDate: string, endDate: s
             return day >= periodStart && day <= periodEnd;
         });
 
+        // Allow check-out on the start date and check-in on the end date
+        if (formattedDay === startDate || formattedDay === endDate) {
+            continue; // Skip this check for start or end day to allow check-in/check-out
+        }
+
         // If no period covers this day or it's unavailable, return false
         if (!periodForDay || periodForDay.available === 0) {
             return false;
         }
     }
 
-    return true; // All days in the range are available
+    return true; // All other days in the range are available
 }
 
 export const GET: APIRoute = async ({ request }) => {
@@ -67,7 +72,7 @@ export const GET: APIRoute = async ({ request }) => {
         periods: { available: 1 | 0; start: string; end: string }[];
     }[];
 
-    // Ensure property is available for the entire selected range
+    // Ensure property is available for the entire selected range except for check-in/check-out days
     const availableProperties = properties.filter(property => {
         return isPeriodFullyAvailable(property.periods, periodStart, periodEnd);
     });

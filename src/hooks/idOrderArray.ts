@@ -6,6 +6,7 @@ export const idsInOrder = [
     466024, // Terrace House, Luxury Vacation Home (New Listing
     279982, // Almendra
     481099, // Calma House, Luxury Vacation Home (New Listing
+    617958, // Ocean Top, Walk to Surfing Beach
     483495, // Utopia Escapista
     576665, // Free Spirits House
     530996, // Ansui House, Vacation Home
@@ -40,3 +41,4 @@ export const videoUrls: Record<number, string> = {
     439129: "https://www.youtube.com/embed/dHTySH3ky-U?si=SCojby0hCEXsPKI5"
     // Add other property IDs and their video URLs here...
 };
+

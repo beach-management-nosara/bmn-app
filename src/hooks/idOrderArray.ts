@@ -23,7 +23,9 @@ export const idsInOrder = [
     277892, // Casa Sierra
     277727, // Robins Nest 3 Bedroom, 2 Bathroom Oasis
     342716, // Alma del Mar
+    622275, // Dulce
     613808, // Casa DosSantos
+    620611, // Suelo
     539969, // Casa Calmate
     531664, // JOYA: A Modern Jungle Getaway near the Beach
     581332, // Casa Daria

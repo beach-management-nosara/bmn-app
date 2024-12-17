@@ -26,6 +26,18 @@ const { title, description } = Astro.props as Props;
     />
 
     <body class="overflow-x-hidden bg-background text-white antialiased">
+        <!-- Google Tag Manager (noscript) -->
+        <noscript>
+            <iframe
+                src="https://www.googletagmanager.com/ns.html?id=GTM-59BVRPS2"
+                height="0"
+                width="0"
+                style="display:none;visibility:hidden"
+            >
+            </iframe>
+        </noscript>
+
+        <!-- End Google Tag Manager (noscript) -->
         <MobileNav client:load pathname={pathname} />
         <DesktopNavbar />
         <main>

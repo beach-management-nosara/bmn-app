@@ -72,6 +72,7 @@ export const GET: APIRoute = async ({ params, request }) => {
     const q = new URLSearchParams(url.search);
     const periodStart = q.get("periodStart");
     const periodEnd = q.get("periodEnd");
+    const checkForFullRange = q.get("fullRange") === "true";
 
     if (!params.propertyId) {
         throw new Error("No property id provided");
@@ -106,7 +107,7 @@ export const GET: APIRoute = async ({ params, request }) => {
             periodEnd
         );
 
-        if (!isAvailableForEntireRange) {
+        if (checkForFullRange && !isAvailableForEntireRange) {
             return new Response(
                 JSON.stringify({
                     data: [], // No properties available for the full range

@@ -74,7 +74,7 @@ export const SearchBox = ({
             // check if it is available on those dates
             try {
                 const response = await fetch(
-                    `/api/availability/${chosenProperty.id}.json?periodStart=${encodeURIComponent(periodStart)}&periodEnd=${encodeURIComponent(periodEnd)}`,
+                    `/api/availability/${chosenProperty.id}.json?periodStart=${encodeURIComponent(periodStart)}&periodEnd=${encodeURIComponent(periodEnd)}&fullRange=true`,
                     {
                         method: "GET",
                         headers: {
@@ -116,7 +116,7 @@ export const SearchBox = ({
         try {
             setIsSearchLoading(true);
             const response = await fetch(
-                `/api/availability.json?periodStart=${encodeURIComponent(periodStart)}&periodEnd=${encodeURIComponent(periodEnd)}`,
+                `/api/availability.json?periodStart=${encodeURIComponent(periodStart)}&periodEnd=${encodeURIComponent(periodEnd)}&fullRange=true`,
                 {
                     method: "GET",
                     headers: {

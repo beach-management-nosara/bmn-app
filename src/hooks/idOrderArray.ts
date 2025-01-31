@@ -38,6 +38,8 @@ export const idsInOrder = [
 ];
 
 export const videoUrls: Record<number, string> = {
-    439129: "https://www.youtube.com/embed/dHTySH3ky-U?si=SCojby0hCEXsPKI5"
+    439129: "https://www.youtube.com/embed/dHTySH3ky-U?si=SCojby0hCEXsPKI5",
+    280439: "https://www.youtube.com/embed/1HFGWE1-qZY?si=VxkxBePFxi8V9E-A",
+    617958: "https://www.youtube.com/embed/4mmCfVHzeRc?si=yG_Lhh_pZD6zEEAx"
     // Add other property IDs and their video URLs here...
 };

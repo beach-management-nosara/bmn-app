@@ -76,22 +76,15 @@ export function BookingCard({ slug }: { slug: string }) {
 
             const availabilityData = (await response.json()) as AvailabilityData;
 
-
             // Filter the periods to include only those within the selected range
             const filteredPeriods = availabilityData.data[0].periods.filter(period => {
                 const periodStart = new Date(period.start);
                 const periodEnd = new Date(period.end);
                 // Check if the period overlaps with the user-selected range
-                return (
-                    (periodStart <= range!.to! && periodEnd >= range!.from!)
-                );
+                return periodStart <= range!.to! && periodEnd >= range!.from!;
             });
             // Now check if every period within the filtered periods is available
-            const allAvailable = filteredPeriods.every(
-                period => period.available === 1
-            );
-
-
+            const allAvailable = filteredPeriods.every(period => period.available === 1);
 
             if (allAvailable && property?.id != null) {
                 const url = `/checkout?propertyId=${property?.id}&periodStart=${encodeURIComponent(periodStart)}&periodEnd=${encodeURIComponent(periodEnd)}&guests=${guests}`;
@@ -102,9 +95,8 @@ export function BookingCard({ slug }: { slug: string }) {
                 toast({
                     title: "Uh oh! The property is not available on these dates"
                 });
-                return
+                return;
             }
-
         } catch (error) {
             setStatus("error");
             console.error("Failed to confirm availability", error);
@@ -158,13 +150,11 @@ export function BookingCard({ slug }: { slug: string }) {
 
                         {!rate?.price || rangeError ? (
                             <div className="inline-block h-4 w-16 animate-pulse rounded bg-gray-200" />
+                        ) : // NOTE: This is a hack to display the correct price per month for the property with id 334483 (CASA CATALINA)
+                        Number(property?.id) === 334483 ? (
+                            <span>10000</span>
                         ) : (
-                            // NOTE: This is a hack to display the correct price per month for the property with id 334483 (CASA CATALINA)
-                            Number(property?.id) === 334483 ? (
-                                <span>15000</span>
-                            ) : (
-                                <span>{Math.round(rate.price)}</span>
-                            )
+                            <span>{Math.round(rate.price)}</span>
                         )}
 
                         {!range.from || !range.to ? (
@@ -240,8 +230,8 @@ export function BookingCard({ slug }: { slug: string }) {
                 {status === "error" && (
                     <p>
                         <small className="text-red-400">
-                            There was an error confirming availability, please try again with different dates or contact
-                            us at{" "}
+                            There was an error confirming availability, please try again with
+                            different dates or contact us at{" "}
                             <a href="mailto:info@beachmanagementnosara.com" className="underline">
                                 info@beachmanagementnosara.com
                             </a>

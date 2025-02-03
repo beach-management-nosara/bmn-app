@@ -18,7 +18,7 @@ export function PropertiesList({
     success?: boolean;
 }) {
     return (
-        <div className="mb-16 grid mx-auto grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:px-0">
+        <div className="mx-auto mb-16 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:px-0">
             {isLoading && <CardSkeleton />}
             {success &&
                 selectedProperties?.map(property => (
@@ -52,7 +52,7 @@ function PropertyCard({ property }: { property: Property }) {
 
     return (
         <div className="mt-12 flex h-[500px] flex-col overflow-hidden rounded-lg bg-background shadow-lg">
-            <div className="w-full overflow-hidden rounded-t flex-1 relative">
+            <div className="relative w-full flex-1 overflow-hidden rounded-t">
                 <img
                     src={imageUrl}
                     alt={name}
@@ -65,42 +65,45 @@ function PropertyCard({ property }: { property: Property }) {
             {/* Card content */}
             <div
                 className={cn(
-                    "flex flex-1 flex-col its rounded-b-md p-4 text-white",
+                    "its flex flex-1 flex-col rounded-b-md p-4 text-white",
                     "bg-gradient-to-t from-primary via-primary/40 to-primary/10"
                 )}
             >
                 {/* <PropertyRating rating={rating} /> */}
-                <h3 className="text-balance text-base font-bold lg:text-2xl tracking-wide">{name}</h3>
+                <h3 className="text-balance text-base font-bold tracking-wide lg:text-2xl">
+                    {name}
+                </h3>
 
-                <p className="flex items-center mt-2 gap-2">
-                    <MapPinIcon className="text-white flex-shrink-0 size-4" />
+                <p className="mt-2 flex items-center gap-2">
+                    <MapPinIcon className="size-4 flex-shrink-0 text-white" />
                     <span className="text-sm lg:text-base">{address}</span>
                 </p>
-
 
                 <div className="mt-auto">
                     <div>
                         From{" "}
                         <span className="text-xl font-bold">
-                            {currency_code} {" "}
+                            {currency_code}{" "}
                             {/* NOTE: This is a hack to display the correct price per month for the property with id 334483 (CASA CATALINA) */}
                             {property.id === 334483 ? (
-                                <span>15000</span>
+                                <span>10000</span>
+                            ) : rate ? (
+                                <span>{Math.round(rate.price)}</span>
                             ) : (
-                                rate ? <span>{Math.round(rate.price)}</span> : <div className="inline-block animate-pulse bg-gray-200 w-16 rounded h-4" />
+                                <div className="inline-block h-4 w-16 animate-pulse rounded bg-gray-200" />
                             )}
                         </span>
-                        < span className="text-sm font-bold">
-                            {/* NOTE: This is a hack to display the correct price per month for the property with id 334483 (CASA CATALINA) */}
-                            {" "}/{" "}{property.id === 334483 ? 'Month' : 'Week'}
+                        <span className="text-sm font-bold">
+                            {/* NOTE: This is a hack to display the correct price per month for the property with id 334483 (CASA CATALINA) */}{" "}
+                            / {property.id === 334483 ? "Month" : "Week"}
                         </span>
                     </div>
 
-                    <div className="flex justify-between gap-2 mt-3">
+                    <div className="mt-3 flex justify-between gap-2">
                         <a
                             href={`/homes/${id}${range.from ? `?periodStart=${encodeURIComponent(formatToApiDate(range.from))}` : ""}${range.to ? `&periodEnd=${encodeURIComponent(formatToApiDate(range.to))}` : ""}`}
                             target="_blank"
-                            className="w-1/2 rounded-lg bg-background text-white p-2 text-center transition-colors duration-300 hover:bg-background/90"
+                            className="w-1/2 rounded-lg bg-background p-2 text-center text-white transition-colors duration-300 hover:bg-background/90"
                         >
                             View property
                         </a>
@@ -123,14 +126,17 @@ function PropertyCard({ property }: { property: Property }) {
 
 function CardSkeleton() {
     return Array.from({ length: 6 }).map((_, index) => (
-        <div key={index} className="relative mt-12 flex h-[500px] flex-col overflow-hidden rounded-lg bg-background shadow-lg">
+        <div
+            key={index}
+            className="relative mt-12 flex h-[500px] flex-col overflow-hidden rounded-lg bg-background shadow-lg"
+        >
             <div className="h-2/3 w-full overflow-hidden rounded-lg">
                 <Skeleton className="h-full w-full bg-gray-300" />
                 <div className="absolute inset-x-0 bottom-0 top-0 bg-gradient-to-t from-primary via-black/40 to-black/10"></div>
 
                 <div
                     className={cn(
-                        "absolute flex flex-col inset-x-0 bottom-0 top-1/2 z-10 rounded-lg p-4 text-white",
+                        "absolute inset-x-0 bottom-0 top-1/2 z-10 flex flex-col rounded-lg p-4 text-white",
                         "bg-opacity-20 bg-clip-padding backdrop-blur-md backdrop-filter"
                     )}
                 >
@@ -140,7 +146,7 @@ function CardSkeleton() {
                     </div>
                     <Skeleton className="mt-2 h-6 w-3/4 bg-gray-400" />
 
-                    <div className="flex items-center gap-2 mt-2">
+                    <div className="mt-2 flex items-center gap-2">
                         <Skeleton className="h-4 w-4 rounded-full bg-gray-400" />
                         <Skeleton className="h-4 w-3/4 bg-gray-400" />
                     </div>
@@ -151,7 +157,7 @@ function CardSkeleton() {
                             <Skeleton className="ml-2 h-5 w-10 bg-gray-400" />
                         </div>
 
-                        <div className="flex justify-between gap-2 mt-3">
+                        <div className="mt-3 flex justify-between gap-2">
                             <Skeleton className="h-10 w-1/2 rounded-lg bg-gray-400" />
                             <Skeleton className="h-10 w-1/2 rounded-lg bg-gray-400" />
                         </div>
@@ -161,4 +167,3 @@ function CardSkeleton() {
         </div>
     ));
 }
-

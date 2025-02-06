@@ -151,11 +151,11 @@ export function BookingCard({ slug }: { slug: string }) {
                         {!rate?.price || rangeError ? (
                             <div className="inline-block h-4 w-16 animate-pulse rounded bg-gray-200" />
                         ) : // NOTE: This is a hack to display the correct price per month for the property with id 334483 (CASA CATALINA)
-                        Number(property?.id) === 334483 ? (
-                            <span>10000</span>
-                        ) : (
-                            <span>{Math.round(rate.price)}</span>
-                        )}
+                            Number(property?.id) === 334483 ? (
+                                <span>8000</span>
+                            ) : (
+                                <span>{Math.round(rate.price)}</span>
+                            )}
 
                         {!range.from || !range.to ? (
                             <>

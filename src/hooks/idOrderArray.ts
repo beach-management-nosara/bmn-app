@@ -7,10 +7,8 @@ export const idsInOrder = [
     279982, // Almendra
     481099, // Calma House, Luxury Vacation Home (New Listing)
     617958, // Ocean Top, Walk to Surfing Beach
-    576665, // Free Spirits House
-    530996, // Ansui House, Vacation Home
+    646069, // Casa Familia
     282029, // Villa Belitza
-    621252, // Haven
     277622, // Hermandad
     482720, // Verano
     277581, // FLOW - Main House, Vacation Home
@@ -20,21 +18,26 @@ export const idsInOrder = [
     292658, // FLOW 4 Villas, Luxury Vacation Homes
     292644, // FLOW MainHouse + Casita
     288487, // El NIDO 4 Bedroom, 4 Bathroom Luxury House
+    642605, // Oceano 5,
+    643638, // Ola Jaula
     277892, // Casa Sierra
     277727, // Robins Nest 3 Bedroom, 2 Bathroom Oasis
     342716, // Alma del Mar
-    622275, // Dulce
     613808, // Casa DosSantos
-    620611, // Suelo
     539969, // Casa Calmate
-    531664, // JOYA: A Modern Jungle Getaway near the Beach
     581332, // Casa Daria
-    531672, // Casita IVY
     581304, // Casa Chiara
-    570825, // Villa Paz Shalom
-    334483, // Casa Catalina, Vacation Home
+    531664, // JOYA: A Modern Jungle Getaway near the Beach
+    531672, // Casita IVY
     277895, // Casa Paco Main House, long term rental available
-    343324 // Paco Studio
+    343324, // Paco Studio
+    622275, // Dulce
+    334483, // Casa Catalina, Vacation Home
+    576665, // Free Spirits House
+    530996, // Ansui House, Vacation Home
+    620611 // Suelo
+    // 621252, // Haven -> Removed
+    // 570825 // Villa Paz Shalom -> Removed
 ];
 
 export const videoUrls: Record<number, string> = {

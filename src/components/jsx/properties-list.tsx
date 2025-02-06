@@ -86,7 +86,7 @@ function PropertyCard({ property }: { property: Property }) {
                             {currency_code}{" "}
                             {/* NOTE: This is a hack to display the correct price per month for the property with id 334483 (CASA CATALINA) */}
                             {property.id === 334483 ? (
-                                <span>10000</span>
+                                <span>8000</span>
                             ) : rate ? (
                                 <span>{Math.round(rate.price)}</span>
                             ) : (

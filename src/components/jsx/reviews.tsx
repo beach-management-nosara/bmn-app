@@ -64,7 +64,7 @@ const Reviews = ({ propertyId }: { propertyId: string }) => {
                 if (propertyId === "280439") {
                     // Naia
                     fetchedReviews = [
-                        ...fetchedReviews,
+
                         {
                             type: "guest",
                             reviewDate: new Date().toISOString(),
@@ -74,12 +74,12 @@ const Reviews = ({ propertyId }: { propertyId: string }) => {
                             text: "Rick and staff were amazing and the house was one of the nicest in the area. We were actually a tad skeptical because no reviews on here, but it was an amazing experience. Beautiful place, really helpful team, close to the beach, private, great amenities. We had massive issues with mold at our previous spot and checked in to Naia and it was truly an oasis. We would definitely book this place again if we come back to Nosara. Thanks!",
                             guestType: "FamilyWithYoungChildren",
                             stayDate: "2025-02",
-                        }
+                        },
+                        ...fetchedReviews,
                     ];
                 } else if (propertyId === "439129") {
                     // Pochotes
                     fetchedReviews = [
-                        ...fetchedReviews,
                         {
                             type: "guest",
                             reviewDate: new Date().toISOString(),
@@ -89,7 +89,8 @@ const Reviews = ({ propertyId }: { propertyId: string }) => {
                             text: "Everything was great, I really recommend it. A wonderful, heavenly place, thanks to Rick and his teams for this perfect stay.",
                             guestType: "FamilyWithYoungChildren",
                             stayDate: "2025-02",
-                        }
+                        },
+                        ...fetchedReviews,
                     ];
                 }
 

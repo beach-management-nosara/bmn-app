@@ -58,9 +58,44 @@ const Reviews = ({ propertyId }: { propertyId: string }) => {
                 );
 
                 const res = (await response.json()) as ReviewsResponse;
-                setReviews(res.reviews);
+                let fetchedReviews = res.reviews;
+
+                // Add hardcoded reviews based on propertyId
+                if (propertyId === "280439") {
+                    // Naia
+                    fetchedReviews = [
+                        ...fetchedReviews,
+                        {
+                            type: "guest",
+                            reviewDate: new Date().toISOString(),
+                            author: "Anthony Gustin",
+                            rating: 5,
+                            title: "Amazing Experience!",
+                            text: "Rick and staff were amazing and the house was one of the nicest in the area. We were actually a tad skeptical because no reviews on here, but it was an amazing experience. Beautiful place, really helpful team, close to the beach, private, great amenities. We had massive issues with mold at our previous spot and checked in to Naia and it was truly an oasis. We would definitely book this place again if we come back to Nosara. Thanks!",
+                            guestType: "FamilyWithYoungChildren",
+                            stayDate: "2025-02",
+                        }
+                    ];
+                } else if (propertyId === "439129") {
+                    // Pochotes
+                    fetchedReviews = [
+                        ...fetchedReviews,
+                        {
+                            type: "guest",
+                            reviewDate: new Date().toISOString(),
+                            author: "Romain Deguffroy",
+                            rating: 5,
+                            title: "Perfect Stay!",
+                            text: "Everything was great, I really recommend it. A wonderful, heavenly place, thanks to Rick and his teams for this perfect stay.",
+                            guestType: "FamilyWithYoungChildren",
+                            stayDate: "2025-02",
+                        }
+                    ];
+                }
+
+                setReviews(fetchedReviews);
             } catch (error) {
-                console.error("Error fetching reviews");
+                console.error("Error fetching reviews", error);
             } finally {
                 setLoading(false);
             }

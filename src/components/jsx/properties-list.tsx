@@ -35,6 +35,21 @@ function PropertyCard({ property }: { property: Property }) {
     const { id, image_url, name, address, currency_code } = property;
     const imageUrl = "https:" + image_url;
 
+    const getPropertyRate = (propertyId: number, price?: number) => {
+        const priceOverrides: Record<number, number> = {
+            277895: 1050, // CASA PACO
+            334483: 8000 // CASA CATALINA
+        }
+
+        if (propertyId in priceOverrides) {
+            return <span>{priceOverrides[propertyId]}</span>
+        }
+
+        if (price) return <span>{Math.round(price)}</span>
+
+        return <div className="inline-block h-4 w-16 animate-pulse rounded bg-gray-200" />;
+    }
+
     useEffect(() => {
         // Get the search parameters from the URL
         const searchParams = new URLSearchParams(window.location.search);
@@ -84,14 +99,7 @@ function PropertyCard({ property }: { property: Property }) {
                         From{" "}
                         <span className="text-xl font-bold">
                             {currency_code}{" "}
-                            {/* NOTE: This is a hack to display the correct price per month for the property with id 334483 (CASA CATALINA) */}
-                            {property.id === 334483 ? (
-                                <span>8000</span>
-                            ) : rate ? (
-                                <span>{Math.round(rate.price)}</span>
-                            ) : (
-                                <div className="inline-block h-4 w-16 animate-pulse rounded bg-gray-200" />
-                            )}
+                            {getPropertyRate(property.id, rate?.price)}
                         </span>
                         <span className="text-sm font-bold">
                             {/* NOTE: This is a hack to display the correct price per month for the property with id 334483 (CASA CATALINA) */}{" "}

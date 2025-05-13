@@ -37,6 +37,7 @@ export const POST: APIRoute = async ({ request }) => {
         };
 
         const { data, error } = await sendEmail(emailOptions);
+        console.error("🚀 ~ constPOST:APIRoute= ~ error:", error);
         if (error) throw new Error("An error occurred while sending the email");
 
         return new Response(
